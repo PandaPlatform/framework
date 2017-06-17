@@ -1,11 +1,11 @@
 {
     "name": "panda/l10n",
-    "description": "The Panda PHP Framework Localization component.",
+    "description": "The Panda Localization Package.",
     "license": "MIT",
     "homepage": "http://pandaphp.org",
     "support": {
-        "issues": "https://github.com/PandaPlatform/panda-l10n/issues",
-        "source": "https://github.com/PandaPlatform/panda-l10n"
+        "source": "https://github.com/PandaPlatform/l10n",
+        "issues": "https://github.com/PandaPlatform/l10n/issues"
     },
     "authors": [
         {
@@ -14,13 +14,12 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
-        "panda/contracts": "^1.0",
-        "panda/helpers": "^1.0",
+        "php": "^7.0",
+        "panda/helpers": "^2.0",
         "symfony/http-foundation": "2.8.*|3.0.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.5"
+        "phpunit/phpunit": "~5.7"
     },
     "autoload": {
         "psr-4": {

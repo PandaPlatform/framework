@@ -11,7 +11,6 @@
 
 namespace Panda\Localization\Translation;
 
-use Panda\Contracts\Localization\FileProcessor;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**

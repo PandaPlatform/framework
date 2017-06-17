@@ -12,8 +12,8 @@
 namespace Panda\Localization;
 
 use Exception;
-use Panda\Contracts\Localization\FileProcessor;
 use Panda\Localization\Helpers\LocaleHelper;
+use Panda\Localization\Translation\FileProcessor;
 
 /**
  * Class Translator
