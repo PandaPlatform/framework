@@ -12,10 +12,10 @@
 namespace Panda\Session;
 
 /**
- * Class SessionHandler
+ * Class Session
  * @package Panda\Session
  */
-class SessionHandler
+class Session
 {
     /**
      * The session's expiration time (in seconds).
@@ -27,12 +27,12 @@ class SessionHandler
     /**
      * @var string
      */
-    private $sessionId;
+    private $sessionId = null;
 
     /**
      * Init session.
      */
-    public function startSession()
+    public function init()
     {
         // Start session
         $this->start();
@@ -51,15 +51,25 @@ class SessionHandler
      * @param string $default   The value that will be returned if the variable doesn't exist.
      * @param string $namespace The namespace of the session variable.
      *
-     * @return string
+     * @return string|null
      */
-    public function get($name, $default = null, $namespace = 'default')
+    public function get($name, $default = null, $namespace = null)
     {
         // Get SESSION Namespace
-        $namespace = $this->getNS($namespace);
+        $namespace = $this->getNamespace($namespace);
 
-        if (isset($_SESSION[$namespace][$name])) {
-            return $_SESSION[$namespace][$name];
+        // Get session container
+        $container = $_SESSION;
+        if (!empty($namespace)) {
+            if (!isset($_SESSION[$namespace])) {
+                $_SESSION[$namespace] = [];
+            }
+            $container = $_SESSION[$namespace];
+        }
+
+        // Check and get session container value
+        if (isset($container[$name])) {
+            return $container[$name];
         }
 
         return $default;
@@ -69,17 +79,18 @@ class SessionHandler
      * Set a session variable value.
      *
      * @param string $name      The name of the variable.
-     * @param string $value     The value with which the variable will be set.
+     * @param string $value     The value with which the variable will be set. Set to null to unset variable.
      * @param string $namespace The namespace of the session variable.
      *
-     * @return mixed The old value of the variable, or NULL if not set.
+     * @return mixed The old value of the variable, or null if not set.
      */
-    public function set($name, $value = null, $namespace = 'default')
+    public function set($name, $value = null, $namespace = null)
     {
-        // Get SESSION Namespace
-        $namespace = $this->getNS($namespace);
+        // Get the old value of the variable
+        $old = $this->get($name, $namespace);
 
-        $old = (isset($_SESSION[$namespace][$name]) ? $_SESSION[$namespace][$name] : null);
+        // Get SESSION Namespace
+        $namespace = $this->getNamespace($namespace);
 
         if (is_null($value)) {
             unset($_SESSION[$namespace][$name]);
@@ -98,12 +109,9 @@ class SessionHandler
      *
      * @return bool True if the variable is set, false otherwise.
      */
-    public function has($name, $namespace = 'default')
+    public function has($name, $namespace = null)
     {
-        // Get SESSION Namespace
-        $namespace = $this->getNS($namespace);
-
-        return isset($_SESSION[$namespace][$name]);
+        return !is_null($this->get($name, null, $namespace));
     }
 
     /**
@@ -114,17 +122,15 @@ class SessionHandler
      *
      * @return mixed The old value of the variable, or NULL if not set.
      */
-    public function remove($name, $namespace = 'default')
+    public function remove($name, $namespace = null)
     {
-        // Get SESSION Namespace
-        $namespace = $this->getNS($namespace);
+        // Get previous value
+        $value = $this->get($name, null, $namespace);
 
-        $value = null;
-        if (isset($_SESSION[$namespace][$name])) {
-            $value = $_SESSION[$namespace][$name];
-            unset($_SESSION[$namespace][$name]);
-        }
+        // Set value
+        $this->set($name, null, $namespace);
 
+        // Return old value
         return $value;
     }
 
@@ -132,17 +138,13 @@ class SessionHandler
      * Delete a set of session variables under the same namespace
      *
      * @param string $namespace The namespace to be cleared.
-     *
-     * @return bool True on success, false on failure.
      */
-    public function clearSet($namespace)
+    public function clearNamespace($namespace)
     {
         // Get SESSION Namespace
-        $namespace = $this->getNS($namespace);
+        $namespace = $this->getNamespace($namespace);
 
         unset($_SESSION[$namespace]);
-
-        return true;
     }
 
     /**
@@ -153,16 +155,6 @@ class SessionHandler
     public function getName()
     {
         return session_name();
-    }
-
-    /**
-     * Get session id
-     *
-     * @return int The session unique id.
-     */
-    public function getId()
-    {
-        return session_id();
     }
 
     /**
@@ -182,6 +174,32 @@ class SessionHandler
     public function getSize()
     {
         return strlen(serialize($_SESSION));
+    }
+
+    /**
+     * Start the session.
+     */
+    private function start()
+    {
+        // Build environment
+        register_shutdown_function('session_write_close');
+        session_cache_limiter('none');
+        ini_set('session.gc_maxlifetime', (string)self::EXPIRE);
+
+        // Set Session cookie params
+        $sessionCookieParams = session_get_cookie_params();
+        session_set_cookie_params(
+            $sessionCookieParams['lifetime'],
+            $sessionCookieParams['path'],
+            $sessionCookieParams['domain'],
+            $sessionCookieParams['secure'],
+            $sessionCookieParams['httponly']
+        );
+
+        session_id($this->getSessionId());
+
+        // Start session
+        session_start();
     }
 
     /**
@@ -206,30 +224,6 @@ class SessionHandler
     }
 
     /**
-     * Start the session.
-     */
-    private function start()
-    {
-        // Build environment
-        register_shutdown_function('session_write_close');
-        session_cache_limiter('none');
-        ini_set('session.gc_maxlifetime', (string)self::EXPIRE);
-
-        // Set Session cookie params
-        $sessionCookieParams = session_get_cookie_params();
-        session_set_cookie_params(
-            $sessionCookieParams['lifetime'],
-            $sessionCookieParams['path'],
-            $sessionCookieParams['domain'],
-            $sessionCookieParams['secure'],
-            $sessionCookieParams['httponly']
-        );
-
-        // Start session
-        session_start();
-    }
-
-    /**
      * Validate the session and reset if necessary.
      */
     protected function validate()
@@ -240,9 +234,10 @@ class SessionHandler
             $this->setTimers(true);
         }
 
-        // Destroy session if expired
+        // Destroy session if expired and start a new one
         if ((time() - $this->get('timer.last', null, 'session') > self::EXPIRE)) {
             $this->destroy();
+            $this->start();
         }
     }
 
@@ -253,10 +248,10 @@ class SessionHandler
      *
      * @return string The namespace string value.
      */
-    private function getNS($namespace)
+    private function getNamespace($namespace)
     {
         // Add prefix to namespace to avoid collisions.
-        return '__' . strtoupper($namespace);
+        return '__' . trim(strtoupper($namespace ?: 'default'), '_');
     }
 
     /**
@@ -272,6 +267,12 @@ class SessionHandler
      */
     public function setSessionId($sessionId)
     {
-        $this->sessionId = $sessionId;
+        // Get current session id
+        $currentSessionId = session_id();
+
+        // Check if session has started
+        if (empty($currentSessionId)) {
+            $this->sessionId = $sessionId;
+        }
     }
 }
