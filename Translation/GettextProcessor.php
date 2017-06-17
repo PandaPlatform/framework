@@ -1,0 +1,50 @@
+<?php
+
+/*
+ * This file is part of the Panda Localization Package.
+ *
+ * (c) Ioannis Papikas <papikas.ioan@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Panda\Localization\Translation;
+
+use Panda\Contracts\Localization\FileProcessor;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
+
+/**
+ * Class GettextProcessor
+ * @package Panda\Localization\Translation
+ */
+class GettextProcessor extends AbstractProcessor implements FileProcessor
+{
+    /**
+     * Get a translation value.
+     *
+     * @param string $key
+     * @param string $locale
+     * @param string $package
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function get($key, $locale, $package = 'default', $default = null)
+    {
+        return gettext($key);
+    }
+
+    /**
+     * Load translations
+     *
+     * @param string $locale
+     * @param string $package
+     *
+     * @throws FileNotFoundException
+     */
+    public function loadTranslations($locale, $package = 'default')
+    {
+        // TODO: Implement loadTranslations() method.
+    }
+}
