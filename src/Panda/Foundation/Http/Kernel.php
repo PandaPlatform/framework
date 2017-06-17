@@ -15,10 +15,12 @@ use InvalidArgumentException;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Application;
 use Panda\Foundation\Bootstrap\Configuration;
+use Panda\Foundation\Bootstrap\DateTimer;
 use Panda\Foundation\Bootstrap\Environment;
 use Panda\Foundation\Bootstrap\FacadeRegistry;
 use Panda\Foundation\Bootstrap\Localization;
 use Panda\Foundation\Bootstrap\Logging;
+use Panda\Foundation\Bootstrap\Session;
 use Panda\Http\Request;
 use Panda\Http\Response;
 use Panda\Routing\Controller;
@@ -51,6 +53,8 @@ class Kernel implements KernelInterface
         Logging::class,
         FacadeRegistry::class,
         Localization::class,
+        DateTimer::class,
+        Session::class,
     ];
 
     /**
@@ -72,6 +76,8 @@ class Kernel implements KernelInterface
      * @param Request|SymfonyRequest $request
      *
      * @throws InvalidArgumentException
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
      */
     public function boot($request)
     {
@@ -81,13 +87,13 @@ class Kernel implements KernelInterface
         }
 
         // Initialize application
-        $this->app->boot($request, $this->bootstrappers);
+        $this->getApp()->boot($request, $this->bootstrappers);
 
         // Set base controller router
-        Controller::setRouter($this->router);
+        Controller::setRouter($this->getRouter());
 
         // Include routes
-        include_once $this->app->getRoutesPath();
+        include_once $this->getApp()->getRoutesPath();
     }
 
     /**
@@ -97,6 +103,11 @@ class Kernel implements KernelInterface
      *
      * @return Response
      * @throws InvalidArgumentException
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \LogicException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \UnexpectedValueException
      */
     public function handle(SymfonyRequest $request)
     {
@@ -104,7 +115,7 @@ class Kernel implements KernelInterface
         $this->boot($request);
 
         // Dispatch the response
-        return $this->router->dispatch($request);
+        return $this->getRouter()->dispatch($request);
     }
 
     /**
@@ -139,10 +150,18 @@ class Kernel implements KernelInterface
     }
 
     /**
+     * @return Router
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    /**
      * @return Request
      */
     public function getCurrentRequest()
     {
-        return $this->router->getCurrentRequest();
+        return $this->getRouter()->getCurrentRequest();
     }
 }
