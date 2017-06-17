@@ -25,5 +25,11 @@
         "psr-4": {
             "Panda\\Localization\\": ""
         }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
     }
 }
