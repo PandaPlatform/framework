@@ -13,7 +13,7 @@ namespace Panda\Foundation\Bootstrap;
 
 use Panda\Contracts\Bootstrap\Bootstrapper;
 use Panda\Http\Request;
-use Panda\Session\SessionHandler;
+use Panda\Session\Session as SessionHandler;
 
 /**
  * Class Session
@@ -43,7 +43,7 @@ class Session implements Bootstrapper
      */
     public function boot($request)
     {
-        $this->handler->startSession();
+        $this->handler->init();
     }
 
     /**
@@ -55,7 +55,7 @@ class Session implements Bootstrapper
     }
 
     /**
-     * @param SessionHandler $handler
+     * @param Session $handler
      */
     public function setHandler($handler)
     {
