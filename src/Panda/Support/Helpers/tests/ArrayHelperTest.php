@@ -20,6 +20,10 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', ArrayHelper::get(['test' => 'test'], 'test'));
         $this->assertEquals('test', ArrayHelper::get(['test1' => 'test'], 'test1'));
 
+        // Getter with no key
+        $array = ['test1' => 'test'];
+        $this->assertEquals($array, ArrayHelper::get($array));
+
         // Default
         $this->assertEquals('test', ArrayHelper::get(['test1' => 'test'], 'test1', 'not_exists'));
         $this->assertEquals('not_exists', ArrayHelper::get(['test1' => 'test'], 'test2', 'not_exists'));
