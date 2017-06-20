@@ -74,24 +74,42 @@ class ArrayHelper
     /**
      * Filter array elements with a given callback function.
      *
-     * @param array         $array
-     * @param callable|null $callback
-     * @param mixed         $default
+     * It returns the item that matches the callback function.
+     * If the callback function is empty, it will return the array as is.
+     *
+     * If the array is empty or no element matches the callback, it will return the default value.
+     *
+     * The callback function should accept as parameters the key and the value of the array
+     * and it should return true or false if the element matches the purpose of the filter.
+     *
+     * @param array         $array    The array to filter elements
+     * @param callable|null $callback The filter as callback
+     * @param mixed         $default  The default value in case no element is found
+     * @param int|null      $length   The length of matched elements to return, as limit
      *
      * @return mixed
      */
-    public static function filter(array $array, callable $callback = null, $default = null)
+    public static function filter(array $array, $callback = null, $default = [], $length = null)
     {
-        if (is_null($callback)) {
-            return empty($array) ? EvalHelper::evaluate($default) : reset($array);
-        }
-        foreach ($array as $key => $value) {
-            if (call_user_func($callback, $key, $value)) {
-                return $value;
+        // Set result array
+        $result = [];
+
+        // Check callback
+        if (is_callable($callback)) {
+            // Filter array elements
+            foreach ($array as $key => $value) {
+                if (call_user_func($callback, $key, $value)) {
+                    $result[$key] = $value;
+                }
             }
+        } else {
+            reset($array);
+
+            $result = empty($array) ? null : $array;
         }
 
-        return EvalHelper::evaluate($default);
+        // Return result array or default value
+        return $result ? array_slice($result, 0, $length) : EvalHelper::evaluate($default);
     }
 
     /**

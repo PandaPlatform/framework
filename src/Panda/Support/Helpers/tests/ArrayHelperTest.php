@@ -46,11 +46,53 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Panda\Support\Helpers\ArrayHelper::filter
+     */
+    public function testFilter()
+    {
+        $array = [
+            't11' => 'v11',
+            't12' => 'v12',
+            't21' => 'v21',
+            't22' => 'v22',
+        ];
+
+        // Empty callback
+        $result = ArrayHelper::filter($array, null, null);
+        $this->assertEquals($array, $result);
+
+        // Empty array --> default
+        $result = ArrayHelper::filter([], null, 'default_value');
+        $this->assertEquals('default_value', $result);
+
+        // Filter function with some matches
+        $result = ArrayHelper::filter($array, [ArrayHelperTest::class, 'filterCallback1'], 'default_value');
+        $this->assertEquals([
+            't11' => 'v11',
+            't12' => 'v12',
+        ], $result);
+    }
+
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function filterCallback1($key, $value)
+    {
+        if (substr($key, 0, 2) == 't1') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @covers \Panda\Support\Helpers\ArrayHelper::merge
      */
     public function testMerge()
     {
-
         $helper1 = [
             'h11' => 'v11',
             'h12' => 'v12',
