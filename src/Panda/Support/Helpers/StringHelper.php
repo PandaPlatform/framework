@@ -67,17 +67,18 @@ class StringHelper
 
     /**
      * Look for parameters in the given string and replace them with the given values.
-     * This function works using the annotation %{parameter_name} and {parameter_name}.
+     * This function works using the annotation %{parameter_name} (proposed) and {parameter_name} (fallback)
      * It is advised to use the first one.
      *
      * @param string $string     The string containing the variables.
      * @param array  $parameters An array of variables to be replaced by key.
      * @param string $openingTag The opening tag of the variable.
      * @param string $closingTag The closing tag of the variable.
+     * @param bool   $fallback   Set to true to check for {parameters}
      *
      * @return string
      */
-    public static function interpolate($string, $parameters = array(), $openingTag = "%{", $closingTag = "}")
+    public static function interpolate($string, $parameters = array(), $openingTag = "%{", $closingTag = "}", $fallback = true)
     {
         // Check for parameters and replace the values
         foreach ($parameters as $pKey => $pValue) {
@@ -85,7 +86,9 @@ class StringHelper
             $string = str_replace($openingTag . $pKey . $closingTag, $pValue, $string);
 
             // Generic Fallback
-            $string = str_replace("{" . $pKey . "}", $pValue, $string);
+            if ($fallback) {
+                $string = str_replace("{" . $pKey . "}", $pValue, $string);
+            }
         }
 
         return $string;
@@ -105,24 +108,32 @@ class StringHelper
         } else {
             preg_match_all('([^\s"\'“”]+|"[^"]*"|\'[^\']*\'|“[^”]*”|“[^“]*“|”[^”]*”|”[^“]*“)', $string, $matches);
 
-            return $matches[0];
+            // Remove quotes for each value
+            $result = $matches[0];
+            foreach ($result as $key => $value) {
+                $result[$key] = trim($value, '\'"');
+            }
+
+            return $result;
         }
     }
 
     /**
-     * Checks if a string is empty or not. If the $value parameter is not a string, the method will always return false
+     * Checks if a string is empty or not.
+     * If the $value parameter is not a string, the method will always return false
      *
      * @param string $value
+     * @param bool   $isNull
      *
-     * @return bool true if string is null or has 0 length; otherwise false
+     * @return bool true if string is empty (has 0 length); otherwise false
      */
-    public static function emptyString($value)
+    public static function emptyString($value, $isNull = true)
     {
         if (is_string($value)) {
-            return is_null($value) || strlen($value) === 0;
+            return strlen($value) === 0;
         }
 
-        return false;
+        return ($isNull && is_null($value)) || false;
     }
 
     /**
