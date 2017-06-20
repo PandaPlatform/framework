@@ -146,33 +146,4 @@ class ArrayHelper
 
         return $merged;
     }
-
-    /**
-     * Return the first element in an array that matches the given filter.
-     *
-     * @param array         $array
-     * @param callable|null $filter
-     * @param mixed         $default
-     *
-     * @return mixed
-     */
-    public static function match($array, callable $filter = null, $default = null)
-    {
-        if (is_null($filter)) {
-            if (empty($array)) {
-                return $default;
-            }
-            foreach ($array as $item) {
-                return $item;
-            }
-        }
-
-        foreach ($array as $key => $value) {
-            if (call_user_func($filter, $value, $key)) {
-                return $value;
-            }
-        }
-
-        return $default;
-    }
 }

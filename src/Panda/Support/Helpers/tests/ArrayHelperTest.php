@@ -53,6 +53,8 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         $array = [
             't11' => 'v11',
             't12' => 'v12',
+            't13' => 'v13',
+            't14' => 'v14',
             't21' => 'v21',
             't22' => 'v22',
         ];
@@ -67,6 +69,15 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 
         // Filter function with some matches
         $result = ArrayHelper::filter($array, [ArrayHelperTest::class, 'filterCallback1'], 'default_value');
+        $this->assertEquals([
+            't11' => 'v11',
+            't12' => 'v12',
+            't13' => 'v13',
+            't14' => 'v14',
+        ], $result);
+
+        // Filter function with some matches and length
+        $result = ArrayHelper::filter($array, [ArrayHelperTest::class, 'filterCallback1'], 'default_value', 2);
         $this->assertEquals([
             't11' => 'v11',
             't12' => 'v12',
