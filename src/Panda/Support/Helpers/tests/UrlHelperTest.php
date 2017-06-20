@@ -1,8 +1,8 @@
 <?php
 
-namespace Panda\Helpers\tests;
+namespace Panda\Support\Helpers\tests;
 
-use Panda\Helpers\UrlHelper;
+use Panda\Support\Helpers\UrlHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -12,7 +12,7 @@ use PHPUnit_Framework_TestCase;
 class UrlHelperTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Panda\Helpers\UrlHelper::get
+     * @covers \Panda\Support\Helpers\UrlHelper::get
      */
     public function testGet()
     {
@@ -46,7 +46,7 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Panda\Helpers\UrlHelper::getDomain
+     * @covers \Panda\Support\Helpers\UrlHelper::getDomain
      */
     public function testGetDomain()
     {
@@ -57,7 +57,7 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Panda\Helpers\UrlHelper::getSubDomain
+     * @covers \Panda\Support\Helpers\UrlHelper::getSubDomain
      */
     public function testGetSubDomain()
     {
@@ -68,7 +68,7 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Panda\Helpers\UrlHelper::info
+     * @covers \Panda\Support\Helpers\UrlHelper::info
      */
     public function testInfo()
     {
@@ -103,7 +103,7 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Panda\Helpers\UrlHelper::isIP
+     * @covers \Panda\Support\Helpers\UrlHelper::isIP
      * @throws \PHPUnit_Framework_AssertionFailedError
      */
     public function testIsIP()

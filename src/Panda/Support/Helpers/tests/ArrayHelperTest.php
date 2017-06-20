@@ -1,18 +1,18 @@
 <?php
 
-namespace Panda\Helpers\tests;
+namespace Panda\Support\Helpers\tests;
 
-use Panda\Helpers\ArrayHelper;
+use Panda\Support\Helpers\ArrayHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class ArrayHelperTest
- * @package Panda\Helpers\tests
+ * @package Panda\Support\Helpers\tests
  */
 class ArrayHelperTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Panda\Helpers\ArrayHelper::get
+     * @covers \Panda\Support\Helpers\ArrayHelper::get
      */
     public function testGet()
     {

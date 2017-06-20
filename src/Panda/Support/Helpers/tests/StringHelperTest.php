@@ -1,18 +1,18 @@
 <?php
 
-namespace Panda\Helpers\tests;
+namespace Panda\Support\Helpers\tests;
 
-use Panda\Helpers\StringHelper;
+use Panda\Support\Helpers\StringHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class StringHelperTest
- * @package Panda\Helpers\tests
+ * @package Panda\Support\Helpers\tests
  */
 class StringHelperTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Panda\Helpers\StringHelper::contains
+     * @covers \Panda\Support\Helpers\StringHelper::contains
      * @throws \PHPUnit_Framework_AssertionFailedError
      */
     public function testContains()
