@@ -11,6 +11,8 @@
 
 namespace Panda\Support\Helpers;
 
+use InvalidArgumentException;
+
 /**
  * Class ArrayHelper
  * @package Panda\Support\Helpers
@@ -69,6 +71,62 @@ class ArrayHelper
         $array = $array[$base];
 
         return static::get($array, $key, $default, $useDotSyntax);
+    }
+
+    /**
+     * Set an item in the given array.
+     *
+     * @param array  $array
+     * @param string $key
+     * @param mixed  $value
+     * @param bool   $useDotSyntax
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function set($array, $key, $value = null, $useDotSyntax = false)
+    {
+        // Normalize array
+        $array = $array ?: [];
+
+        // Check if key is empty
+        if (empty($key)) {
+            throw new InvalidArgumentException(__METHOD__ . ': Key cannot be empty');
+        }
+
+        /**
+         * Split name using dots.
+         *
+         * Just checking whether the key doesn't have any dots
+         * but $useDotSyntax is true by default.
+         */
+        $keyParts = explode('.', $key);
+        $useDotSyntax = $useDotSyntax && count($keyParts) > 1;
+
+        // Set simple value, without dot syntax
+        if (!$useDotSyntax) {
+            if (is_null($value) && isset($array[$key])) {
+                unset($array[$key]);
+            } else if (!is_null($value)) {
+                $array[$key] = $value;
+            }
+        } else {
+            // Recursive call
+            $base = $keyParts[0];
+            unset($keyParts[0]);
+
+            // Check if the base array exists
+            if (!isset($array[$base])) {
+                throw new InvalidArgumentException(__METHOD__ . ': The given key does not exist in the given array (using dot syntax).');
+            }
+
+            // Get key, base array and continue
+            $key = implode('.', $keyParts);
+            $innerArray = $array[$base];
+
+            $array[$base] = static::set($innerArray, $key, $value, $useDotSyntax);
+        }
+
+        return $array;
     }
 
     /**

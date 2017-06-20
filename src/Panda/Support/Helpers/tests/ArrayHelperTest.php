@@ -46,6 +46,40 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Panda\Support\Helpers\ArrayHelper::set
+     */
+    public function testSet()
+    {
+        $array = [
+            't1' => [
+                't2' => [
+                    't3' => [],
+                ],
+            ],
+        ];
+
+        // Simple assignment
+        $array = ArrayHelper::set($array, 't11', 'test_value', false);
+        $this->assertEquals('test_value', $array['t11']);
+
+        // Simple assignment, using dot syntax
+        $array = ArrayHelper::set($array, 't11', 'test_value', true);
+        $this->assertEquals('test_value', $array['t11']);
+
+        // Dot syntax assignment (depth = 2)
+        $array = ArrayHelper::set($array, 't1.t22', 'test_value', true);
+        $this->assertEquals('test_value', $array['t1']['t22']);
+
+        // Dot syntax assignment (depth = 3)
+        $array = ArrayHelper::set($array, 't1.t2.t33', 'test_value', true);
+        $this->assertEquals('test_value', $array['t1']['t2']['t33']);
+
+        // Dot syntax assignment (depth = 4)
+        $array = ArrayHelper::set($array, 't1.t2.t3.t4', 'test_value', true);
+        $this->assertEquals('test_value', $array['t1']['t2']['t3']['t4']);
+    }
+
+    /**
      * @covers \Panda\Support\Helpers\ArrayHelper::filter
      */
     public function testFilter()
