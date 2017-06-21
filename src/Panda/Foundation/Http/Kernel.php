@@ -15,16 +15,15 @@ use InvalidArgumentException;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Application;
 use Panda\Foundation\Bootstrap\Configuration;
-use Panda\Foundation\Bootstrap\DateTimer;
 use Panda\Foundation\Bootstrap\Environment;
 use Panda\Foundation\Bootstrap\FacadeRegistry;
 use Panda\Foundation\Bootstrap\Localization;
 use Panda\Foundation\Bootstrap\Logging;
-use Panda\Foundation\Bootstrap\Session;
 use Panda\Http\Request;
 use Panda\Http\Response;
 use Panda\Routing\Controller;
 use Panda\Routing\Router;
+use Panda\Support\Configuration\RoutesConfigurationHandler;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
@@ -53,20 +52,25 @@ class Kernel implements KernelInterface
         Logging::class,
         FacadeRegistry::class,
         Localization::class,
-        DateTimer::class,
-        Session::class,
     ];
+
+    /**
+     * @var RoutesConfigurationHandler
+     */
+    private $routesConfigurationHandler;
 
     /**
      * Kernel constructor.
      *
-     * @param Application $app
-     * @param Router      $router
+     * @param Application                $app
+     * @param Router                     $router
+     * @param RoutesConfigurationHandler $routesConfigurationHandler
      */
-    public function __construct(Application $app, Router $router)
+    public function __construct(Application $app, Router $router, RoutesConfigurationHandler $routesConfigurationHandler)
     {
         $this->app = $app;
         $this->router = $router;
+        $this->routesConfigurationHandler = $routesConfigurationHandler;
     }
 
     /**
@@ -93,7 +97,7 @@ class Kernel implements KernelInterface
         Controller::setRouter($this->getRouter());
 
         // Include routes
-        include_once $this->getApp()->getRoutesPath();
+        include_once $this->routesConfigurationHandler->getRoutesPath($this->getApp()->getBasePath());
     }
 
     /**
