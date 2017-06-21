@@ -71,6 +71,8 @@ class DateTimeHelper
     }
 
     /**
+     * Count working days between the two given dates.
+     * The comparison includes both begin and end dates.
      *
      * @param DateTime $beginDate
      * @param DateTime $endDate
@@ -78,7 +80,7 @@ class DateTimeHelper
      *
      * @return int Number of working days
      */
-    public static function getWorkingDaysCount($beginDate, $endDate, $nonWorkingDays)
+    public static function getWorkingDaysCount($beginDate, $endDate, $nonWorkingDays = [])
     {
         $workdays = 0;
         if (!is_null($beginDate) && !is_null($endDate)) {
