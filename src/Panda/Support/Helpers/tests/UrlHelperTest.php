@@ -50,6 +50,13 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
      */
     public function testGetDomain()
     {
+        // Without sub-domain
+        $this->assertEquals('domain1.com', UrlHelper::getDomain('http://domain1.com/path?paramname=paramvalue'));
+        $this->assertEquals('domain2.com', UrlHelper::getDomain('https://domain2.com/path?paramname=paramvalue'));
+        $this->assertEquals('domain3.com', UrlHelper::getDomain('http://domain3.com/path'));
+        $this->assertEquals('domain4.com', UrlHelper::getDomain('http://domain4.com'));
+
+        // With sub-domain
         $this->assertEquals('domain1.com', UrlHelper::getDomain('http://sub.domain1.com/path?paramname=paramvalue'));
         $this->assertEquals('domain2.com', UrlHelper::getDomain('https://sub.domain2.com/path?paramname=paramvalue'));
         $this->assertEquals('domain3.com', UrlHelper::getDomain('http://sub.domain3.com/path'));
@@ -61,6 +68,13 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSubDomain()
     {
+        // Without sub-domain
+        $this->assertEquals('', UrlHelper::getSubDomain('http://domain1.com/path?paramname=paramvalue'));
+        $this->assertEquals('', UrlHelper::getSubDomain('https://domain2.com/path?paramname=paramvalue'));
+        $this->assertEquals('', UrlHelper::getSubDomain('http://domain3.com/path'));
+        $this->assertEquals('', UrlHelper::getSubDomain('http://domain4.com'));
+
+        // With sub-domain
         $this->assertEquals('sub1', UrlHelper::getSubDomain('http://sub1.domain.com/path?paramname=paramvalue'));
         $this->assertEquals('sub2', UrlHelper::getSubDomain('https://sub2.domain.com/path?paramname=paramvalue'));
         $this->assertEquals('sub3', UrlHelper::getSubDomain('http://sub3.domain.com/path'));

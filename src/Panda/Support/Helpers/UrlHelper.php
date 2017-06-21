@@ -162,7 +162,6 @@ class UrlHelper
             if (!empty($domain) && preg_match($pattern, $host) == 1) {
                 // Get sub-domain
                 $sub = str_replace($domain, '', $host);
-                $sub = (empty($sub) ? 'www' : $sub);
                 $sub = trim($sub, '.');
             } else {
                 // Get host parts
@@ -170,7 +169,7 @@ class UrlHelper
 
                 // Host must has at least 2 parts
                 if (count($parts) < 3) {
-                    $sub = 'www';
+                    $sub = '';
                 } else {
                     $sub = $parts[0];
                     unset($parts[0]);
