@@ -15,7 +15,6 @@ use Panda\Contracts\Bootstrap\Bootstrapper;
 use Panda\Debug\Debugger;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
-use Panda\Localization\DateTimer;
 use Panda\Session\Session;
 
 /**
