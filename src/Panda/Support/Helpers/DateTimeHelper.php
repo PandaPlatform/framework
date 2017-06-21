@@ -56,17 +56,18 @@ class DateTimeHelper
     }
 
     /**
+     * @param DateTime $date
      * @param int      $hour
      * @param int      $minute
-     * @param DateTime $date
+     * @param int      $second
      *
      * @return int
      */
-    public static function compareHourMinuteWithDate($hour, $minute, $date)
+    public static function compareDateWithHourMinuteSecond($date, $hour, $minute, $second = 0)
     {
-        $date1 = DateTime::createFromFormat("Y-m-d H:i:s", sprintf("2000-01-01 %2d:%2d:00", $hour, $minute));
+        $date1 = DateTime::createFromFormat("Y-m-d H:i:s", sprintf("2000-01-01 %02d:%02d:%02d", $hour, $minute, $second));
 
-        return self::compareTimeWithoutDate($date1, $date);
+        return self::compareTimeWithoutDate($date, $date1);
     }
 
     /**
