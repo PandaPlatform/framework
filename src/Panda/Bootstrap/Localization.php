@@ -9,13 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Foundation\Bootstrap;
+namespace Panda\Bootstrap;
 
 use Panda\Contracts\Bootstrap\Bootstrapper;
 use Panda\Contracts\Configuration\ConfigurationHandler;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
-use Panda\Localization\DateTimer;
 use Panda\Localization\Locale;
 
 /**
@@ -35,15 +34,22 @@ class Localization implements Bootstrapper
     private $config;
 
     /**
+     * @var DateTimer
+     */
+    private $dateTimer;
+
+    /**
      * Environment constructor.
      *
      * @param Application          $app
      * @param ConfigurationHandler $config
+     * @param DateTimer            $dateTimer
      */
-    public function __construct(Application $app, ConfigurationHandler $config)
+    public function __construct(Application $app, ConfigurationHandler $config, DateTimer $dateTimer)
     {
         $this->app = $app;
         $this->config = $config;
+        $this->dateTimer = $dateTimer;
     }
 
     /**
@@ -63,17 +69,13 @@ class Localization implements Bootstrapper
             Locale::setDefault($defaultLocale);
         }
 
-        // Initialize DateTimer
-        /** @var DateTimer $dateTimer */
-        $dateTimer = $this->app->make(DateTimer::class);
-
         // Get default timezone
         $defaultTimeZone = $this->config->get('localization.datetime.default_timezone');
         if (!empty($defaultTimeZone)) {
-            $dateTimer->setDefaultTimeZone($defaultTimeZone);
+            $this->dateTimer->setDefaultTimeZone($defaultTimeZone);
         }
 
         // Boot DateTimer
-        $dateTimer->boot($request);
+        $this->dateTimer->boot($request);
     }
 }

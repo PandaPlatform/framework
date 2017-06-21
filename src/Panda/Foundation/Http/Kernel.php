@@ -12,13 +12,13 @@
 namespace Panda\Foundation\Http;
 
 use InvalidArgumentException;
+use Panda\Bootstrap\Configuration;
+use Panda\Bootstrap\Environment;
+use Panda\Bootstrap\FacadeRegistry;
+use Panda\Bootstrap\Localization;
+use Panda\Bootstrap\Logging;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Application;
-use Panda\Foundation\Bootstrap\Configuration;
-use Panda\Foundation\Bootstrap\Environment;
-use Panda\Foundation\Bootstrap\FacadeRegistry;
-use Panda\Foundation\Bootstrap\Localization;
-use Panda\Foundation\Bootstrap\Logging;
 use Panda\Http\Request;
 use Panda\Http\Response;
 use Panda\Routing\Controller;

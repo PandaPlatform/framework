@@ -9,13 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Foundation\Bootstrap;
+namespace Panda\Bootstrap;
 
 use Panda\Contracts\Bootstrap\Bootstrapper;
 use Panda\Debug\Debugger;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
-use Panda\Session\Session;
 
 /**
  * Class Environment
@@ -29,13 +28,27 @@ class Environment implements Bootstrapper
     private $app;
 
     /**
+     * @var Debugger
+     */
+    private $debugger;
+
+    /**
+     * @var Session
+     */
+    private $session;
+
+    /**
      * Environment constructor.
      *
      * @param Application $app
+     * @param Debugger    $debugger
+     * @param Session     $session
      */
-    public function __construct(Application $app)
+    public function __construct(Application $app, Debugger $debugger, Session $session)
     {
         $this->app = $app;
+        $this->debugger = $debugger;
+        $this->session = $session;
     }
 
     /**
@@ -50,8 +63,7 @@ class Environment implements Bootstrapper
     public function boot($request)
     {
         // Initialize environment
-        $this->app->make(Debugger::class)->boot($request);
-        $this->app->make(DateTimer::class)->boot($request);
-        $this->app->make(Session::class)->boot($request);
+        $this->debugger->boot($request);
+        $this->session->boot($request);
     }
 }
