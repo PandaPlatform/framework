@@ -58,7 +58,7 @@ class NumberHelper
     {
         $equal = false;
 
-        if (round($value1, $roundPrecision) == round($value2, $roundPrecision)) {
+        if (static::floor($value1, $roundPrecision) == static::floor($value2, $roundPrecision)) {
             $equal = true;
         }
 
