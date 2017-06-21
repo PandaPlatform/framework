@@ -20,12 +20,12 @@ use Panda\Contracts\Configuration\ConfigurationHandler;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Log\Logger;
-use Panda\Storage\StorageHandler;
+use Panda\Support\Configuration\StorageConfigurationHandler;
 use Psr\Log\LoggerInterface;
 
 /**
  * Class Logging
- * @package Panda\Foundation\Bootstrap
+ * @package Panda\Bootstrap
  */
 class Logging implements Bootstrapper
 {
@@ -40,22 +40,20 @@ class Logging implements Bootstrapper
     private $config;
 
     /**
-     * @var StorageHandler
+     * @var StorageConfigurationHandler
      */
-    private $storage;
+    private $storageConfigurationHandler;
 
     /**
      * Environment constructor.
      *
-     * @param Application          $app
-     * @param StorageHandler       $storage
-     * @param ConfigurationHandler $config
+     * @param Application                 $app
+     * @param StorageConfigurationHandler $storageConfigurationHandler
      */
-    public function __construct(Application $app, StorageHandler $storage, ConfigurationHandler $config)
+    public function __construct(Application $app, StorageConfigurationHandler $storageConfigurationHandler)
     {
         $this->app = $app;
-        $this->storage = $storage;
-        $this->config = $config;
+        $this->storageConfigurationHandler = $storageConfigurationHandler;
     }
 
     /**
@@ -77,7 +75,7 @@ class Logging implements Bootstrapper
         }
 
         // Get base path storage
-        $basePath = $this->storage->getFilesystemBaseDirectory();
+        $basePath = $this->storageConfigurationHandler->getStorageBaseDirectory($this->app->getBasePath());
 
         // Add error handler
         $path = $basePath . DIRECTORY_SEPARATOR . $this->config->get('paths.logger.base_dir') . DIRECTORY_SEPARATOR . $this->config->get('paths.logger.error');
