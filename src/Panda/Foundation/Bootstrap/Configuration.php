@@ -13,10 +13,9 @@ namespace Panda\Foundation\Bootstrap;
 
 use Panda\Contracts\Bootstrap\Bootstrapper;
 use Panda\Contracts\Configuration\ConfigurationHandler;
+use Panda\Contracts\Configuration\ConfigurationParser;
 use Panda\Foundation\Application;
-use Panda\Helpers\ArrayHelper;
 use Panda\Http\Request;
-use Panda\Support\Configuration\Config;
 
 /**
  * Class Configuration
@@ -30,13 +29,27 @@ class Configuration implements Bootstrapper
     private $app;
 
     /**
+     * @var ConfigurationParser
+     */
+    private $parser;
+
+    /**
+     * @var ConfigurationHandler
+     */
+    private $handler;
+
+    /**
      * Environment constructor.
      *
-     * @param Application $app
+     * @param Application          $app
+     * @param ConfigurationParser  $parser
+     * @param ConfigurationHandler $handler
      */
-    public function __construct(Application $app)
+    public function __construct(Application $app, ConfigurationParser $parser, ConfigurationHandler $handler)
     {
         $this->app = $app;
+        $this->parser = $parser;
+        $this->handler = $handler;
     }
 
     /**
@@ -47,40 +60,10 @@ class Configuration implements Bootstrapper
      */
     public function boot($request, $environment = 'default')
     {
-        // Load default configuration
-        $defaultConfigFile = $this->getConfigFile('default');
-        $defaultConfigArray = ($defaultConfigFile ? json_decode(file_get_contents($defaultConfigFile), true) : []);
+        // Parse configuration
+        $configArray = $this->parser->parse();
 
-        // Load environment configuration
-        $envConfigFile = $this->getConfigFile($environment);
-        $envConfigArray = ($envConfigFile ? json_decode(file_get_contents($envConfigFile), true) : []);
-
-        // Merge environment config to default and set to application
-        $configArray = ArrayHelper::merge($defaultConfigArray, $envConfigArray, $deep = true);
-        if (!empty($configArray)) {
-            // Create a new configuration
-            $config = new Config($configArray);
-            $this->app->set(ConfigurationHandler::class, $config);
-        }
-    }
-
-    /**
-     * Get the configuration file according to the current environment.
-     *
-     * @param string $environment
-     *
-     * @return string|null
-     */
-    private function getConfigFile($environment = 'default')
-    {
-        $configFile = $this->app->getConfigPath() . DIRECTORY_SEPARATOR . 'config-' . $environment . '.json';
-        if (!file_exists($configFile) && $environment != 'default') {
-            $configFile = $this->getConfigFile('default');
-        }
-        if (!file_exists($configFile)) {
-            $configFile = null;
-        }
-
-        return $configFile;
+        // Set configuration
+        $this->handler->setConfig($configArray);
     }
 }
