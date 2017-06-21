@@ -148,22 +148,6 @@ class Application extends Container implements Bootstrapper
         foreach ($bootstrappers as $bootstrapper) {
             $this->make($bootstrapper)->boot($request, $this->get('env'));
         }
-
-        // Bind paths, after setting up configuration
-        $this->bindPathsInContainer();
-    }
-
-    /**
-     * Bind all of the application paths in the container.
-     */
-    protected function bindPathsInContainer()
-    {
-        $this->set('path', $this->getAppPath());
-        $this->set('path.base', $this->getBasePath());
-        $this->set('path.lang', $this->getLangPath());
-        $this->set('path.config', $this->getConfigPath());
-        $this->set('path.public', $this->getPublicPath());
-        $this->set('path.storage', $this->getStoragePath());
     }
 
     /**
@@ -182,7 +166,6 @@ class Application extends Container implements Bootstrapper
     public function setBasePath($basePath)
     {
         $this->basePath = $basePath;
-        $this->bindPathsInContainer();
 
         return $this;
     }
@@ -198,20 +181,6 @@ class Application extends Container implements Bootstrapper
     /**
      * @return string
      */
-    public function getRoutesPath()
-    {
-        $routes = $this->config('paths.routes');
-        if (empty($routes)) {
-            // Fallback to default
-            return $this->basePath . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'main.php';
-        }
-
-        return $this->basePath . DIRECTORY_SEPARATOR . $routes['base_dir'] . DIRECTORY_SEPARATOR . $routes['base_file'];
-    }
-
-    /**
-     * @return string
-     */
     public function getViewsPath()
     {
         $views = $this->config('paths.views');
@@ -221,68 +190,6 @@ class Application extends Container implements Bootstrapper
         }
 
         return $this->basePath . DIRECTORY_SEPARATOR . $views['base_dir'];
-    }
-
-    /**
-     * @return string
-     */
-    public function getAppPath()
-    {
-        $source = $this->config('paths.source');
-        if (empty($source)) {
-            // Fallback to default
-            return $this->basePath . DIRECTORY_SEPARATOR . 'app';
-        }
-
-        return $this->basePath . DIRECTORY_SEPARATOR . $source['base_dir'];
-    }
-
-    /**
-     * @return string
-     */
-    public function getLangPath()
-    {
-        $lang = $this->config('paths.lang');
-        if (empty($lang)) {
-            // Fallback to default
-            return $this->basePath . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'lang';
-        }
-
-        return $this->basePath . DIRECTORY_SEPARATOR . $lang['base_dir'];
-    }
-
-    /**
-     * Get the path to the public / web directory.
-     *
-     * @return string
-     */
-    public function getPublicPath()
-    {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'public';
-    }
-
-    /**
-     * Get the path to the storage directory.
-     *
-     * @return string
-     */
-    public function getStoragePath()
-    {
-        return $this->storagePath ?: $this->basePath . DIRECTORY_SEPARATOR . 'storage';
-    }
-
-    /**
-     * @param string $storagePath
-     *
-     * @return Application
-     */
-    public function setStoragePath($storagePath)
-    {
-        $this->storagePath = $storagePath;
-
-        $this->bindPathsInContainer();
-
-        return $this;
     }
 
     /**
