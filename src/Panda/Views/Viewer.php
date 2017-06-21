@@ -14,6 +14,8 @@ namespace Panda\Views;
 use InvalidArgumentException;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
+use Panda\Support\Configuration\ViewsConfigurationHandler;
+use Panda\Support\Helpers\StringHelper;
 
 /**
  * Class Viewer
@@ -52,31 +54,36 @@ class Viewer
     protected $view;
 
     /**
+     * @var ViewsConfigurationHandler
+     */
+    private $viewsConfigurationHandler;
+
+    /**
      * Viewer constructor.
      *
-     * @param Application $app
-     * @param Request     $request
+     * @param Application               $app
+     * @param Request                   $request
+     * @param ViewsConfigurationHandler $viewsConfigurationHandler
      */
-    public function __construct(Application $app, Request $request)
+    public function __construct(Application $app, Request $request, ViewsConfigurationHandler $viewsConfigurationHandler)
     {
         $this->app = $app;
         $this->request = $request;
+        $this->viewsConfigurationHandler = $viewsConfigurationHandler;
     }
 
     /**
      * Load a view.
      *
      * @param string $name
+     * @param string $extension
      *
      * @return $this
      */
-    public function load($name)
+    public function load($name, $extension = 'html')
     {
-        // Get view full path
-        $viewFolder = $this->getViewFolder($name);
-
-        // Check view file
-        $this->view = $this->getViewFile($viewFolder);
+        // Get view file path
+        $this->view = $this->getViewFilePath($name, $extension);
 
         return $this;
     }
@@ -91,7 +98,7 @@ class Viewer
     {
         // Try to load the view file and return the output
         if (empty($this->view)) {
-            throw new InvalidArgumentException('The view file given is a not valid view.');
+            throw new InvalidArgumentException(__METHOD__ . ': The view file given is a not valid view.');
         }
 
         // Load the view file
@@ -100,6 +107,9 @@ class Viewer
         } else {
             $this->output = file_get_contents($this->view);
         }
+
+        // Interpolate parameters on the view
+        $this->output = StringHelper::interpolate($this->output, $this->parameters);
 
         return $this;
     }
@@ -139,24 +149,40 @@ class Viewer
      */
     private function getViewFolder($name)
     {
-        return $this->app->getViewsPath() . DIRECTORY_SEPARATOR . $name . '.view';
+        return $this->viewsConfigurationHandler->getViewsPath($this->app->getBasePath()) . DIRECTORY_SEPARATOR . $name . '.view';
+    }
+
+    /**
+     * @param string $name
+     * @param string $extension
+     *
+     * @return string
+     */
+    private function getViewFile($name, $extension = 'html')
+    {
+        return $this->viewsConfigurationHandler->getViewsPath($this->app->getBasePath()) . DIRECTORY_SEPARATOR . $name . '.' . $extension;
     }
 
     /**
      * Get the view file to be rendered for output.
      *
-     * @param string $viewFolder
+     * @param string $name
+     * @param string $extension
      *
      * @return null|string
      */
-    private function getViewFile($viewFolder)
+    private function getViewFilePath($name, $extension = 'html')
     {
-        // Set base name
-        $baseName = $viewFolder . DIRECTORY_SEPARATOR . 'view';
+        // Check view file
+        $viewFile = $this->getViewFile($name, $extension);
+        if (!file_exists($viewFile)) {
+            // Check for view folder
+            $viewBaseName = $this->getViewFolder($name) . DIRECTORY_SEPARATOR . 'view';
 
-        // Select the view file
-        $viewFile = (file_exists($baseName . '.php') ? $baseName . '.php' : $baseName . '.html');
-        $viewFile = (file_exists($viewFile) ? $viewFile : null);
+            // Select the view file
+            $viewFile = (file_exists($viewBaseName . '.php') ? $viewBaseName . '.php' : $viewBaseName . '.html');
+            $viewFile = (file_exists($viewFile) ? $viewFile : null);
+        }
 
         // Check if the file is executable (php)
         if (preg_match('/\.php$/', $viewFile)) {

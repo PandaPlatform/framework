@@ -11,7 +11,6 @@
 
 namespace Panda\Foundation;
 
-use Exception;
 use Panda\Container\Container;
 use Panda\Contracts\Bootstrap\Bootstrapper;
 use Panda\Contracts\Configuration\ConfigurationHandler;
@@ -176,43 +175,5 @@ class Application extends Container implements Bootstrapper
     public function getConfigPath()
     {
         return $this->basePath . DIRECTORY_SEPARATOR . 'config';
-    }
-
-    /**
-     * @return string
-     */
-    public function getViewsPath()
-    {
-        $views = $this->config('paths.views');
-        if (empty($views)) {
-            // Fallback to default
-            return $this->basePath . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views';
-        }
-
-        return $this->basePath . DIRECTORY_SEPARATOR . $views['base_dir'];
-    }
-
-    /**
-     * Get a configuration value.
-     *
-     * @param string $name
-     *
-     * @return mixed|null
-     *
-     * @deprecated Use ConfigurationHandler directly.
-     */
-    public function config($name)
-    {
-        // Get configuration
-        try {
-            /** @var ConfigurationHandler $config */
-            $config = $this->get(ConfigurationHandler::class);
-
-            // Get value
-            return $config->get($name);
-        } catch (Exception $ex) {
-        }
-
-        return null;
     }
 }
