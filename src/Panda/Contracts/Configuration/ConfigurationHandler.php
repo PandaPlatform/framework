@@ -26,4 +26,21 @@ interface ConfigurationHandler
      * @return mixed
      */
     public function get($key, $default = null);
+
+    /**
+     * Set a configuration value.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return array
+     */
+    public function set($key, $value);
+
+    /**
+     * Set the entire configuration array.
+     *
+     * @param array $config
+     */
+    public function setConfig(array $config);
 }
