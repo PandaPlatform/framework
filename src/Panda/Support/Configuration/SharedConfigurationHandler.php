@@ -15,10 +15,10 @@ use Panda\Contracts\Configuration\ConfigurationHandler;
 use Panda\Support\Helpers\ArrayHelper;
 
 /**
- * Class MainConfigurationHandler
+ * Class SharedConfigurationHandler
  * @package Panda\Support\Configuration
  */
-class MainConfigurationHandler implements ConfigurationHandler
+class SharedConfigurationHandler implements ConfigurationHandler
 {
     /**
      * @var array
@@ -63,9 +63,9 @@ class MainConfigurationHandler implements ConfigurationHandler
     /**
      * @param array $config
      *
-     * @return MainConfigurationHandler
+     * @return SharedConfigurationHandler
      */
-    public function setConfig(array $config): MainConfigurationHandler
+    public function setConfig(array $config): SharedConfigurationHandler
     {
         static::$config = $config;
 
