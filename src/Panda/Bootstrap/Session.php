@@ -17,7 +17,7 @@ use Panda\Session\Session as SessionHandler;
 
 /**
  * Class Session
- * @package Panda\Foundation\Bootstrap
+ * @package Panda\Bootstrap
  */
 class Session implements Bootstrapper
 {

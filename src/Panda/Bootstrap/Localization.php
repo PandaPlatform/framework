@@ -19,7 +19,7 @@ use Panda\Localization\Locale;
 
 /**
  * Class Localization
- * @package Panda\Foundation\Bootstrap
+ * @package Panda\Bootstrap
  */
 class Localization implements Bootstrapper
 {

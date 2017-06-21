@@ -19,7 +19,7 @@ use Panda\Http\Request;
 
 /**
  * Class Configuration
- * @package Panda\Foundation\Bootstrap
+ * @package Panda\Bootstrap
  */
 class Configuration implements Bootstrapper
 {

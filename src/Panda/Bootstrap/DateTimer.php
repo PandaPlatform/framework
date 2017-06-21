@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class DateTimer
- * @package Panda\Foundation\Bootstrap
+ * @package Panda\Bootstrap
  */
 class DateTimer implements Bootstrapper
 {

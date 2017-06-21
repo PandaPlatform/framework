@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Debug;
+namespace Panda\Bootstrap;
 
 use InvalidArgumentException;
 use Panda\Contracts\Bootstrap\Bootstrapper;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 /**
  * Class Debugger
- * @package Panda\Debug
+ * @package Panda\Bootstrap
  */
 class Debugger implements Bootstrapper
 {

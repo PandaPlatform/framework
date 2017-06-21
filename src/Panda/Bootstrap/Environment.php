@@ -12,13 +12,12 @@
 namespace Panda\Bootstrap;
 
 use Panda\Contracts\Bootstrap\Bootstrapper;
-use Panda\Debug\Debugger;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 
 /**
  * Class Environment
- * @package Panda\Foundation\Bootstrap
+ * @package Panda\Bootstrap
  */
 class Environment implements Bootstrapper
 {
