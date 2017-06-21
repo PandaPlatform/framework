@@ -27,6 +27,9 @@ class StorageConfigurationHandler extends SharedConfigurationHandler
         // Get base storage path configuration
         $storage = $this->get('paths.storage');
 
-        return ($basePath ? $basePath . DIRECTORY_SEPARATOR : '') . $storage['base_dir'];
+        // Check if storage is relative to the application path or not
+        $relative = $storage['is_relative'] ?: true;
+
+        return ($relative ? $basePath . DIRECTORY_SEPARATOR : '') . $storage['base_dir'];
     }
 }
