@@ -28,6 +28,6 @@ class PhpParser implements ConfigurationParser
      */
     public function parse($configFile = '')
     {
-        return ($configFile ? include($configFile) : []);
+        return $configFile ? include($configFile) : [];
     }
 }

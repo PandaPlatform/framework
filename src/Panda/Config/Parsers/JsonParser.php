@@ -28,6 +28,6 @@ class JsonParser implements ConfigurationParser
      */
     public function parse($configFile = '')
     {
-        return ($configFile ? json_decode(file_get_contents($configFile), true) : []);
+        return $configFile ? json_decode(file_get_contents($configFile), true) : [];
     }
 }
