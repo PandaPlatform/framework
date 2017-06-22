@@ -11,8 +11,8 @@
 
 namespace Panda\Routing;
 
-use Panda\Helpers\ArrayHelper;
 use Panda\Http\Request;
+use Panda\Support\Helpers\ArrayHelper;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -93,6 +93,8 @@ class RouteCollection
                 return $matchingRoute;
             }
         }
+
+        return null;
     }
 
     /**

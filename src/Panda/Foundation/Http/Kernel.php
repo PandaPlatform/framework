@@ -19,7 +19,7 @@ use Panda\Http\Request;
 use Panda\Http\Response;
 use Panda\Routing\Controller;
 use Panda\Routing\Router;
-use Panda\Support\Configuration\RoutesConfigurationHandler;
+use Panda\Support\Configuration\Handlers\RoutesConfiguration;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
@@ -40,9 +40,9 @@ class Kernel implements KernelInterface
     protected $router;
 
     /**
-     * @var RoutesConfigurationHandler
+     * @var RoutesConfiguration
      */
-    private $routesConfigurationHandler;
+    private $routesConfiguration;
 
     /**
      * @var BootstrapRegistry
@@ -52,17 +52,17 @@ class Kernel implements KernelInterface
     /**
      * Kernel constructor.
      *
-     * @param Application                $app
-     * @param Router                     $router
-     * @param BootstrapRegistry          $bootstrapRegistry
-     * @param RoutesConfigurationHandler $routesConfigurationHandler
+     * @param Application         $app
+     * @param Router              $router
+     * @param BootstrapRegistry   $bootstrapRegistry
+     * @param RoutesConfiguration $routesConfiguration
      */
-    public function __construct(Application $app, Router $router, BootstrapRegistry $bootstrapRegistry, RoutesConfigurationHandler $routesConfigurationHandler)
+    public function __construct(Application $app, Router $router, BootstrapRegistry $bootstrapRegistry, RoutesConfiguration $routesConfiguration)
     {
         $this->app = $app;
         $this->router = $router;
         $this->bootstrapRegistry = $bootstrapRegistry;
-        $this->routesConfigurationHandler = $routesConfigurationHandler;
+        $this->routesConfiguration = $routesConfiguration;
     }
 
     /**
@@ -89,7 +89,7 @@ class Kernel implements KernelInterface
         Controller::setRouter($this->getRouter());
 
         // Include routes
-        include_once $this->routesConfigurationHandler->getRoutesPath($this->getApp()->getBasePath());
+        include_once $this->routesConfiguration->getRoutesPath($this->getApp()->getBasePath());
     }
 
     /**

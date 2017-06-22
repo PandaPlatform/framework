@@ -11,10 +11,10 @@
 
 namespace Panda\Foundation;
 
-use Panda\Bootstrap\Bootstrapper;
 use Panda\Config\ConfigurationHandler;
 use Panda\Config\SharedConfiguration;
 use Panda\Container\Container;
+use Panda\Contracts\Bootstrap\Bootstrapper;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Http\Kernel;
 use Panda\Http\Request;

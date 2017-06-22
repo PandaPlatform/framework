@@ -11,7 +11,7 @@
 
 namespace Panda\Routing\Traits;
 
-use Panda\Helpers\ArrayHelper;
+use Panda\Support\Helpers\ArrayHelper;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionParameter;
@@ -95,6 +95,8 @@ trait RouteDependencyResolverTrait
         if ($class && !$this->alreadyInParameters($class->name, $parameters)) {
             return $this->container->make($class->name);
         }
+
+        return null;
     }
 
     /**
@@ -107,9 +109,9 @@ trait RouteDependencyResolverTrait
      */
     protected function alreadyInParameters($class, array $parameters)
     {
-        return !is_null(ArrayHelper::match($parameters, function ($value) use ($class) {
+        return !is_null(ArrayHelper::filter($parameters, function ($value) use ($class) {
             return $value instanceof $class;
-        }));
+        })[0]);
     }
 
     /**

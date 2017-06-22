@@ -17,13 +17,13 @@ use HttpResponseException;
 use LogicException;
 use Panda\Container\Container;
 use Panda\Foundation\Application;
-use Panda\Helpers\ArrayHelper;
-use Panda\Helpers\StringHelper;
 use Panda\Http\Request;
 use Panda\Routing\Traits\RouteDependencyResolverTrait;
 use Panda\Routing\Validators\HostValidator;
 use Panda\Routing\Validators\MethodValidator;
 use Panda\Routing\Validators\UriValidator;
+use Panda\Support\Helpers\ArrayHelper;
+use Panda\Support\Helpers\StringHelper;
 use ReflectionFunction;
 use Symfony\Component\Routing\CompiledRoute;
 use Symfony\Component\Routing\Route as SymfonyRoute;
@@ -455,6 +455,7 @@ class Route
      * Run the route action and return the response.
      *
      * @return mixed
+     * @throws LogicException
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      * @throws \InvalidArgumentException

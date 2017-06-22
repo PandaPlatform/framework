@@ -11,8 +11,8 @@
 
 namespace Panda\Http;
 
-use Panda\Helpers\ArrayHelper;
-use Panda\Helpers\StringHelper;
+use Panda\Support\Helpers\ArrayHelper;
+use Panda\Support\Helpers\StringHelper;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
