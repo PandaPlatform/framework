@@ -65,4 +65,14 @@ class Configuration extends Registry implements ConfigurationHandler
         // Set registry back
         parent::setRegistry($thisRegistry);
     }
+
+    /**
+     * Set the entire configuration array.
+     *
+     * @param array $config
+     */
+    public function setConfig(array $config)
+    {
+        $this->setRegistry($config);
+    }
 }
