@@ -28,7 +28,7 @@ class Response extends SymfonyResponse
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function redirect($url = '', $status = 302)
+    public function redirect($url, $status = 302)
     {
         // Set headers
         $this->setStatusCode($status);
