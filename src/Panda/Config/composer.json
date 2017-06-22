@@ -22,9 +22,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Panda\\Config": ""
+            "Panda\\Config\\": ""
         }
     },
+    "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
