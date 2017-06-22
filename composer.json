@@ -31,7 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Panda\\": "src/Panda/"
+            "Panda\\": "src/Panda"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Panda\\Tests\\": "tests/Panda/Tests"
         }
     },
     "minimum-stability": "dev",
