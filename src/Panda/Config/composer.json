@@ -1,0 +1,32 @@
+{
+    "name": "panda/config",
+    "description": "The Panda Config Package.",
+    "license": "MIT",
+    "homepage": "http://pandaphp.org",
+    "support": {
+        "source": "https://github.com/PandaPlatform/config",
+        "issues": "https://github.com/PandaPlatform/config/issues"
+    },
+    "authors": [
+        {
+            "name": "Ioannis Papikas",
+            "email": "papikas.ioan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Panda\\Config": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
+    }
+}
