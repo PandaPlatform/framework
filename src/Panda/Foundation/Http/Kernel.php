@@ -12,13 +12,9 @@
 namespace Panda\Foundation\Http;
 
 use InvalidArgumentException;
-use Panda\Bootstrap\Configuration;
-use Panda\Bootstrap\Environment;
-use Panda\Bootstrap\FacadeRegistry;
-use Panda\Bootstrap\Localization;
-use Panda\Bootstrap\Logging;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Application;
+use Panda\Foundation\Bootstrap\BootstrapRegistry;
 use Panda\Http\Request;
 use Panda\Http\Response;
 use Panda\Routing\Controller;
@@ -44,32 +40,28 @@ class Kernel implements KernelInterface
     protected $router;
 
     /**
-     * @var string[]
-     */
-    protected $bootstrappers = [
-        Environment::class,
-        Configuration::class,
-        Logging::class,
-        FacadeRegistry::class,
-        Localization::class,
-    ];
-
-    /**
      * @var RoutesConfigurationHandler
      */
     private $routesConfigurationHandler;
+
+    /**
+     * @var BootstrapRegistry
+     */
+    private $bootstrapRegistry;
 
     /**
      * Kernel constructor.
      *
      * @param Application                $app
      * @param Router                     $router
+     * @param BootstrapRegistry          $bootstrapRegistry
      * @param RoutesConfigurationHandler $routesConfigurationHandler
      */
-    public function __construct(Application $app, Router $router, RoutesConfigurationHandler $routesConfigurationHandler)
+    public function __construct(Application $app, Router $router, BootstrapRegistry $bootstrapRegistry, RoutesConfigurationHandler $routesConfigurationHandler)
     {
         $this->app = $app;
         $this->router = $router;
+        $this->bootstrapRegistry = $bootstrapRegistry;
         $this->routesConfigurationHandler = $routesConfigurationHandler;
     }
 
@@ -91,7 +83,7 @@ class Kernel implements KernelInterface
         }
 
         // Initialize application
-        $this->getApp()->boot($request, $this->bootstrappers);
+        $this->getApp()->boot($request, $this->bootstrapRegistry->getRegistry());
 
         // Set base controller router
         Controller::setRouter($this->getRouter());
@@ -130,19 +122,6 @@ class Kernel implements KernelInterface
      */
     public function terminate(SymfonyRequest $request, SymfonyResponse $response)
     {
-    }
-
-    /**
-     * Add a bootstrapper to the application flow.
-     *
-     * @param string $bootstrapper
-     *
-     * @throws InvalidArgumentException
-     */
-    public function addExternalBootstrapper($bootstrapper)
-    {
-        // Add to the queue
-        $this->bootstrappers[] = $bootstrapper;
     }
 
     /**
