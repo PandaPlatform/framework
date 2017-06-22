@@ -19,13 +19,15 @@ use Panda\Registry\Registry;
  */
 class Configuration extends Registry implements ConfigurationHandler
 {
+    const CONTAINER = 'config';
+
     /**
      * {@inheritdoc}
      */
     public function get($key, $default = null)
     {
         // Prefix key
-        $key = 'config.' . $key;
+        $key = self::CONTAINER . '.' . $key;
 
         return parent::get($key, $default);
     }
@@ -36,7 +38,7 @@ class Configuration extends Registry implements ConfigurationHandler
     public function set($key, $value)
     {
         // Prefix key
-        $key = 'config.' . $key;
+        $key = self::CONTAINER . '.' . $key;
 
         return parent::set($key, $value);
     }
@@ -48,7 +50,7 @@ class Configuration extends Registry implements ConfigurationHandler
     {
         $registry = parent::getRegistry();
 
-        return $registry['config'];
+        return $registry[self::CONTAINER];
     }
 
     /**
@@ -60,7 +62,7 @@ class Configuration extends Registry implements ConfigurationHandler
         $thisRegistry = $this->getRegistry();
 
         // Set config in registry
-        $thisRegistry['config'] = $registry;
+        $thisRegistry[self::CONTAINER] = $registry;
 
         // Set registry back
         parent::setRegistry($thisRegistry);
