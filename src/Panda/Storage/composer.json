@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Panda\\Storage\\": "/"
+            "Panda\\Storage\\": ""
         }
     },
     "minimum-stability": "dev",
