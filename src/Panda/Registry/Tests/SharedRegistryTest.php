@@ -11,17 +11,17 @@
 
 namespace Panda\Registry\Tests;
 
-use Panda\Registry\Registry;
+use Panda\Registry\SharedRegistry;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Class RegistryTest
+ * Class SharedRegistryTest
  * @package Panda\Registry\Tests
  */
-class RegistryTest extends PHPUnit_Framework_TestCase
+class SharedRegistryTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Registry
+     * @var SharedRegistry
      */
     private $registry;
 
@@ -33,7 +33,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         // Create registry
-        $this->registry = new Registry();
+        $this->registry = new SharedRegistry();
     }
 
     /**
@@ -58,6 +58,14 @@ class RegistryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('val0-1', $this->registry->get('key0'));
         $this->assertEquals('val1-1', $this->registry->get('key1.key1-1'));
         $this->assertEquals('default_value', $this->registry->get('key1.key1-3', 'default_value'));
+
+        // Create second SharedRegistry
+        $registry2 = new SharedRegistry();
+
+        // Check already existing values
+        $this->assertEquals('val0-1', $registry2->get('key0'));
+        $this->assertEquals('val1-1', $registry2->get('key1.key1-1'));
+        $this->assertEquals('default_value', $registry2->get('key1.key1-3', 'default_value'));
     }
 
     /**
@@ -80,17 +88,12 @@ class RegistryTest extends PHPUnit_Framework_TestCase
         ];
         $this->registry->setRegistry($registry);
 
-        $this->registry->set('key0', 'val0-1-2');
-        $this->assertEquals('val0-1-2', $this->registry->get('key0'));
+        // Create second SharedRegistry
+        $registry2 = new SharedRegistry();
 
-        $this->registry->set('key1.key1-1', 'val1-1-2');
-        $this->assertEquals('val1-1-2', $this->registry->get('key1.key1-1'));
-        $this->assertEquals('val1-2', $this->registry->get('key1.key1-2'));
-
-        $this->registry->set('key4', 'val4-1');
-        $this->assertEquals('val4-1', $this->registry->get('key4'));
-
-        $this->registry->set('key5.key5-1', 'val5-1');
-        $this->assertEquals('val5-1', $this->registry->get('key5.key5-1'));
+        // Change second registry and check first to see if affected
+        $registry2->set('key4', 'val4');
+        $this->assertEquals('val4', $registry2->get('key4'));
+        $this->assertEquals('val4', $this->registry->get('key4'));
     }
 }
