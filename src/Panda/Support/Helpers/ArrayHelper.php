@@ -81,6 +81,7 @@ class ArrayHelper
      * @param mixed  $value
      * @param bool   $useDotSyntax
      *
+     * @return array
      * @throws InvalidArgumentException
      */
     public static function set($array, $key, $value = null, $useDotSyntax = false)
