@@ -14,7 +14,7 @@ namespace Panda\Views;
 use InvalidArgumentException;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
-use Panda\Support\Configuration\ViewsConfigurationHandler;
+use Panda\Support\Configuration\Handlers\ViewsConfiguration;
 use Panda\Support\Helpers\StringHelper;
 
 /**
@@ -54,22 +54,22 @@ class Viewer
     protected $view;
 
     /**
-     * @var ViewsConfigurationHandler
+     * @var ViewsConfiguration
      */
-    private $viewsConfigurationHandler;
+    private $viewsConfiguration;
 
     /**
      * Viewer constructor.
      *
-     * @param Application               $app
-     * @param Request                   $request
-     * @param ViewsConfigurationHandler $viewsConfigurationHandler
+     * @param Application        $app
+     * @param Request            $request
+     * @param ViewsConfiguration $viewsConfiguration
      */
-    public function __construct(Application $app, Request $request, ViewsConfigurationHandler $viewsConfigurationHandler)
+    public function __construct(Application $app, Request $request, ViewsConfiguration $viewsConfiguration)
     {
         $this->app = $app;
         $this->request = $request;
-        $this->viewsConfigurationHandler = $viewsConfigurationHandler;
+        $this->viewsConfiguration = $viewsConfiguration;
     }
 
     /**
@@ -149,7 +149,7 @@ class Viewer
      */
     private function getViewFolder($name)
     {
-        return $this->viewsConfigurationHandler->getViewsPath($this->app->getBasePath()) . DIRECTORY_SEPARATOR . $name . '.view';
+        return $this->viewsConfiguration->getViewsPath($this->app->getBasePath()) . DIRECTORY_SEPARATOR . $name . '.view';
     }
 
     /**
@@ -160,7 +160,7 @@ class Viewer
      */
     private function getViewFile($name, $extension = 'html')
     {
-        return $this->viewsConfigurationHandler->getViewsPath($this->app->getBasePath()) . DIRECTORY_SEPARATOR . $name . '.' . $extension;
+        return $this->viewsConfiguration->getViewsPath($this->app->getBasePath()) . DIRECTORY_SEPARATOR . $name . '.' . $extension;
     }
 
     /**

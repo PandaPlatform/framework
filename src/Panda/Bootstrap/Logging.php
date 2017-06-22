@@ -20,7 +20,7 @@ use Panda\Contracts\Configuration\ConfigurationHandler;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Log\Logger;
-use Panda\Support\Configuration\StorageConfigurationHandler;
+use Panda\Support\Configuration\Handlers\StorageConfiguration;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -40,20 +40,20 @@ class Logging implements Bootstrapper
     private $config;
 
     /**
-     * @var StorageConfigurationHandler
+     * @var StorageConfiguration
      */
-    private $storageConfigurationHandler;
+    private $storageConfiguration;
 
     /**
      * Environment constructor.
      *
-     * @param Application                 $app
-     * @param StorageConfigurationHandler $storageConfigurationHandler
+     * @param Application          $app
+     * @param StorageConfiguration $storageConfiguration
      */
-    public function __construct(Application $app, StorageConfigurationHandler $storageConfigurationHandler)
+    public function __construct(Application $app, StorageConfiguration $storageConfiguration)
     {
         $this->app = $app;
-        $this->storageConfigurationHandler = $storageConfigurationHandler;
+        $this->storageConfiguration = $storageConfiguration;
     }
 
     /**
@@ -75,7 +75,7 @@ class Logging implements Bootstrapper
         }
 
         // Get base path storage
-        $basePath = $this->storageConfigurationHandler->getStorageBaseDirectory($this->app->getBasePath());
+        $basePath = $this->storageConfiguration->getStorageBaseDirectory($this->app->getBasePath());
 
         // Add error handler
         $path = $basePath . DIRECTORY_SEPARATOR . $this->config->get('paths.logger.base_dir') . DIRECTORY_SEPARATOR . $this->config->get('paths.logger.error');
