@@ -12,19 +12,14 @@
 namespace Panda\Support\Configuration;
 
 use Panda\Contracts\Configuration\ConfigurationHandler;
-use Panda\Support\Helpers\ArrayHelper;
+use Panda\Foundation\Registry\SharedRegistry;
 
 /**
  * Class SharedConfigurationHandler
  * @package Panda\Support\Configuration
  */
-class SharedConfigurationHandler implements ConfigurationHandler
+class SharedConfigurationHandler extends SharedRegistry implements ConfigurationHandler
 {
-    /**
-     * @var array
-     */
-    protected static $config;
-
     /**
      * Config constructor.
      *
@@ -32,32 +27,7 @@ class SharedConfigurationHandler implements ConfigurationHandler
      */
     public function __construct($config = [])
     {
-        static::$config = $config;
-    }
-
-    /**
-     * Get a configuration value.
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
-    public function get($key, $default = null)
-    {
-        return ArrayHelper::get(static::$config, $key, $default, $useDotSyntax = true);
-    }
-
-    /**
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return array
-     * @throws \InvalidArgumentException
-     */
-    public function set($key, $value)
-    {
-        return static::$config = ArrayHelper::set(static::$config, $key, $value, $useDotSyntax = true);
+        self::setRegistry($config);
     }
 
     /**
@@ -67,7 +37,7 @@ class SharedConfigurationHandler implements ConfigurationHandler
      */
     public function setConfig(array $config): SharedConfigurationHandler
     {
-        static::$config = $config;
+        static::setRegistry($config);
 
         return $this;
     }
