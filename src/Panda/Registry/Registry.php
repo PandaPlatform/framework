@@ -32,13 +32,9 @@ class Registry extends AbstractRegistry
 
     /**
      * @param array $registry
-     *
-     * @return Registry
      */
-    public function setRegistry(array $registry): Registry
+    public function setRegistry(array $registry)
     {
         $this->registry = $registry;
-
-        return $this;
     }
 }
