@@ -117,7 +117,7 @@ class ArrayHelper
 
             // Check if the base array exists
             if (!isset($array[$base])) {
-                throw new InvalidArgumentException(__METHOD__ . ': The given key does not exist in the given array (using dot syntax).');
+                $array[$base] = [];
             }
 
             // Get key, base array and continue

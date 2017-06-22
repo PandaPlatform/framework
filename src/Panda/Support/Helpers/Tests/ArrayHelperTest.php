@@ -74,6 +74,10 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         $array = ArrayHelper::set($array, 't11', 'test_value', false);
         $this->assertEquals('test_value', $array['t11']);
 
+        // Simple assignment using dot, without dot syntax
+        $array = ArrayHelper::set($array, 't2.t3', 'test_value', false);
+        $this->assertEquals('test_value', $array['t2.t3']);
+
         // Simple assignment, using dot syntax
         $array = ArrayHelper::set($array, 't11', 'test_value', true);
         $this->assertEquals('test_value', $array['t11']);
@@ -89,6 +93,10 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         // Dot syntax assignment (depth = 4)
         $array = ArrayHelper::set($array, 't1.t2.t3.t4', 'test_value', true);
         $this->assertEquals('test_value', $array['t1']['t2']['t3']['t4']);
+
+        // Dot syntax assignment (depth = 2, no depth 1 exists)
+        $array = ArrayHelper::set($array, 't3.t4', 'test_value', true);
+        $this->assertEquals('test_value', $array['t3']['t4']);
     }
 
     /**
