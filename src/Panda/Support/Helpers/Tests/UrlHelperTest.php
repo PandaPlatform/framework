@@ -1,13 +1,13 @@
 <?php
 
-namespace Panda\Support\Helpers\tests;
+namespace Panda\Support\Helpers\Tests;
 
 use Panda\Support\Helpers\UrlHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class UrlHelperTest
- * @package Panda\Helpers\tests
+ * @package Panda\Support\Helpers\Tests
  */
 class UrlHelperTest extends PHPUnit_Framework_TestCase
 {

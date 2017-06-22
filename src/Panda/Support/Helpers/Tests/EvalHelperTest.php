@@ -1,13 +1,13 @@
 <?php
 
-namespace Panda\Support\Helpers\tests;
+namespace Panda\Support\Helpers\Tests;
 
 use Panda\Support\Helpers\EvalHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class EvalHelperTest
- * @package Panda\Support\Helpers\tests
+ * @package Panda\Support\Helpers\Tests
  */
 class EvalHelperTest extends PHPUnit_Framework_TestCase
 {

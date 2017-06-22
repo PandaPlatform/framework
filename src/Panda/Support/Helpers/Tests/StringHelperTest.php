@@ -1,13 +1,13 @@
 <?php
 
-namespace Panda\Support\Helpers\tests;
+namespace Panda\Support\Helpers\Tests;
 
 use Panda\Support\Helpers\StringHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class StringHelperTest
- * @package Panda\Support\Helpers\tests
+ * @package Panda\Support\Helpers\Tests
  */
 class StringHelperTest extends PHPUnit_Framework_TestCase
 {

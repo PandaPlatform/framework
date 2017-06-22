@@ -1,6 +1,6 @@
 <?php
 
-namespace Panda\Support\Helpers\tests;
+namespace Panda\Support\Helpers\Tests;
 
 use DateTime;
 use Panda\Support\Helpers\DateTimeHelper;
@@ -8,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * Class DateTimeHelperTest
- * @package Panda\Support\Helpers\tests
+ * @package Panda\Support\Helpers\Tests
  */
 class DateTimeHelperTest extends PHPUnit_Framework_TestCase
 {

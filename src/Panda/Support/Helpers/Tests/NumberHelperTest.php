@@ -1,13 +1,13 @@
 <?php
 
-namespace Panda\Support\Helpers\tests;
+namespace Panda\Support\Helpers\Tests;
 
 use Panda\Support\Helpers\NumberHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class NumberHelperTest
- * @package Panda\Support\Helpers\tests
+ * @package Panda\Support\Helpers\Tests
  */
 class NumberHelperTest extends PHPUnit_Framework_TestCase
 {
