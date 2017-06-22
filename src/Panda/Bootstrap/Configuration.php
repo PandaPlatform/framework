@@ -11,11 +11,10 @@
 
 namespace Panda\Bootstrap;
 
+use Panda\Config\ConfigurationHandler;
+use Panda\Config\ConfigurationParser;
 use Panda\Contracts\Bootstrap\Bootstrapper;
-use Panda\Contracts\Configuration\ConfigurationHandler;
-use Panda\Contracts\Configuration\ConfigurationParser;
 use Panda\Foundation\Application;
-use Panda\Http\Request;
 
 /**
  * Class Configuration
@@ -53,12 +52,9 @@ class Configuration implements Bootstrapper
     }
 
     /**
-     * Run the initializer.
-     *
-     * @param Request $request
-     * @param string  $environment
+     * {@inheritdoc}
      */
-    public function boot($request, $environment = 'default')
+    public function boot($request)
     {
         // Parse configuration
         $configArray = $this->parser->parse();

@@ -11,8 +11,8 @@
 
 namespace Panda\Bootstrap;
 
+use Panda\Config\ConfigurationHandler;
 use Panda\Contracts\Bootstrap\Bootstrapper;
-use Panda\Contracts\Configuration\ConfigurationHandler;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Localization\Locale;

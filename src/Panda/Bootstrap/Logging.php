@@ -15,8 +15,8 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Monolog\Processor\WebProcessor;
+use Panda\Config\ConfigurationHandler;
 use Panda\Contracts\Bootstrap\Bootstrapper;
-use Panda\Contracts\Configuration\ConfigurationHandler;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Log\Logger;
@@ -48,11 +48,13 @@ class Logging implements Bootstrapper
      * Environment constructor.
      *
      * @param Application          $app
+     * @param ConfigurationHandler $config
      * @param StorageConfiguration $storageConfiguration
      */
-    public function __construct(Application $app, StorageConfiguration $storageConfiguration)
+    public function __construct(Application $app, ConfigurationHandler $config, StorageConfiguration $storageConfiguration)
     {
         $this->app = $app;
+        $this->config = $config;
         $this->storageConfiguration = $storageConfiguration;
     }
 
