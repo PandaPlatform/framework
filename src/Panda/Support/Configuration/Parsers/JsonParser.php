@@ -11,7 +11,7 @@
 
 namespace Panda\Support\Configuration\Parsers;
 
-use Panda\Contracts\Configuration\ConfigurationParser;
+use Panda\Config\Parsers\JsonParser as ConfigJsonParser;
 use Panda\Foundation\Application;
 use Panda\Support\Helpers\ArrayHelper;
 
@@ -19,7 +19,7 @@ use Panda\Support\Helpers\ArrayHelper;
  * Class JsonParser
  * @package Panda\Support\Configuration\Parsers
  */
-class JsonParser implements ConfigurationParser
+class JsonParser extends ConfigJsonParser
 {
     /**
      * @var Application
@@ -39,42 +39,46 @@ class JsonParser implements ConfigurationParser
     /**
      * Parse the configuration file and get the configuration array.
      *
+     * @param string $configFile
+     *
      * @return array
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      * @throws \InvalidArgumentException
      */
-    public function parse()
+    public function parse($configFile = '')
     {
         // Load default configuration
-        $defaultConfigFile = $this->getConfigFile('default');
-        $defaultConfigArray = ($defaultConfigFile ? json_decode(file_get_contents($defaultConfigFile), true) : []);
+        $defaultConfigFile = $this->getConfigFile($configFile, 'default');
+        $defaultConfigArray = parent::parse($defaultConfigFile);
 
         // Load environment configuration
-        $envConfigFile = $this->getConfigFile($this->app->getEnvironment());
-        $envConfigArray = ($envConfigFile ? json_decode(file_get_contents($envConfigFile), true) : []);
+        $envConfigFile = $this->getConfigFile($configFile, $this->app->getEnvironment());
+        $envConfigArray = parent::parse($envConfigFile);
 
         // Merge environment config to default and set to application
         return ArrayHelper::merge($defaultConfigArray, $envConfigArray, $deep = true);
     }
 
     /**
-     * Get the configuration file according to the current environment.
+     * Get the configuration file according to the given environment, if any.
      *
+     * @param string $configFile
      * @param string $environment
      *
-     * @return string|null
+     * @return string
      */
-    private function getConfigFile($environment = 'default')
+    private function getConfigFile($configFile, $environment = 'default')
     {
-        $configFile = $this->app->getConfigPath() . DIRECTORY_SEPARATOR . 'config-' . $environment . '.json';
-        if (!file_exists($configFile) && $environment != 'default') {
-            $configFile = $this->getConfigFile('default');
-        }
-        if (!file_exists($configFile)) {
-            $configFile = null;
+        // Normalize config file
+        $configFile = $configFile ?: 'config';
+
+        // Check if there is an environment-specific config file
+        $envConfigFile = $this->app->getConfigPath() . DIRECTORY_SEPARATOR . $configFile . '-' . $environment . '.json';
+        if (!is_file($envConfigFile)) {
+            $envConfigFile = $this->app->getConfigPath() . DIRECTORY_SEPARATOR . $configFile . '.json';
         }
 
-        return $configFile;
+        return $envConfigFile;
     }
 }
