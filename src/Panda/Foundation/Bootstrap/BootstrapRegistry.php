@@ -17,6 +17,6 @@ use Panda\Foundation\Registry\Registry;
  * Class BoostrapRegistry
  * @package Panda\Foundation\Bootstrap
  */
-class BoostrapRegistry extends Registry
+class BootstrapRegistry extends Registry
 {
 }
