@@ -11,13 +11,13 @@
 
 namespace Panda\Foundation;
 
+use Panda\Bootstrap\Bootstrapper;
+use Panda\Config\ConfigurationHandler;
+use Panda\Config\SharedConfiguration;
 use Panda\Container\Container;
-use Panda\Contracts\Bootstrap\Bootstrapper;
-use Panda\Contracts\Configuration\ConfigurationHandler;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Http\Kernel;
 use Panda\Http\Request;
-use Panda\Support\Configuration\SharedConfigurationHandler;
 
 /**
  * Class Application
@@ -128,7 +128,7 @@ class Application extends Container implements Bootstrapper
     private function registerServiceBindings()
     {
         $this->set(KernelInterface::class, \DI\object(Kernel::class));
-        $this->set(ConfigurationHandler::class, \DI\object(SharedConfigurationHandler::class));
+        $this->set(ConfigurationHandler::class, \DI\object(SharedConfiguration::class));
     }
 
     /**
