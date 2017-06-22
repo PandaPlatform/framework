@@ -11,7 +11,7 @@
 
 namespace Panda\Foundation\Bootstrap;
 
-use Panda\Foundation\Registry\Registry;
+use Panda\Registry\Registry;
 
 /**
  * Class BoostrapRegistry
