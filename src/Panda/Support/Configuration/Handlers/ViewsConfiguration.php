@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Support\Configuration\Handler;
+namespace Panda\Support\Configuration\Handlers;
 
 use Panda\Config\SharedConfiguration;
 
 /**
  * Class ViewsConfiguration
- * @package Panda\Support\Configuration\Handler
+ * @package Panda\Support\Configuration\Handlers
  */
 class ViewsConfiguration extends SharedConfiguration
 {
