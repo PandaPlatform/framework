@@ -1,0 +1,32 @@
+{
+    "name": "panda/registry",
+    "description": "The Panda Registry Package.",
+    "license": "MIT",
+    "homepage": "http://pandaphp.org",
+    "support": {
+        "source": "https://github.com/PandaPlatform/registry",
+        "issues": "https://github.com/PandaPlatform/registry/issues"
+    },
+    "authors": [
+        {
+            "name": "Ioannis Papikas",
+            "email": "papikas.ioan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Panda\\Registry": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
+    }
+}
