@@ -20,7 +20,7 @@ class SharedRegistry extends AbstractRegistry
     /**
      * @var array
      */
-    protected static $registry;
+    protected static $registry = [];
 
     /**
      * @return array
