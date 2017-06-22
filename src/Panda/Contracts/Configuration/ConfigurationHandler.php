@@ -11,32 +11,14 @@
 
 namespace Panda\Contracts\Configuration;
 
+use Panda\Contracts\Registry\RegistryInterface;
+
 /**
  * Interface ConfigurationHandler
  * @package Panda\Contracts\Configuration
  */
-interface ConfigurationHandler
+interface ConfigurationHandler extends RegistryInterface
 {
-    /**
-     * Get a configuration value.
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
-    public function get($key, $default = null);
-
-    /**
-     * Set a configuration value.
-     *
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return array
-     */
-    public function set($key, $value);
-
     /**
      * Set the entire configuration array.
      *
