@@ -33,7 +33,7 @@ class LocaleHelper
     {
         // Check arguments
         if (empty($locale)) {
-            throw new InvalidArgumentException('The given locale is empty');
+            throw new InvalidArgumentException(__METHOD__ . ': The given locale is empty');
         }
 
         // Check if locale is using - or _
