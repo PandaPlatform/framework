@@ -9,13 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Support\Configuration;
+namespace Panda\Support\Configuration\Handlers;
+
+use Panda\Config\SharedConfiguration;
 
 /**
- * Class MainConfigurationHandler
- * @package Panda\Support\Configuration
+ * Class RoutesConfiguration
+ * @package Panda\Support\Configuration\Handlers
  */
-class RoutesConfigurationHandler extends SharedConfigurationHandler
+class RoutesConfiguration extends SharedConfiguration
 {
     /**
      * @param string $basePath
