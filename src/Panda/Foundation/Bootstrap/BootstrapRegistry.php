@@ -50,7 +50,6 @@ class BootstrapRegistry extends Registry
     {
         $registry = parent::getRegistry();
 
-
         return $registry[self::CONTAINER];
     }
 
