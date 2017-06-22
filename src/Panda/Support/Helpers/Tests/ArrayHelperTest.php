@@ -47,11 +47,13 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
                 'arr2-1' => 'val2-1',
                 'arr2-2' => 'val2-2',
             ],
+            'arr3.arr3-1' => 'val3-1',
         ];
         $this->assertEquals('val1-1', ArrayHelper::get($array, 'arr1.arr1-1', 'not_exists', true));
         $this->assertEquals('val1-2', ArrayHelper::get($array, 'arr1.arr1-2', 'not_exists', true));
         $this->assertEquals('val2-1', ArrayHelper::get($array, 'arr2.arr2-1', 'not_exists', true));
-        $this->assertEquals('not_exists', ArrayHelper::get($array, 'arr3.arr3-1', 'not_exists', true));
+        $this->assertEquals('val3-1', ArrayHelper::get($array, 'arr3.arr3-1', 'not_exists', true));
+        $this->assertEquals('not_exists', ArrayHelper::get($array, 'arr4.arr4-1', 'not_exists', true));
     }
 
     /**
