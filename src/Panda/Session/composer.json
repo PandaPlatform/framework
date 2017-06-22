@@ -22,9 +22,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Panda\\Session": ""
+            "Panda\\Session\\": ""
         }
     },
+    "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
