@@ -54,7 +54,7 @@ class ArrayHelper
         // Split name using dots
         $keyParts = explode('.', $key);
         if (count($keyParts) == 1) {
-            return $array[$key];
+            return isset($array[$key]) ? $array[$key] : $default;
         }
 
         // Recursive call
