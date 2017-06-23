@@ -11,7 +11,7 @@
 
 namespace Panda\Contracts\Http;
 
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Interface Kernel
  * @package Panda\Contracts\Http
  */
-interface Kernel extends Bootstrapper
+interface Kernel extends BootLoader
 {
     /**
      * Handle an incoming HTTP request.

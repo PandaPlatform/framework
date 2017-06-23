@@ -15,13 +15,13 @@ use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Interface Bootstrapper
+ * Interface BootLoader
  * @package Panda\Contracts\Bootstrap
  */
-interface Bootstrapper
+interface BootLoader
 {
     /**
-     * Boot the bootstrapper.
+     * Boot the BootLoader.
      *
      * @param Request $request
      *
