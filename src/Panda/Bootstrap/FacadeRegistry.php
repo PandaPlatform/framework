@@ -11,7 +11,7 @@
 
 namespace Panda\Bootstrap;
 
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Support\Facades\Facade;
@@ -20,7 +20,7 @@ use Panda\Support\Facades\Facade;
  * Class FacadeRegistry
  * @package Panda\Bootstrap
  */
-class FacadeRegistry implements Bootstrapper
+class FacadeRegistry implements BootLoader
 {
     /**
      * @var Application

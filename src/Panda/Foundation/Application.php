@@ -14,7 +14,7 @@ namespace Panda\Foundation;
 use Panda\Config\ConfigurationHandler;
 use Panda\Config\SharedConfiguration;
 use Panda\Container\Container;
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Http\Kernel;
 use Panda\Http\Request;
@@ -23,7 +23,7 @@ use Panda\Http\Request;
  * Class Application
  * @package Panda\Foundation
  */
-class Application extends Container implements Bootstrapper
+class Application extends Container implements BootLoader
 {
     /**
      * The application's base path.

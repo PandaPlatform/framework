@@ -11,7 +11,7 @@
 
 namespace Panda\Bootstrap;
 
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 
@@ -19,7 +19,7 @@ use Panda\Http\Request;
  * Class Environment
  * @package Panda\Bootstrap
  */
-class Environment implements Bootstrapper
+class Environment implements BootLoader
 {
     /**
      * @var Application

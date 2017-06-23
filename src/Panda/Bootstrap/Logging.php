@@ -16,7 +16,7 @@ use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Monolog\Processor\WebProcessor;
 use Panda\Config\ConfigurationHandler;
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Log\Logger;
@@ -27,7 +27,7 @@ use Psr\Log\LoggerInterface;
  * Class Logging
  * @package Panda\Bootstrap
  */
-class Logging implements Bootstrapper
+class Logging implements BootLoader
 {
     /**
      * @var Application

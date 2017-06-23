@@ -11,7 +11,7 @@
 
 namespace Panda\Bootstrap;
 
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Http\Request;
 use Panda\Session\Session as SessionHandler;
 
@@ -19,7 +19,7 @@ use Panda\Session\Session as SessionHandler;
  * Class Session
  * @package Panda\Bootstrap
  */
-class Session implements Bootstrapper
+class Session implements BootLoader
 {
     /**
      * @var SessionHandler

@@ -12,7 +12,7 @@
 namespace Panda\Bootstrap;
 
 use InvalidArgumentException;
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
  * Class Debugger
  * @package Panda\Bootstrap
  */
-class Debugger implements Bootstrapper
+class Debugger implements BootLoader
 {
     /**
      * @var Application

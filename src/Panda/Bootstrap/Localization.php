@@ -12,7 +12,7 @@
 namespace Panda\Bootstrap;
 
 use Panda\Config\ConfigurationHandler;
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Localization\Locale;
@@ -21,7 +21,7 @@ use Panda\Localization\Locale;
  * Class Localization
  * @package Panda\Bootstrap
  */
-class Localization implements Bootstrapper
+class Localization implements BootLoader
 {
     /**
      * @var Application

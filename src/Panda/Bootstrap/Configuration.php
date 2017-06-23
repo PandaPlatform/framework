@@ -13,14 +13,14 @@ namespace Panda\Bootstrap;
 
 use Panda\Config\ConfigurationHandler;
 use Panda\Config\ConfigurationParser;
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 
 /**
  * Class Configuration
  * @package Panda\Bootstrap
  */
-class Configuration implements Bootstrapper
+class Configuration implements BootLoader
 {
     /**
      * @var Application

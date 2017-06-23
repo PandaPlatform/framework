@@ -12,7 +12,7 @@
 namespace Panda\Bootstrap;
 
 use Exception;
-use Panda\Contracts\Bootstrap\Bootstrapper;
+use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Localization\GeoIp;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class DateTimer
  * @package Panda\Bootstrap
  */
-class DateTimer implements Bootstrapper
+class DateTimer implements BootLoader
 {
     /**
      * The default timezone for the framework.
