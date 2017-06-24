@@ -26,7 +26,7 @@ class RoutesConfiguration extends SharedConfiguration
      */
     public function getRoutesPath($basePath = null)
     {
-        $routes = $this->get('paths.routes');
+        $routes = $this->get('routes');
         if (empty($routes)) {
             // Fallback to default
             return $basePath . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'main.php';

@@ -26,7 +26,7 @@ class ViewsConfiguration extends SharedConfiguration
      */
     public function getViewsPath($basePath = null)
     {
-        $views = $this->get('paths.views');
+        $views = $this->get('views');
         if (empty($views)) {
             // Fallback to default
             return $basePath . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views';

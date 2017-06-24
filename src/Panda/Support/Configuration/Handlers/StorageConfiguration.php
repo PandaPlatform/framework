@@ -27,10 +27,10 @@ class StorageConfiguration extends SharedConfiguration
     public function getStorageBaseDirectory($basePath = null)
     {
         // Get base storage path configuration
-        $storage = $this->get('paths.storage');
+        $storage = $this->get('storage');
 
         // Check if storage is relative to the application path or not
-        $relative = $storage['is_relative'] ?: true;
+        $relative = $storage['path_is_relative'] ?: true;
 
         return ($relative ? $basePath . DIRECTORY_SEPARATOR : '') . $storage['base_dir'];
     }
