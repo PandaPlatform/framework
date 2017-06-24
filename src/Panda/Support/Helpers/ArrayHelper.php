@@ -90,7 +90,7 @@ class ArrayHelper
         $array = $array ?: [];
 
         // Check if key is empty
-        if (empty($key)) {
+        if (StringHelper::emptyString($key, true)) {
             throw new InvalidArgumentException(__METHOD__ . ': Key cannot be empty');
         }
 

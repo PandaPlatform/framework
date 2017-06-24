@@ -81,6 +81,16 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         $array = ArrayHelper::set($array, 't2.t3', 'test_value', false);
         $this->assertEquals('test_value', $array['t2.t3']);
 
+        // Numeric assignments
+        $array = ArrayHelper::set($array, 1, 'test_value', false);
+        $this->assertEquals('test_value', $array[1]);
+        $array = ArrayHelper::set($array, '2', 'test_value', false);
+        $this->assertEquals('test_value', $array['2']);
+        $array = ArrayHelper::set($array, '3', 'test_value', false);
+        $this->assertEquals('test_value', $array[3]);
+        $array = ArrayHelper::set($array, 0, 'test_value', false);
+        $this->assertEquals('test_value', $array[0]);
+
         // Simple assignment, using dot syntax
         $array = ArrayHelper::set($array, 't11', 'test_value', true);
         $this->assertEquals('test_value', $array['t11']);
