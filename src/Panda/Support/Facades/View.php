@@ -15,6 +15,14 @@ use Panda\Views\Viewer;
 
 /**
  * Class View
+ *
+ * Facade methods:
+ *
+ * @method Viewer load($name, $extension = 'html')
+ * @method Viewer render()
+ * @method Viewer withParameters()
+ * @method mixed getOutput()
+ *
  * @package Panda\Support\Facades
  */
 class View extends Facade
