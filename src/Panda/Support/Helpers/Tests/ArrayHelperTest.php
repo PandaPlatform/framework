@@ -55,6 +55,9 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('val3-1', ArrayHelper::get($array, 'arr3.arr3-1', 'not_exists', true));
         $this->assertEquals('not_exists', ArrayHelper::get($array, 'arr2.arr2-3', 'not_exists', true));
         $this->assertEquals('not_exists', ArrayHelper::get($array, 'arr4.arr4-1', 'not_exists', true));
+
+        // Dot syntax getter (depth = 3, no depth 2 exists)
+        $this->assertEquals('not_exists', ArrayHelper::get($array, 'arr1.arr2-1.arr3', 'not_exists', true));
     }
 
     /**
@@ -100,6 +103,33 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Panda\Support\Helpers\ArrayHelper::exists
+     * @throws \PHPUnit_Framework_AssertionFailedError
+     */
+    public function testExists()
+    {
+        $array = [
+            'arr1' => [
+                'arr1-1' => 'val1-1',
+                'arr1-2' => 'val1-2',
+            ],
+            'arr2' => [
+                'arr2-1' => 'val2-1',
+                'arr2-2' => 'val2-2',
+            ],
+            'arr3.arr3-1' => 'val3-1',
+        ];
+        $this->assertTrue(ArrayHelper::exists($array, 'arr1', true));
+        $this->assertTrue(ArrayHelper::exists($array, 'arr1.arr1-1', true));
+        $this->assertTrue(ArrayHelper::exists($array, 'arr3.arr3-1', false));
+        $this->assertTrue(ArrayHelper::exists($array, 'arr3.arr3-1', true));
+
+        $this->assertFalse(ArrayHelper::exists($array, 'arr4', true));
+        $this->assertFalse(ArrayHelper::exists($array, 'arr1.arr1-3', true));
+        $this->assertFalse(ArrayHelper::exists($array, 'arr1.arr1-1.arr11-1', true));
+    }
+
+    /**
      * @covers \Panda\Support\Helpers\ArrayHelper::filter
      */
     public function testFilter()
@@ -140,11 +170,10 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 
     /**
      * @param mixed $key
-     * @param mixed $value
      *
      * @return bool
      */
-    public function filterCallback1($key, $value)
+    public function filterCallback1($key)
     {
         if (substr($key, 0, 2) == 't1') {
             return true;

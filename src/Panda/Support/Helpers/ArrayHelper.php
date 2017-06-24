@@ -131,6 +131,18 @@ class ArrayHelper
     }
 
     /**
+     * @param array  $array
+     * @param string $key
+     * @param bool   $useDotSyntax
+     *
+     * @return bool
+     */
+    public static function exists($array, $key, $useDotSyntax = false)
+    {
+        return !is_null(static::get($array, $key, null, $useDotSyntax));
+    }
+
+    /**
      * Filter array elements with a given callback function.
      *
      * It returns the item that matches the callback function.
