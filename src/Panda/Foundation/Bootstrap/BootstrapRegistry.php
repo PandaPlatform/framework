@@ -46,25 +46,25 @@ class BootstrapRegistry extends Registry
     /**
      * {@inheritdoc}
      */
-    public function getRegistry(): array
+    public function getItems(): array
     {
-        $registry = parent::getRegistry();
+        $items = parent::getItems();
 
-        return $registry[self::CONTAINER];
+        return $items[self::CONTAINER];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setRegistry(array $registry)
+    public function setItems(array $registry)
     {
         // Get registry
-        $thisRegistry = $this->getRegistry();
+        $items = $this->getItems();
 
         // Set config in registry
-        $thisRegistry[self::CONTAINER] = $registry;
+        $items[self::CONTAINER] = $registry;
 
         // Set registry back
-        parent::setRegistry($thisRegistry);
+        parent::setItems($items);
     }
 }
