@@ -11,7 +11,9 @@
 
 namespace Panda\Config;
 
+use InvalidArgumentException;
 use Panda\Registry\SharedRegistry;
+use Panda\Support\Helpers\ArrayHelper;
 
 /**
  * Class SharedConfiguration
@@ -47,14 +49,13 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
      * Set the entire configuration array.
      *
      * @param array $config
+     *
+     * @throws InvalidArgumentException
      */
     public function setConfig(array $config)
     {
-        // Get registry items
-        $items = $this->getItems();
-
         // Set config in registry
-        $items[self::CONTAINER] = $config;
+        $items = ArrayHelper::set($this->getItems(), self::CONTAINER, $config, false);
 
         // Set registry back
         parent::setItems($items);
@@ -65,8 +66,6 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
      */
     public function getConfig()
     {
-        $items = parent::getItems();
-
-        return isset($items[self::CONTAINER]) ? $items[self::CONTAINER] : [];
+        return ArrayHelper::get(parent::getItems(), self::CONTAINER, [], false);
     }
 }
