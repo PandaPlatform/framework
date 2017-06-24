@@ -15,6 +15,7 @@ use Panda\Config\ConfigurationHandler;
 use Panda\Config\ConfigurationParser;
 use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
+use Panda\Support\Configuration\Parsers\JsonParser;
 
 /**
  * Class Configuration
@@ -43,11 +44,15 @@ class Configuration implements BootLoader
      * @param Application          $app
      * @param ConfigurationParser  $parser
      * @param ConfigurationHandler $handler
+     *
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \InvalidArgumentException
      */
     public function __construct(Application $app, ConfigurationParser $parser, ConfigurationHandler $handler)
     {
         $this->app = $app;
-        $this->parser = $parser;
+        $this->parser = $parser ?: $app->make(JsonParser::class);
         $this->handler = $handler;
     }
 
