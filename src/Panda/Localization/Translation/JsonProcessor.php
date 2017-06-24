@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
  * Class JsonProcessor
  * @package Panda\Localization\Translation
  */
-class JsonProcessor extends AbstractProcessor implements FileProcessor
+class JsonProcessor extends AbstractProcessor
 {
     /**
      * Load translations from file.

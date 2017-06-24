@@ -12,6 +12,7 @@
 namespace Panda\Localization\Translation;
 
 use Exception;
+use Panda\Localization\FileProcessor;
 use Panda\Support\Helpers\ArrayHelper;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 

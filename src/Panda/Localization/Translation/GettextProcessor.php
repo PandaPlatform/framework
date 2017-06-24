@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
  * Class GettextProcessor
  * @package Panda\Localization\Translation
  */
-class GettextProcessor extends AbstractProcessor implements FileProcessor
+class GettextProcessor extends AbstractProcessor
 {
     /**
      * Get a translation value.
