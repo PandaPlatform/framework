@@ -50,11 +50,11 @@ class PhpParser extends ConfigPhpParser
     {
         // Load default configuration
         $defaultConfigFile = $this->getConfigFile($configFile, 'default');
-        $defaultConfigArray = parent::parse($defaultConfigFile);
+        $defaultConfigArray = parent::parse($defaultConfigFile) ?: [];
 
         // Load environment configuration
         $envConfigFile = $this->getConfigFile($configFile, $this->app->getEnvironment());
-        $envConfigArray = parent::parse($envConfigFile);
+        $envConfigArray = parent::parse($envConfigFile) ?: [];
 
         // Merge environment config to default and set to application
         return ArrayHelper::merge($defaultConfigArray, $envConfigArray, $deep = true);
