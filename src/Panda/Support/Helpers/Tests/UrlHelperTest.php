@@ -22,6 +22,7 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Panda\Support\Helpers\UrlHelper::get
+     * @throws \InvalidArgumentException
      */
     public function testGet()
     {
@@ -55,7 +56,27 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Panda\Support\Helpers\UrlHelper::getHost
+     * @throws \InvalidArgumentException
+     */
+    public function testGetHost()
+    {
+        // Without sub-domain
+        $this->assertEquals('domain1.com', UrlHelper::getHost('http://domain1.com/path?paramname=paramvalue'));
+        $this->assertEquals('domain2.com', UrlHelper::getHost('https://domain2.com/path?paramname=paramvalue'));
+        $this->assertEquals('domain3.com', UrlHelper::getHost('http://domain3.com/path'));
+        $this->assertEquals('domain4.com', UrlHelper::getHost('http://domain4.com'));
+
+        // With sub-domain
+        $this->assertEquals('sub.domain1.com', UrlHelper::getHost('http://sub.domain1.com/path?paramname=paramvalue'));
+        $this->assertEquals('sub.domain2.com', UrlHelper::getHost('https://sub.domain2.com/path?paramname=paramvalue'));
+        $this->assertEquals('sub.domain3.com', UrlHelper::getHost('http://sub.domain3.com/path'));
+        $this->assertEquals('sub.domain4.com', UrlHelper::getHost('http://sub.domain4.com'));
+    }
+
+    /**
      * @covers \Panda\Support\Helpers\UrlHelper::getDomain
+     * @throws \InvalidArgumentException
      */
     public function testGetDomain()
     {
@@ -74,6 +95,7 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Support\Helpers\UrlHelper::getSubDomain
+     * @throws \InvalidArgumentException
      */
     public function testGetSubDomain()
     {
@@ -91,7 +113,33 @@ class UrlHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Panda\Support\Helpers\UrlHelper::getProtocol
+     * @throws \InvalidArgumentException
+     */
+    public function testGetProtocol()
+    {
+        $this->assertEquals('http', UrlHelper::getProtocol('http://sub.domain.com/path'));
+        $this->assertEquals('https', UrlHelper::getProtocol('https://sub.domain.com/path'));
+    }
+
+    /**
+     * @covers \Panda\Support\Helpers\UrlHelper::getPath
+     * @throws \InvalidArgumentException
+     */
+    public function testGetPath()
+    {
+        // Without parameters
+        $this->assertEquals('/path', UrlHelper::getPath('http://domain.com/path', false));
+        $this->assertEquals('/path', UrlHelper::getPath('http://domain.com/path?paramname=paramvalue', false));
+
+        // With parameters
+        $this->assertEquals('/path?paramname=paramvalue', UrlHelper::getPath('http://domain.com/path?paramname=paramvalue', true));
+        $this->assertEquals('/path', UrlHelper::getPath('http://domain.com/path', true));
+    }
+
+    /**
      * @covers \Panda\Support\Helpers\UrlHelper::info
+     * @throws \InvalidArgumentException
      */
     public function testInfo()
     {

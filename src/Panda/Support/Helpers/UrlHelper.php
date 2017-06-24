@@ -12,6 +12,7 @@
 namespace Panda\Support\Helpers;
 
 use InvalidArgumentException;
+use Panda\Support\Exceptions\NotImplementedException;
 
 /**
  * Class UrlHelper
@@ -27,7 +28,7 @@ class UrlHelper
      * @param string $host
      * @param string $protocol
      *
-     * @return string A well formed url.
+     * @return string
      * @throws InvalidArgumentException
      */
     public static function get($url, $parameters = [], $host = null, $protocol = null)
@@ -38,11 +39,11 @@ class UrlHelper
         }
 
         // Get current url info
-        $urlInfo = self::info($url);
-        $finalUrl = $finalUrl = $urlInfo['path']['plain'];
+        $urlInfo = static::info($url);
+        $finalUrl = ArrayHelper::get($urlInfo, 'path.plain', '', true);
 
         // Build url query
-        $urlParameters = $urlInfo['path']['parameters'] ?: [];
+        $urlParameters = ArrayHelper::get($urlInfo, 'path.parameters', [], true);
         $parameters = ArrayHelper::merge($parameters, $urlParameters);
 
         if (!empty($parameters)) {
@@ -54,86 +55,101 @@ class UrlHelper
         $protocol = $protocol ?: $urlInfo['protocol'];
 
         // Resolve URL according to system configuration
-        return (empty($host) ? '' : $protocol . '://') . self::normalize($host . '/' . $finalUrl);
+        return (empty($host) ? '' : $protocol . '://') . static::normalize($host . '/' . $finalUrl);
     }
 
     /**
-     * Get current domain.
+     * @param string $url
      *
-     * @param string $url       Set url or leave empty to get current
-     * @param bool   $useOrigin Set True to use origin value if exists.
-     *
-     * @return string
+     * @return string|null
+     * @throws InvalidArgumentException
      */
-    public static function getDomain($url = '', $useOrigin = false)
+    public static function getHost($url)
     {
-        $urlInfo = self::info($url);
-
-        // Check if there is an origin value and use that
-        if (isset($urlInfo['origin']) && $useOrigin) {
-            $urlInfo = self::info($urlInfo['origin']);
-        }
-
-        return $urlInfo['domain'];
+        return static::info($url)['host'];
     }
 
     /**
-     * Gets the current navigation sub-domain.
+     * @param string $url
      *
-     * @param string $url       Set url or leave empty to get current
-     * @param bool   $useOrigin Set True to use origin value if exists.
-     *
-     * @return string
+     * @return string|null
+     * @throws InvalidArgumentException
      */
-    public static function getSubDomain($url = '', $useOrigin = false)
+    public static function getDomain($url)
     {
-        // Get current url info
-        $urlInfo = self::info($url);
+        $urlInfo = static::info($url);
 
-        // Check if there is an origin value and use that
-        if (isset($urlInfo['origin']) && $useOrigin) {
-            $urlInfo = self::info($urlInfo['origin']);
-        }
+        return ArrayHelper::get($urlInfo, 'domain', null, true);
+    }
 
-        // Return subdomain value
-        return $urlInfo['sub'];
+    /**
+     * @param string $url
+     *
+     * @return string|null
+     * @throws InvalidArgumentException
+     */
+    public static function getSubDomain($url)
+    {
+        $urlInfo = static::info($url);
+
+        return ArrayHelper::get($urlInfo, 'sub', null, true);
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return string|null
+     * @throws InvalidArgumentException
+     */
+    public static function getProtocol($url)
+    {
+        $urlInfo = static::info($url);
+
+        return ArrayHelper::get($urlInfo, 'protocol', null, true);
+    }
+
+    /**
+     * @param string $url
+     * @param bool   $withParameters
+     *
+     * @return string|null
+     * @throws InvalidArgumentException
+     */
+    public static function getPath($url, $withParameters = false)
+    {
+        $urlInfo = static::info($url);
+
+        return $withParameters ? ArrayHelper::get($urlInfo, 'path.with_parameters', null, true) : ArrayHelper::get($urlInfo, 'path.plain', null, true);
     }
 
     /**
      * Gets the info of the url in an array.
      *
-     * @param string $url    The url to get the information from. If the url is empty, get the current request url.
-     * @param string $domain The url domain. This is given to distinguish the subdomains on the front.
+     * @param string $url    The url to get the information from.
+     * @param string $domain The url domain. This is given to distinguish the sub-domains on the front.
      *
      * @return array The url info as follows:
-     *               ['referer'] = The referer value, if exists.
-     *               ['origin'] = The host origin value, if exists.
-     *               ['url'] = The full url page.
-     *               ['protocol'] = The server protocol.
-     *               ['host'] = The full host.
-     *               ['sub'] = The navigation subdomain.
-     *               ['domain'] = The host domain.
-     *               ['path'] = Path information as follows:
-     *               ['path']['with_parameters'] = The full path including the parameters
-     *               ['path']['plain'] = Only the path, without parameters
-     *               ['path']['parameters'] = An array of all url parameters by name and value.
+     *                  ['referrer'] = The referrer value, if exists.
+     *                  ['origin'] = The host origin value, if exists.
+     *                  ['url'] = The full url page.
+     *                  ['protocol'] = The server protocol.
+     *                  ['host'] = The full host.
+     *                  ['sub'] = The navigation subdomain.
+     *                  ['domain'] = The host domain.
+     *                  ['path'] = Path information as follows:
+     *                  ['path']['with_parameters'] = The full path including the parameters
+     *                  ['path']['plain'] = Only the path, without parameters
+     *                  ['path']['parameters'] = An array of all url parameters by name and value.
+     * @throws InvalidArgumentException
      */
-    public static function info($url = '', $domain = '')
+    public static function info($url, $domain = '')
     {
         // Initialize url info array
         $info = [];
 
         // If no given url, get current
         if (empty($url)) {
-            // Get protocol
-            $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
-
-            // Set full url
-            $url = $protocol . '://' . $_SERVER['HTTP_HOST'] . '/' . trim($_SERVER['REQUEST_URI'], '/');
-
-            // Set extra attributes (if any)
-            $info['referer'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
-            $info['origin'] = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : null;
+            throw new InvalidArgumentException(__METHOD__ . ': The given url is empty.');
         }
 
         // Get protocol
@@ -153,7 +169,7 @@ class UrlHelper
         unset($pathParts[0]);
 
         // Check if this is an ip or a domain
-        if (self::isIP($host)) {
+        if (static::isIP($host)) {
             $sub = '';
             $domain = $host;
         } else {
@@ -193,7 +209,7 @@ class UrlHelper
             'parameters' => [],
         ];
         if (!empty($fullPath)) {
-            $info['path']['with_parameters'] = '/' . implode('/', $pathParts);
+            $info['path']['with_parameters'] = static::normalize('/' . implode('/', $pathParts));
 
             // Split for domain and subdomain
             @list($plain, $params) = explode('?', $info['path']['with_parameters']);
@@ -222,8 +238,8 @@ class UrlHelper
      */
     public static function isIP($url)
     {
-        // Check if given url is ip (v4 or v6)
-        return self::isIPv4($url) || self::isIPv6($url);
+        // Check if given url is ip, v4 for now
+        return static::isIPv4($url);
     }
 
     /**
@@ -244,10 +260,11 @@ class UrlHelper
      * @param $url
      *
      * @return bool
+     * @throws NotImplementedException
      */
     private static function isIPv6($url)
     {
-        return false;
+        throw new NotImplementedException(__METHOD__ . ': This function is not implemented yet.');
     }
 
     /**
