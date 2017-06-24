@@ -11,13 +11,14 @@
 
 namespace Panda\Foundation\Bootstrap;
 
-use Panda\Registry\Registry;
+use Panda\Registry\SharedRegistry;
+use Panda\Support\Helpers\ArrayHelper;
 
 /**
  * Class BootstrapRegistry
  * @package Panda\Foundation\Bootstrap
  */
-class BootstrapRegistry extends Registry
+class BootstrapRegistry extends SharedRegistry
 {
     const CONTAINER = 'bootstrap';
 
@@ -46,23 +47,18 @@ class BootstrapRegistry extends Registry
     /**
      * {@inheritdoc}
      */
-    public function getItems(): array
+    public function getBootLoaders(): array
     {
-        $items = parent::getItems();
-
-        return $items[self::CONTAINER];
+        return ArrayHelper::get(parent::getItems(), self::CONTAINER, [], false);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setItems(array $registry)
+    public function setBootLoaders(array $bootLoaders)
     {
-        // Get registry
-        $items = $this->getItems();
-
-        // Set config in registry
-        $items[self::CONTAINER] = $registry;
+        // Set items in registry
+        $items = ArrayHelper::set($this->getItems(), self::CONTAINER, $bootLoaders, false);
 
         // Set registry back
         parent::setItems($items);
