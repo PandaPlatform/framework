@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Storage\Filesystem;
+namespace Panda\Storage\Adapters;
 
-use Panda\Storage\StorageInterface;
+use Panda\Storage\StorageAdapterInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**
  * Class Filesystem
- * @package Panda\Storage\Filesystem
+ * @package Panda\Storage\Adapters
  */
-class Filesystem implements StorageInterface
+class Filesystem implements StorageAdapterInterface
 {
     /**
      * Get a file's contents.
@@ -110,18 +110,6 @@ class Filesystem implements StorageInterface
     }
 
     /**
-     * Checks if the given path is a file.
-     *
-     * @param string $path
-     *
-     * @return bool Returns True if the filename exists and is a regular file, False otherwise.
-     */
-    public function isFile($path)
-    {
-        return is_file($path);
-    }
-
-    /**
      * Append to a file.
      *
      * @param string $path     The file path.
@@ -151,5 +139,17 @@ class Filesystem implements StorageInterface
         }
 
         return $this->put($path, $contents);
+    }
+
+    /**
+     * Checks if the given path is a file.
+     *
+     * @param string $path
+     *
+     * @return bool Returns True if the filename exists and is a regular file, False otherwise.
+     */
+    protected function isFile($path)
+    {
+        return is_file($path);
     }
 }

@@ -12,10 +12,10 @@
 namespace Panda\Storage;
 
 /**
- * Interface StorageInterface
+ * Interface StorageAdapterInterface
  * @package Panda\Storage
  */
-interface StorageInterface
+interface StorageAdapterInterface
 {
     /**
      * Get a file's contents.
@@ -75,4 +75,24 @@ interface StorageInterface
      * @return bool
      */
     public function copy($path, $target);
+
+    /**
+     * Append to a file.
+     *
+     * @param string $path
+     * @param string $contents
+     *
+     * @return bool
+     */
+    public function append($path, $contents);
+
+    /**
+     * Prepend to a file.
+     *
+     * @param string $path
+     * @param string $contents
+     *
+     * @return bool
+     */
+    public function prepend($path, $contents);
 }
