@@ -50,14 +50,14 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
      */
     public function setConfig(array $config)
     {
-        // Get registry
-        $registry = $this->getRegistry();
+        // Get registry items
+        $items = $this->getItems();
 
         // Set config in registry
-        $registry[self::CONTAINER] = $config;
+        $items[self::CONTAINER] = $config;
 
         // Set registry back
-        parent::setRegistry($registry);
+        parent::setItems($items);
     }
 
     /**
@@ -65,8 +65,8 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
      */
     public function getConfig()
     {
-        $registry = parent::getRegistry();
+        $items = parent::getItems();
 
-        return isset($registry[self::CONTAINER]) ? $registry[self::CONTAINER] : [];
+        return isset($items[self::CONTAINER]) ? $items[self::CONTAINER] : [];
     }
 }

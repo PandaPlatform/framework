@@ -26,7 +26,7 @@ class Configuration extends Registry implements ConfigurationHandler
      */
     public function setConfig(array $config)
     {
-        $this->setRegistry($config);
+        $this->setItems($config);
     }
 
     /**
@@ -34,6 +34,6 @@ class Configuration extends Registry implements ConfigurationHandler
      */
     public function getConfig()
     {
-        return $this->getRegistry();
+        return $this->getItems();
     }
 }

@@ -88,7 +88,7 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
             'key3.key3-1' => 'val3-1',
         ];
         $this->configuration->setConfig($config);
-        $this->assertEquals($this->configuration->getRegistry()[SharedConfiguration::CONTAINER], $this->configuration->getConfig());
+        $this->assertEquals($this->configuration->getItems()[SharedConfiguration::CONTAINER], $this->configuration->getConfig());
 
         // Create second SharedRegistry
         $config2 = new SharedConfiguration();
@@ -100,8 +100,8 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
 
         // Check registry structure
         $sharedRegistry = new SharedRegistry();
-        $sharedRegistryContent = $sharedRegistry->getRegistry();
-        $this->assertEquals($sharedRegistryContent, $this->configuration->getRegistry());
+        $sharedRegistryContent = $sharedRegistry->getItems();
+        $this->assertEquals($sharedRegistryContent, $this->configuration->getItems());
         $this->assertEquals($sharedRegistryContent[SharedConfiguration::CONTAINER], $this->configuration->getConfig());
     }
 }
