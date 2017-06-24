@@ -12,6 +12,8 @@
 namespace Panda\Localization\Translation;
 
 use Exception;
+use Panda\Foundation\Application;
+use Panda\Localization\Config\LocalizationConfiguration;
 use Panda\Localization\FileProcessor;
 use Panda\Support\Helpers\ArrayHelper;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -23,14 +25,24 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 abstract class AbstractProcessor implements FileProcessor
 {
     /**
-     * @var array
+     * @var Application
      */
-    protected static $translations;
+    protected $app;
+
+    /**
+     * @var LocalizationConfiguration
+     */
+    protected $localizationConfiguration;
 
     /**
      * @var string
      */
     protected $baseDirectory;
+
+    /**
+     * @var array
+     */
+    protected static $translations;
 
     /**
      * Load translations
@@ -45,11 +57,16 @@ abstract class AbstractProcessor implements FileProcessor
     /**
      * JsonProcessor constructor.
      *
-     * @param $baseDirectory
+     * @param Application               $app
+     * @param LocalizationConfiguration $localizationConfiguration
+     *
+     * @internal param $baseDirectory
      */
-    public function __construct($baseDirectory)
+    public function __construct(Application $app, LocalizationConfiguration $localizationConfiguration)
     {
-        $this->baseDirectory = $baseDirectory;
+        $this->app = $app;
+        $this->localizationConfiguration = $localizationConfiguration;
+        $this->baseDirectory = $this->localizationConfiguration->getTranslationsPath($this->app->getBasePath());
     }
 
     /**
