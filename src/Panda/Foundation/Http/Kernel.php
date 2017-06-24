@@ -12,6 +12,11 @@
 namespace Panda\Foundation\Http;
 
 use InvalidArgumentException;
+use Panda\Bootstrap\Configuration;
+use Panda\Bootstrap\Environment;
+use Panda\Bootstrap\FacadeRegistry;
+use Panda\Bootstrap\Localization;
+use Panda\Bootstrap\Session;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Application;
 use Panda\Foundation\Bootstrap\BootstrapRegistry;
@@ -20,6 +25,7 @@ use Panda\Http\Response;
 use Panda\Routing\Controller;
 use Panda\Routing\Router;
 use Panda\Support\Configuration\Handlers\RoutesConfiguration;
+use Panda\Support\Helpers\ArrayHelper;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
@@ -63,6 +69,17 @@ class Kernel implements KernelInterface
         $this->router = $router;
         $this->bootstrapRegistry = $bootstrapRegistry;
         $this->routesConfiguration = $routesConfiguration;
+
+        // Register BootLoaders
+        $bootLoaders = $this->bootstrapRegistry->getBootLoaders();
+        $frameworkBootLoaders = [
+            Environment::class,
+            Configuration::class,
+            Localization::class,
+            FacadeRegistry::class,
+            Session::class,
+        ];
+        $this->bootstrapRegistry->setBootLoaders(ArrayHelper::merge($bootLoaders, $frameworkBootLoaders));
     }
 
     /**
@@ -83,7 +100,7 @@ class Kernel implements KernelInterface
         }
 
         // Initialize application
-        $this->getApp()->boot($request, $this->bootstrapRegistry->getRegistry());
+        $this->getApp()->boot($request, $this->bootstrapRegistry->getBootLoaders());
 
         // Set base controller router
         Controller::setRouter($this->getRouter());

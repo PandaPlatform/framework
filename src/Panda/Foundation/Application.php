@@ -132,20 +132,20 @@ class Application extends Container implements BootLoader
     }
 
     /**
-     * Initialize the framework with the given bootstrappers.
+     * Initialize the framework with the given BootLoaders.
      *
      * @param Request $request
-     * @param array   $bootstrappers
+     * @param array   $bootLoaders
      *
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      * @throws \InvalidArgumentException
      */
-    public function boot($request, $bootstrappers = [])
+    public function boot($request, $bootLoaders = [])
     {
-        // Boot all the bootstrappers
-        foreach ($bootstrappers as $bootstrapper) {
-            $this->make($bootstrapper)->boot($request, $this->get('env'));
+        // Boot all the BootLoaders
+        foreach ($bootLoaders as $bootLoader) {
+            $this->make($bootLoader)->boot($request);
         }
     }
 
