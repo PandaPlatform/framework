@@ -23,12 +23,12 @@ abstract class AbstractRegistry implements RegistryInterface
     /**
      * @return array
      */
-    abstract public function getRegistry();
+    abstract public function getItems();
 
     /**
      * @param array $registry
      */
-    abstract public function setRegistry(array $registry);
+    abstract public function setItems(array $registry);
 
     /**
      * @param string $key
@@ -38,7 +38,7 @@ abstract class AbstractRegistry implements RegistryInterface
      */
     public function get($key, $default = null)
     {
-        return ArrayHelper::get($this->getRegistry(), $key, $default, $useDotSyntax = true);
+        return ArrayHelper::get($this->getItems(), $key, $default, $useDotSyntax = true);
     }
 
     /**
@@ -50,9 +50,51 @@ abstract class AbstractRegistry implements RegistryInterface
      */
     public function set($key, $value)
     {
-        $registry = ArrayHelper::set($this->getRegistry(), $key, $value, $useDotSyntax = true);
-        $this->setRegistry($registry);
+        $registry = ArrayHelper::set($this->getItems(), $key, $value, $useDotSyntax = true);
+        $this->setItems($registry);
 
-        return $this->getRegistry();
+        return $this->getItems();
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function exists($key)
+    {
+        return ArrayHelper::exists($this->getItems(), $key, $useDotSyntax = true);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        return $this->exists($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->set($offset, $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        $this->set($offset, null);
     }
 }

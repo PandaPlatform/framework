@@ -11,11 +11,13 @@
 
 namespace Panda\Registry;
 
+use ArrayAccess;
+
 /**
  * Interface RegistryInterface
  * @package Panda\Registry
  */
-interface RegistryInterface
+interface RegistryInterface extends ArrayAccess
 {
     /**
      * @param string $key
@@ -32,4 +34,11 @@ interface RegistryInterface
      * @return array
      */
     public function set($key, $value);
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function exists($key);
 }

@@ -20,21 +20,21 @@ class Registry extends AbstractRegistry
     /**
      * @var array
      */
-    protected $registry;
+    protected $items;
 
     /**
      * @return array
      */
-    public function getRegistry(): array
+    public function getItems(): array
     {
-        return $this->registry;
+        return $this->items;
     }
 
     /**
-     * @param array $registry
+     * @param array $items
      */
-    public function setRegistry(array $registry)
+    public function setItems(array $items)
     {
-        $this->registry = $registry;
+        $this->items = $items;
     }
 }

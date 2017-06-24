@@ -20,21 +20,21 @@ class SharedRegistry extends AbstractRegistry
     /**
      * @var array
      */
-    protected static $registry = [];
+    protected static $items = [];
 
     /**
      * @return array
      */
-    public function getRegistry(): array
+    public function getItems(): array
     {
-        return self::$registry;
+        return self::$items;
     }
 
     /**
-     * @param array $registry
+     * @param array $items
      */
-    public function setRegistry(array $registry)
+    public function setItems(array $items)
     {
-        self::$registry = $registry;
+        self::$items = $items;
     }
 }
