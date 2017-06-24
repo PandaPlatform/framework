@@ -20,7 +20,7 @@ class Registry extends AbstractRegistry
     /**
      * @var array
      */
-    protected $items;
+    protected $items = [];
 
     /**
      * @return array

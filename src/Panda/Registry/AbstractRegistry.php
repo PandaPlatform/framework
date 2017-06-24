@@ -13,6 +13,7 @@ namespace Panda\Registry;
 
 use InvalidArgumentException;
 use Panda\Support\Helpers\ArrayHelper;
+use Panda\Support\Helpers\StringHelper;
 
 /**
  * Class AbstractRegistry
@@ -87,6 +88,13 @@ abstract class AbstractRegistry implements RegistryInterface
      */
     public function offsetSet($offset, $value)
     {
+        // Normalize offset
+        if (StringHelper::emptyString($offset, true)) {
+            $keys = array_keys($this->getItems());
+            $offset = $keys ? max($keys) + 1 : 0;
+        }
+
+        // Set
         $this->set($offset, $value);
     }
 
