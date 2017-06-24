@@ -11,7 +11,6 @@
 
 namespace Panda\Contracts\Bootstrap;
 
-use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -24,8 +23,6 @@ interface BootLoader
      * Boot the BootLoader.
      *
      * @param Request $request
-     *
-     * @throws InvalidArgumentException
      */
     public function boot($request);
 }
