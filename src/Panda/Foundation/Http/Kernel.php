@@ -16,6 +16,7 @@ use Panda\Bootstrap\Configuration;
 use Panda\Bootstrap\Environment;
 use Panda\Bootstrap\FacadeRegistry;
 use Panda\Bootstrap\Localization;
+use Panda\Bootstrap\Logging;
 use Panda\Bootstrap\Session;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Application;
@@ -78,6 +79,7 @@ class Kernel implements KernelInterface
             Localization::class,
             FacadeRegistry::class,
             Session::class,
+            Logging::class,
         ];
         $this->bootstrapRegistry->setBootLoaders(ArrayHelper::merge($bootLoaders, $frameworkBootLoaders));
     }
