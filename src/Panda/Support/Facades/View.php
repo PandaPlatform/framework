@@ -18,10 +18,7 @@ use Panda\Views\Viewer;
  *
  * Facade methods:
  *
- * @method Viewer load($name, $extension = 'html')
- * @method Viewer render()
- * @method Viewer withParameters()
- * @method mixed getOutput()
+ * @method static Viewer load($name, $extension = 'html')
  *
  * @package Panda\Support\Facades
  */

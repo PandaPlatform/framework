@@ -18,14 +18,14 @@ use Panda\Routing\Router;
  *
  * Facade methods:
  *
- * @method Route get($uri, $action = null)
- * @method Route post($uri, $action = null)
- * @method Route put($uri, $action = null)
- * @method Route patch($uri, $action = null)
- * @method Route delete($uri, $action = null)
- * @method Route options($uri, $action = null)
- * @method Route all($uri, $action = null)
- * @method Route any($methods, $uri, $action = null)
+ * @method static Route get($uri, $action = null)
+ * @method static Route post($uri, $action = null)
+ * @method static Route put($uri, $action = null)
+ * @method static Route patch($uri, $action = null)
+ * @method static Route delete($uri, $action = null)
+ * @method static Route options($uri, $action = null)
+ * @method static Route all($uri, $action = null)
+ * @method static Route any($methods, $uri, $action = null)
  *
  * @package Panda\Support\Facades
  */
