@@ -65,6 +65,6 @@ class Configuration implements BootLoader
         $configArray = $this->parser->parse();
 
         // Set configuration
-        $this->handler->setConfig($configArray);
+        $this->handler->setItems($configArray);
     }
 }
