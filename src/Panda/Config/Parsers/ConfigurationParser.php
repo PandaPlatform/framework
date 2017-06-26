@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Config;
+namespace Panda\Config\Parsers;
 
 /**
  * Interface ConfigurationParser
- * @package Panda\Config
+ * @package Panda\Config\Parsers
  */
 interface ConfigurationParser
 {

@@ -11,8 +11,6 @@
 
 namespace Panda\Config\Parsers;
 
-use Panda\Config\ConfigurationParser;
-
 /**
  * Class JsonParser
  * @package Panda\Config\Parsers

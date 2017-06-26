@@ -11,8 +11,6 @@
 
 namespace Panda\Config\Parsers;
 
-use Panda\Config\ConfigurationParser;
-
 /**
  * Class PhpParser
  * @package Panda\Config\Parsers
