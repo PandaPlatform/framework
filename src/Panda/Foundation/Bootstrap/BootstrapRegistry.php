@@ -25,29 +25,7 @@ class BootstrapRegistry extends SharedRegistry
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
-    {
-        // Prefix key
-        $key = self::CONTAINER . '.' . $key;
-
-        return parent::get($key, $default);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function set($key, $value)
-    {
-        // Prefix key
-        $key = self::CONTAINER . '.' . $key;
-
-        return parent::set($key, $value);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBootLoaders(): array
+    public function getItems(): array
     {
         return ArrayHelper::get(parent::getItems(), self::CONTAINER, [], false);
     }
@@ -55,7 +33,7 @@ class BootstrapRegistry extends SharedRegistry
     /**
      * {@inheritdoc}
      */
-    public function setBootLoaders(array $bootLoaders)
+    public function setItems(array $bootLoaders)
     {
         // Set items in registry
         $items = ArrayHelper::set($this->getItems(), self::CONTAINER, $bootLoaders, false);

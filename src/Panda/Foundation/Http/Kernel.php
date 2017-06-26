@@ -72,7 +72,7 @@ class Kernel implements KernelInterface
         $this->routesConfiguration = $routesConfiguration;
 
         // Register BootLoaders
-        $bootLoaders = $this->bootstrapRegistry->getBootLoaders();
+        $bootLoaders = $this->bootstrapRegistry->getItems();
         $frameworkBootLoaders = [
             Environment::class,
             Configuration::class,
@@ -81,7 +81,7 @@ class Kernel implements KernelInterface
             Session::class,
             Logging::class,
         ];
-        $this->bootstrapRegistry->setBootLoaders(ArrayHelper::merge($bootLoaders, $frameworkBootLoaders));
+        $this->bootstrapRegistry->setItems(ArrayHelper::merge($bootLoaders, $frameworkBootLoaders));
     }
 
     /**
@@ -102,7 +102,7 @@ class Kernel implements KernelInterface
         }
 
         // Initialize application
-        $this->getApp()->boot($request, $this->bootstrapRegistry->getBootLoaders());
+        $this->getApp()->boot($request, $this->bootstrapRegistry->getItems());
 
         // Set base controller router
         Controller::setRouter($this->getRouter());
