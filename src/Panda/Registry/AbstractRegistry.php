@@ -27,9 +27,9 @@ abstract class AbstractRegistry implements RegistryInterface
     abstract public function getItems();
 
     /**
-     * @param array $registry
+     * @param array $items
      */
-    abstract public function setItems(array $registry);
+    abstract public function setItems(array $items);
 
     /**
      * @param string $key
@@ -90,8 +90,16 @@ abstract class AbstractRegistry implements RegistryInterface
     {
         // Normalize offset
         if (StringHelper::emptyString($offset, true)) {
-            $keys = array_keys($this->getItems());
-            $offset = $keys ? max($keys) + 1 : 0;
+            // Get next key
+            $numericItems = ArrayHelper::filter($this->getItems(), function ($key) {
+                if (is_numeric($key) && is_int($key) && $key >= 0) {
+                    return true;
+                }
+
+                return false;
+            }, []);
+            $keys = array_keys($numericItems);
+            $offset = count($keys) > 0 ? max($keys) + 1 : 0;
         }
 
         // Set

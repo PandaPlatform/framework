@@ -41,4 +41,14 @@ interface RegistryInterface extends ArrayAccess
      * @return bool
      */
     public function exists($key);
+
+    /**
+     * @return array
+     */
+    public function getItems();
+
+    /**
+     * @param array $items
+     */
+    public function setItems(array $items);
 }

@@ -101,6 +101,14 @@ class RegistryTest extends PHPUnit_Framework_TestCase
         // Array setters
         $this->registry['key6'] = 'val6-1';
         $this->assertEquals('val6-1', $this->registry['key6']);
+
+        // Array setters using no key
+        $this->registry[] = 'val0';
+        $this->assertEquals('val0', $this->registry[0]);
+        $this->registry[] = 'val1';
+        $this->assertEquals('val1', $this->registry[1]);
+        $this->registry[] = 'val2';
+        $this->assertEquals('val2', $this->registry[2]);
     }
 
     /**

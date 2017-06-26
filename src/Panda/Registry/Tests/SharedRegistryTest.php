@@ -105,6 +105,18 @@ class SharedRegistryTest extends PHPUnit_Framework_TestCase
         // Array setters
         $registry2['key6'] = 'val6-1';
         $this->assertEquals('val6-1', $registry2['key6']);
+
+        // Array setters using no key
+        $registry2[] = 'array_access_0';
+        $this->assertEquals('array_access_0', $registry2[0]);
+        $registry2[] = 'array_access_1';
+        $this->assertEquals('array_access_1', $registry2[1]);
+        $registry2[] = 'array_access_2';
+        $this->assertEquals('array_access_2', $registry2[2]);
+        $registry2[] = 'array_access_3';
+        $this->assertEquals('array_access_3', $registry2[3]);
+        $registry2[] = 'array_access_4';
+        $this->assertEquals('array_access_4', $registry2[4]);
     }
 
     /**
