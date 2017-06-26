@@ -33,19 +33,20 @@ class Application extends Container implements BootLoader
     protected $basePath;
 
     /**
-     * The application's storage path.
+     * The application's config path.
      *
      * @var string
      */
-    protected $storagePath;
+    protected $configPath;
 
     /**
      * Create a new panda application instance.
      *
-     * @param string $basePath
-     * @param string $environment
+     * @param string|null $basePath
+     * @param string|null $configPath
+     * @param string      $environment
      */
-    public function __construct($basePath = null, $environment = '')
+    public function __construct($basePath = null, $configPath = null, $environment = '')
     {
         // Construct container
         parent::__construct();
@@ -53,6 +54,9 @@ class Application extends Container implements BootLoader
         // Set object properties
         if (!empty($basePath)) {
             $this->setBasePath($basePath);
+        }
+        if (!empty($configPath)) {
+            $this->setConfigPath($configPath);
         }
 
         // Register all bindings
@@ -174,6 +178,14 @@ class Application extends Container implements BootLoader
      */
     public function getConfigPath()
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'config';
+        return $this->configPath ?: $this->getBasePath() . DIRECTORY_SEPARATOR . 'config';
+    }
+
+    /**
+     * @param string $configPath
+     */
+    public function setConfigPath($configPath)
+    {
+        $this->configPath = $configPath;
     }
 }
