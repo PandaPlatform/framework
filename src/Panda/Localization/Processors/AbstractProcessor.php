@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Localization\Translation;
+namespace Panda\Localization\Processors;
 
 use Exception;
 use Panda\Foundation\Application;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**
  * Class AbstractProcessor
- * @package Panda\Localization\Translation
+ * @package Panda\Localization\Processors
  */
 abstract class AbstractProcessor implements FileProcessor
 {

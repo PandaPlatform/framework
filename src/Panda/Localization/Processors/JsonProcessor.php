@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Localization\Translation;
+namespace Panda\Localization\Processors;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**
  * Class JsonProcessor
- * @package Panda\Localization\Translation
+ * @package Panda\Localization\Processors
  */
 class JsonProcessor extends AbstractProcessor
 {
