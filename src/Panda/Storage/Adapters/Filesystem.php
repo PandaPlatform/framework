@@ -11,7 +11,6 @@
 
 namespace Panda\Storage\Adapters;
 
-use Panda\Storage\StorageAdapterInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**

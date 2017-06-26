@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Storage;
+namespace Panda\Storage\Adapters;
 
 /**
  * Interface StorageAdapterInterface
- * @package Panda\Storage
+ * @package Panda\Storage\Adapters
  */
 interface StorageAdapterInterface
 {
