@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Panda\Localization;
+namespace Panda\Localization\Processors;
 
 /**
  * Interface FileProcessor
- * @package Panda\Localization
+ * @package Panda\Localization\Processors
  */
 interface FileProcessor
 {
