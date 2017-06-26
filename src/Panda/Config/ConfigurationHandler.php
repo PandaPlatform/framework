@@ -19,10 +19,4 @@ use Panda\Registry\RegistryInterface;
  */
 interface ConfigurationHandler extends RegistryInterface
 {
-    /**
-     * Set the entire configuration array.
-     *
-     * @param array $config
-     */
-    public function setConfig(array $config);
 }

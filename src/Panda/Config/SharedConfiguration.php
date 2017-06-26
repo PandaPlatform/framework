@@ -24,38 +24,16 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
     const CONTAINER = 'config';
 
     /**
-     * {@inheritdoc}
-     */
-    public function get($key, $default = null)
-    {
-        // Prefix key
-        $key = self::CONTAINER . '.' . $key;
-
-        return parent::get($key, $default);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function set($key, $value)
-    {
-        // Prefix key
-        $key = self::CONTAINER . '.' . $key;
-
-        return parent::set($key, $value);
-    }
-
-    /**
      * Set the entire configuration array.
      *
      * @param array $config
      *
      * @throws InvalidArgumentException
      */
-    public function setConfig(array $config)
+    public function setItems(array $config)
     {
         // Set config in registry
-        $items = ArrayHelper::set($this->getItems(), self::CONTAINER, $config, false);
+        $items = ArrayHelper::set(parent::getItems(), self::CONTAINER, $config, false);
 
         // Set registry back
         parent::setItems($items);
@@ -64,7 +42,7 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
     /**
      * @return array
      */
-    public function getConfig()
+    public function getItems(): array
     {
         return ArrayHelper::get(parent::getItems(), self::CONTAINER, [], false);
     }

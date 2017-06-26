@@ -54,8 +54,7 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
             ],
             'key3.key3-1' => 'val3-1',
         ];
-        $this->configuration->setConfig($config);
-
+        $this->configuration->setItems($config);
         $this->assertEquals('val0-1', $this->configuration->get('key0'));
         $this->assertEquals('val1-1', $this->configuration->get('key1.key1-1'));
         $this->assertEquals('default_value', $this->configuration->get('key1.key1-3', 'default_value'));
@@ -87,8 +86,11 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
             ],
             'key3.key3-1' => 'val3-1',
         ];
-        $this->configuration->setConfig($config);
-        $this->assertEquals($this->configuration->getItems()[SharedConfiguration::CONTAINER], $this->configuration->getConfig());
+        $this->configuration->setItems($config);
+
+        // Check with global shared registry
+        $sharedRegistry = new SharedRegistry();
+        $this->assertEquals($sharedRegistry->getItems()[SharedConfiguration::CONTAINER], $this->configuration->getItems());
 
         // Create second SharedRegistry
         $config2 = new SharedConfiguration();
@@ -98,10 +100,20 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('val4', $config2->get('key4'));
         $this->assertEquals('val4', $this->configuration->get('key4'));
 
-        // Check registry structure
-        $sharedRegistry = new SharedRegistry();
-        $sharedRegistryContent = $sharedRegistry->getItems();
-        $this->assertEquals($sharedRegistryContent, $this->configuration->getItems());
-        $this->assertEquals($sharedRegistryContent[SharedConfiguration::CONTAINER], $this->configuration->getConfig());
+        // Array setter
+        $config2['key5'] = 'val5';
+        $this->assertEquals('val5', $config2['key5']);
+
+        // Array setters using no key
+        $config2[] = 'array_access_0';
+        $this->assertEquals('array_access_0', $config2[0]);
+        $config2[] = 'array_access_1';
+        $this->assertEquals('array_access_1', $config2[1]);
+        $config2[] = 'array_access_2';
+        $this->assertEquals('array_access_2', $config2[2]);
+        $config2[] = 'array_access_3';
+        $this->assertEquals('array_access_3', $config2[3]);
+        $config2[] = 'array_access_4';
+        $this->assertEquals('array_access_4', $config2[4]);
     }
 }
