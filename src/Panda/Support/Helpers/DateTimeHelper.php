@@ -18,7 +18,6 @@ use DateTime;
 class DateTimeHelper
 {
     /**
-     *
      * @param DateTime $date1
      * @param DateTime $date2
      *
@@ -39,7 +38,6 @@ class DateTimeHelper
     }
 
     /**
-     *
      * @param DateTime $date1
      * @param DateTime $date2
      *

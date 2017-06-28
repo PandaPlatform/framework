@@ -129,17 +129,17 @@ class UrlHelper
      * @param string $domain The url domain. This is given to distinguish the sub-domains on the front.
      *
      * @return array The url info as follows:
-     *                  ['referrer'] = The referrer value, if exists.
-     *                  ['origin'] = The host origin value, if exists.
-     *                  ['url'] = The full url page.
-     *                  ['protocol'] = The server protocol.
-     *                  ['host'] = The full host.
-     *                  ['sub'] = The navigation subdomain.
-     *                  ['domain'] = The host domain.
-     *                  ['path'] = Path information as follows:
-     *                  ['path']['with_parameters'] = The full path including the parameters
-     *                  ['path']['plain'] = Only the path, without parameters
-     *                  ['path']['parameters'] = An array of all url parameters by name and value.
+     *               ['referrer'] = The referrer value, if exists.
+     *               ['origin'] = The host origin value, if exists.
+     *               ['url'] = The full url page.
+     *               ['protocol'] = The server protocol.
+     *               ['host'] = The full host.
+     *               ['sub'] = The navigation subdomain.
+     *               ['domain'] = The host domain.
+     *               ['path'] = Path information as follows:
+     *               ['path']['with_parameters'] = The full path including the parameters
+     *               ['path']['plain'] = Only the path, without parameters
+     *               ['path']['parameters'] = An array of all url parameters by name and value.
      *
      * @throws InvalidArgumentException
      */

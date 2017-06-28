@@ -78,7 +78,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function interpolate($string, $parameters = array(), $openingTag = '%{', $closingTag = '}', $fallback = true)
+    public static function interpolate($string, $parameters = [], $openingTag = '%{', $closingTag = '}', $fallback = true)
     {
         // Check for parameters and replace the values
         foreach ($parameters as $pKey => $pValue) {
