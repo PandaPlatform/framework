@@ -107,7 +107,7 @@ class ArrayHelper
         if (!$useDotSyntax) {
             if (is_null($value) && isset($array[$key])) {
                 unset($array[$key]);
-            } else if (!is_null($value)) {
+            } elseif (!is_null($value)) {
                 $array[$key] = $value;
             }
         } else {
