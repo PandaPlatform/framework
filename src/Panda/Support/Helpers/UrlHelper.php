@@ -140,6 +140,7 @@ class UrlHelper
      *                  ['path']['with_parameters'] = The full path including the parameters
      *                  ['path']['plain'] = Only the path, without parameters
      *                  ['path']['parameters'] = An array of all url parameters by name and value.
+     *
      * @throws InvalidArgumentException
      */
     public static function info($url, $domain = '')

@@ -162,7 +162,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('default_value', $result);
 
         // Filter function with some matches
-        $result = ArrayHelper::filter($array, [ArrayHelperTest::class, 'filterCallback1'], 'default_value');
+        $result = ArrayHelper::filter($array, [self::class, 'filterCallback1'], 'default_value');
         $this->assertEquals([
             't11' => 'v11',
             't12' => 'v12',
@@ -171,7 +171,7 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         ], $result);
 
         // Filter function with some matches and length
-        $result = ArrayHelper::filter($array, [ArrayHelperTest::class, 'filterCallback1'], 'default_value', 2);
+        $result = ArrayHelper::filter($array, [self::class, 'filterCallback1'], 'default_value', 2);
         $this->assertEquals([
             't11' => 'v11',
             't12' => 'v12',

@@ -97,7 +97,6 @@ class DateTimeHelperTest extends PHPUnit_Framework_TestCase
          *
          * 2017-06-05: Monday
          */
-
         $this->assertEquals(7, DateTimeHelper::getWorkingDaysCount(new DateTime('2017-06-05'), new DateTime('2017-06-11'), []));
         $this->assertEquals(5, DateTimeHelper::getWorkingDaysCount(new DateTime('2017-06-05'), new DateTime('2017-06-11'), [6, 7]));
         $this->assertEquals(5, DateTimeHelper::getWorkingDaysCount(new DateTime('2017-06-05'), new DateTime('2017-06-11'), [1, 2]));

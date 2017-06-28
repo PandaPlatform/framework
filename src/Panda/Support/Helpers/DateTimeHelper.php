@@ -26,12 +26,14 @@ class DateTimeHelper
      */
     public static function compareDateWithoutTime($date1, $date2)
     {
-        $date1 = DateTime::createFromFormat("Y-m-d H:i:s", $date1->format("Y-m-d") . " 00:00:00");
-        $date2 = DateTime::createFromFormat("Y-m-d H:i:s", $date2->format("Y-m-d") . " 00:00:00");
-        if ($date1 == $date2)
+        $date1 = DateTime::createFromFormat('Y-m-d H:i:s', $date1->format('Y-m-d') . ' 00:00:00');
+        $date2 = DateTime::createFromFormat('Y-m-d H:i:s', $date2->format('Y-m-d') . ' 00:00:00');
+        if ($date1 == $date2) {
             return 0;
-        if ($date1 < $date2)
+        }
+        if ($date1 < $date2) {
             return -1;
+        }
 
         return 1;
     }
@@ -45,12 +47,14 @@ class DateTimeHelper
      */
     public static function compareTimeWithoutDate($date1, $date2)
     {
-        $date1 = DateTime::createFromFormat("Y-m-d H:i:s", "2000-01-01 " . $date1->format("H:i:s"));
-        $date2 = DateTime::createFromFormat("Y-m-d H:i:s", "2000-01-01 " . $date2->format("H:i:s"));
-        if ($date1 == $date2)
+        $date1 = DateTime::createFromFormat('Y-m-d H:i:s', '2000-01-01 ' . $date1->format('H:i:s'));
+        $date2 = DateTime::createFromFormat('Y-m-d H:i:s', '2000-01-01 ' . $date2->format('H:i:s'));
+        if ($date1 == $date2) {
             return 0;
-        if ($date1 < $date2)
+        }
+        if ($date1 < $date2) {
             return -1;
+        }
 
         return 1;
     }
@@ -65,7 +69,7 @@ class DateTimeHelper
      */
     public static function compareDateWithHourMinuteSecond($date, $hour, $minute, $second = 0)
     {
-        $date1 = DateTime::createFromFormat("Y-m-d H:i:s", sprintf("2000-01-01 %02d:%02d:%02d", $hour, $minute, $second));
+        $date1 = DateTime::createFromFormat('Y-m-d H:i:s', sprintf('2000-01-01 %02d:%02d:%02d', $hour, $minute, $second));
 
         return self::compareTimeWithoutDate($date, $date1);
     }
@@ -89,9 +93,9 @@ class DateTimeHelper
                 $beginDate = $endDate;
                 $endDate = $temp;
             }
-            $oneDayInterval = new DateInterval("P1D");
+            $oneDayInterval = new DateInterval('P1D');
             $date = clone $beginDate;
-            while (DateTimeHelper::compareDateWithoutTime($date, $endDate) <= 0) {
+            while (self::compareDateWithoutTime($date, $endDate) <= 0) {
                 $weekday = $date->format('N');
                 if (!in_array($weekday, $nonWorkingDays)) {
                     $workdays++;
@@ -147,7 +151,7 @@ class DateTimeHelper
      *
      * @param DateTime[] $array
      *
-     * @return string|boolean
+     * @return string|bool
      */
     public static function getAverageTimeForArrayOfDateTimes($array)
     {
