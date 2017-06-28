@@ -84,7 +84,7 @@ class RouteCollection
      * @param Route[] $routes
      * @param Request $request
      *
-     * @return null|Route
+     * @return Route|null
      */
     public function getMatchingRoute($routes, Request $request)
     {

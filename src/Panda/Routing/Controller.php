@@ -66,7 +66,7 @@ abstract class Controller
     /**
      * Get the current running request.
      *
-     * @return Request
+     * @return Request|null
      */
     public function getCurrentRequest()
     {
