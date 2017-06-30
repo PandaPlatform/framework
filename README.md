@@ -2,9 +2,9 @@
 This is the panda platform core system.
 
 [![StyleCI](https://styleci.io/repos/94619609/shield?branch=2.0)](https://styleci.io/repos/94619609)
-[![Latest Stable Version](https://poser.pugx.org/panda/framework/v/stable)](https://packagist.org/packages/panda/framework?format=flat-square)
-[![Total Downloads](https://poser.pugx.org/panda/framework/downloads)](https://packagist.org/packages/panda/framework?format=flat-square)
-[![License](https://poser.pugx.org/panda/framework/license)](https://packagist.org/packages/panda/framework?format=flat-square)
+[![Latest Stable Version](https://poser.pugx.org/panda/framework/v/stable?format=flat-square)](https://packagist.org/packages/panda/framework)
+[![Total Downloads](https://poser.pugx.org/panda/framework/downloads?format=flat-square)](https://packagist.org/packages/panda/framework)
+[![License](https://poser.pugx.org/panda/framework/license?format=flat-square)](https://packagist.org/packages/panda/framework)
 
 > **Note:** This repository contains the core code of the Panda framework. If you want to build an application using Panda, visit the main [Panda repository](https://github.com/PandaPlatform/panda).
 
