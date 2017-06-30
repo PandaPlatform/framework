@@ -8,10 +8,15 @@ To get the diff for a specific change, go to https://github.com/PandaPlatform/fr
 XXX is the change hash
 
 * 2.0.0 (2017-06-28)
-  * [Registry] Registry package created
-  * [Config] Config package created
-  * [Storage] Storage package created
-  * [Session] Session package created
-  * [Localization] Improved localization package
-  * [Framework] Add BootstrapRegistry for BootLoaders
-  * [Framework] Improve helpers, add DateTimeHelper, NumberHelper and StringHelper
+  * [Registry] Create Registry Package
+  * [Config] Create Config Package
+  * [Localization] Create Localization Package
+  * [Helpers] Add StringHelper, DateTimeHelper and NumberHelper
+  * [Storage] Add StorageAdapterInterface and create Filesystem implements StorageAdapterInterface
+  * [Contracts] Move interface to their packages
+  * [Framework] Improve Application structure and logic
+  * [Framework] Separate BootLoaders and create BootstrapRegistry (extends SharedRegistry)
+  * [Framework] Add more BootLoaders
+  * [Framework] Improve Application structure and logic
+  * [Framework] Add Facades method docblocks
+  * [Framework] Work with views as plain html files without specific folder structure
