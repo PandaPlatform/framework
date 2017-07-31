@@ -1,30 +1,5 @@
-# Panda Helpers Package
+# Helpers Package
 
-This is a simple and small package that offers a list of helpers to facilitate development of a web application.
+> **Note:** [READ-ONLY] Subtree split of the Panda Helpers Package
 
-[![StyleCI](https://styleci.io/repos/69766687/shield?branch=master)](https://styleci.io/repos/69766687)
-
-## Installation
-
-This package is part of the [Panda Framework](https://github.com/PandaPlatform/panda-framework) but it's also available as a single package.
-
-### Through the composer
-
-Add the following line to your `composer.json` file:
-
-```
-"panda/helpers": "~1.0"
-```
-
-## Helpers
-
-The package includes the following helpers:
-
-- [ArrayHelper](https://github.com/PandaPlatform/panda-helpers/blob/master/ArrayHelper.php)
-- [EvalHelper](https://github.com/PandaPlatform/panda-helpers/blob/master/EvalHelper.php)
-- [StringHelper](https://github.com/PandaPlatform/panda-helpers/blob/master/StringHelper.php)
-- [UrlHelper](https://github.com/PandaPlatform/panda-helpers/blob/master/UrlHelper.php)
-
-## Contribution
-
-Feel free to fork and add more helpers to this package.
+The Helpers Package contains a set of helpers to help the framework manage data types and other useful structures fast and easy.
