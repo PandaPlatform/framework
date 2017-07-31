@@ -1,0 +1,32 @@
+{
+    "name": "panda/events",
+    "description": "The Panda Events Package.",
+    "license": "MIT",
+    "homepage": "http://pandaphp.org",
+    "support": {
+        "source": "https://github.com/PandaPlatform/events",
+        "issues": "https://github.com/PandaPlatform/events/issues"
+    },
+    "authors": [
+        {
+            "name": "Ioannis Papikas",
+            "email": "papikas.ioan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Panda\\Events\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
+    }
+}
