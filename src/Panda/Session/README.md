@@ -1,4 +1,5 @@
-Panda implementation for session
-========================================
+# Session Package
 
-This package provides a simple handling mechanism of the backend session storage.
+> **Note:** [READ-ONLY] Subtree split of the Panda Session Package
+
+The Session Package allows you handle server's session.
