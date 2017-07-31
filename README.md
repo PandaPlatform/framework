@@ -14,8 +14,10 @@ We are building Panda to be a light yet powerful framework that will be part of 
 Panda includes a lot of common libraries but also includes functionality for common tasks and needs for many web projects like sessions, routing, authentication and more.
 
 Some of the features that we are proud of:
+
 * [Simple Registry, both isolated and shared](https://github.com/PandaPlatform/registry)
 * [Smart Configuration, based on registry](https://github.com/PandaPlatform/config)
+* [Powerful Events engine](https://github.com/PandaPlatform/events)
 
 Version 2 is growing and we are building new packages and features. Stay tuned.
 
