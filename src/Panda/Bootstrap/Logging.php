@@ -20,7 +20,6 @@ use Panda\Foundation\Application;
 use Panda\Http\Request;
 use Panda\Log\Logger;
 use Panda\Support\Configuration\Handlers\LoggerConfiguration;
-use Panda\Support\Configuration\Handlers\StorageConfiguration;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -40,22 +39,15 @@ class Logging implements BootLoader
     private $loggerConfiguration;
 
     /**
-     * @var StorageConfiguration
-     */
-    private $storageConfiguration;
-
-    /**
      * Environment constructor.
      *
-     * @param Application          $app
-     * @param LoggerConfiguration  $loggerConfiguration
-     * @param StorageConfiguration $storageConfiguration
+     * @param Application         $app
+     * @param LoggerConfiguration $loggerConfiguration
      */
-    public function __construct(Application $app, LoggerConfiguration $loggerConfiguration, StorageConfiguration $storageConfiguration)
+    public function __construct(Application $app, LoggerConfiguration $loggerConfiguration)
     {
         $this->app = $app;
         $this->loggerConfiguration = $loggerConfiguration;
-        $this->storageConfiguration = $storageConfiguration;
     }
 
     /**
@@ -76,28 +68,30 @@ class Logging implements BootLoader
             return;
         }
 
-        // Get base path storage
-        if ($loggerConfig['path_is_relative']) {
-            $basePath = $this->storageConfiguration->getStorageBaseDirectory($this->app->getBasePath()) . DIRECTORY_SEPARATOR . $loggerConfig['base_dir'];
-        } else {
-            $basePath = $loggerConfig['base_dir'];
+        if ($loggerConfig['enabled']) {
+            // Get base path storage
+            if ($loggerConfig['path_is_relative']) {
+                $basePath = $this->app->getBasePath() . DIRECTORY_SEPARATOR . $loggerConfig['base_dir'];
+            } else {
+                $basePath = $loggerConfig['base_dir'];
+            }
+
+            // Add error handler
+            $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['error'];
+            $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::ERROR));
+
+            // Add debug handler
+            $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['debug'];
+            $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::DEBUG));
+
+            // Push other processors
+            $logger->pushProcessor(new PsrLogMessageProcessor());
+            $logger->pushProcessor(new IntrospectionProcessor());
+            $logger->pushProcessor(new WebProcessor());
+
+            // Set application logger
+            $this->setBindings($logger);
         }
-
-        // Add error handler
-        $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['error'];
-        $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::ERROR));
-
-        // Add debug handler
-        $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['debug'];
-        $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::DEBUG));
-
-        // Push other processors
-        $logger->pushProcessor(new PsrLogMessageProcessor());
-        $logger->pushProcessor(new IntrospectionProcessor());
-        $logger->pushProcessor(new WebProcessor());
-
-        // Set application logger
-        $this->setBindings($logger);
     }
 
     /**
