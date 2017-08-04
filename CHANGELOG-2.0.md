@@ -20,3 +20,7 @@ XXX is the change hash
   * [Framework] Improve Application structure and logic
   * [Framework] Add Facades method docblocks
   * [Framework] Work with views as plain html files without specific folder structure
+  
+* 2.0.1 (2017-08-04)
+  * [Contracts] Set request to be optional to allow mocking for tests
+  * [Framework] Fix logging path to be relative to application and not to storage path
