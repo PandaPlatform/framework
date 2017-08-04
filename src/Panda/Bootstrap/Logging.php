@@ -13,9 +13,6 @@ namespace Panda\Bootstrap;
 
 use InvalidArgumentException;
 use Monolog\Handler\RotatingFileHandler;
-use Monolog\Processor\IntrospectionProcessor;
-use Monolog\Processor\PsrLogMessageProcessor;
-use Monolog\Processor\WebProcessor;
 use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
@@ -58,16 +55,18 @@ class Logging implements BootLoader
      */
     public function boot($request = null)
     {
-        // Create the logger
-        $logger = new Logger('application_logger');
-
         // Check if there are paths for the logger
         $loggerConfig = $this->loggerConfiguration->getLoggerConfig();
         if (empty($loggerConfig)) {
             return;
         }
 
+        // Check if framework logger is enabled
         if ($loggerConfig['enabled']) {
+            // Create logger
+            $loggerName = $loggerConfig['name'] ?: 'panda';
+            $logger = new Logger($loggerName);
+
             // Get base path storage
             if ($loggerConfig['path_is_relative']) {
                 $basePath = $this->app->getBasePath() . DIRECTORY_SEPARATOR . $loggerConfig['base_dir'];
@@ -75,18 +74,13 @@ class Logging implements BootLoader
                 $basePath = $loggerConfig['base_dir'];
             }
 
-            // Add error handler
-            $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['error'];
-            $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::ERROR));
-
             // Add debug handler
             $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['debug'];
             $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::DEBUG));
 
-            // Push other processors
-            $logger->pushProcessor(new PsrLogMessageProcessor());
-            $logger->pushProcessor(new IntrospectionProcessor());
-            $logger->pushProcessor(new WebProcessor());
+            // Add error handler
+            $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['error'];
+            $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::ERROR));
 
             // Set application logger
             $this->setBindings($logger);
