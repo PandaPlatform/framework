@@ -24,5 +24,5 @@ interface BootLoader
      *
      * @param Request $request
      */
-    public function boot($request);
+    public function boot($request = null);
 }
