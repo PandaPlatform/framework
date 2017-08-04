@@ -15,6 +15,7 @@ use Panda\Config\ConfigurationHandler;
 use Panda\Config\Parsers\ConfigurationParser;
 use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
+use Panda\Http\Request;
 use Panda\Support\Configuration\Parsers\JsonParser;
 
 /**
@@ -57,9 +58,9 @@ class Configuration implements BootLoader
     }
 
     /**
-     * {@inheritdoc}
+     * @param Request $request
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         // Parse configuration
         $configArray = $this->parser->parse();

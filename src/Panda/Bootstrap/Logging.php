@@ -11,6 +11,7 @@
 
 namespace Panda\Bootstrap;
 
+use InvalidArgumentException;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Processor\PsrLogMessageProcessor;
@@ -51,13 +52,11 @@ class Logging implements BootLoader
     }
 
     /**
-     * Boot the bootstrapper.
-     *
      * @param Request $request
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         // Create the logger
         $logger = new Logger('application_logger');

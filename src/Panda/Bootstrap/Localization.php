@@ -53,15 +53,9 @@ class Localization implements BootLoader
     }
 
     /**
-     * Boot the bootstrapper.
-     *
      * @param Request $request
-     *
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         // Get default locale
         $defaultLocale = $this->config->get('localization.locale.default_locale');

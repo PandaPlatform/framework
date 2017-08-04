@@ -37,11 +37,9 @@ class Session implements BootLoader
     }
 
     /**
-     * Init session.
-     *
      * @param Request $request
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         $this->handler->init();
     }

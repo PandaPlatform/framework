@@ -11,11 +11,10 @@
 
 namespace Panda\Bootstrap;
 
-use InvalidArgumentException;
 use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
 use Panda\Http\Request;
-use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+use Throwable;
 
 /**
  * Class Debugger
@@ -39,29 +38,23 @@ class Debugger implements BootLoader
     }
 
     /**
-     * Init session.
-     *
      * @param Request $request
-     *
-     * @throws InvalidArgumentException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
      */
-    public function boot($request)
+    public function boot($request = null)
     {
-        // Check arguments
-        if (empty($request) || !($request instanceof SymfonyRequest)) {
-            throw new InvalidArgumentException('Request is empty or not valid.');
-        }
-
         // Set error reporting
         error_reporting(E_ALL & ~(E_NOTICE | E_WARNING | E_DEPRECATED));
 
         // Set framework to display errors
-        if ($request->get($key = 'pdebug', $default = null, $includeCookies = true) || $this->app->get('env') == 'development') {
-            ini_set('display_errors', true);
-        } else {
-            ini_set('display_errors', false);
+        try {
+            if (!empty($request)) {
+                if ($request->get($key = 'pdebug', $default = null, $includeCookies = true) || $this->app->getEnvironment() == 'development') {
+                    ini_set('display_errors', true);
+                } else {
+                    ini_set('display_errors', false);
+                }
+            }
+        } catch (Throwable $ex) {
         }
     }
 }

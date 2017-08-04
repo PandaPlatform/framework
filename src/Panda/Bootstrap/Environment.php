@@ -51,15 +51,9 @@ class Environment implements BootLoader
     }
 
     /**
-     * Run the initializer.
-     *
      * @param Request $request
-     *
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         // Initialize environment
         $this->debugger->boot($request);
