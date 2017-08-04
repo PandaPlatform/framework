@@ -38,11 +38,9 @@ class FacadeRegistry implements BootLoader
     }
 
     /**
-     * Run the initializer.
-     *
      * @param Request $request
      */
-    public function boot($request)
+    public function boot($request = null)
     {
         // Set facade application container
         Facade::setFacadeApp($this->app);

@@ -11,10 +11,10 @@
 
 namespace Panda\Bootstrap;
 
-use Exception;
 use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Localization\GeoIp;
 use Symfony\Component\HttpFoundation\Request;
+use Throwable;
 
 /**
  * Class DateTimer
@@ -33,17 +33,20 @@ class DateTimer implements BootLoader
     protected $defaultTimeZone = null;
 
     /**
-     * Init session.
-     *
      * @param Request $request
      */
-    public function boot($request)
+    public function boot($request = null)
     {
+        // Initialize with default timezone
+        $timezone = $this->getDefaultTimeZone();
+
+        // Detect timezone based on ip, if available
         try {
-            // Try to get timezone by ip
-            $geoIp = new GeoIp($request);
-            $timezone = $geoIp->getTimezoneByIP();
-        } catch (Exception $ex) {
+            if (!empty($request)) {
+                $geoIp = new GeoIp($request);
+                $timezone = $geoIp->getTimezoneByIP();
+            }
+        } catch (Throwable $ex) {
             $timezone = $this->getDefaultTimeZone();
         }
 
