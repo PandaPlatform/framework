@@ -145,7 +145,7 @@ class Application extends Container implements BootLoader
      * @throws \DI\NotFoundException
      * @throws \InvalidArgumentException
      */
-    public function boot($request, $bootLoaders = [])
+    public function boot($request = null, $bootLoaders = [])
     {
         // Boot all the BootLoaders
         foreach ($bootLoaders as $bootLoader) {
