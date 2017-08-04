@@ -94,13 +94,8 @@ class Kernel implements KernelInterface
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      */
-    public function boot($request)
+    public function boot($request = null)
     {
-        // Check arguments
-        if (empty($request) || !($request instanceof SymfonyRequest)) {
-            throw new InvalidArgumentException('Request is empty or not valid.');
-        }
-
         // Initialize application
         $this->getApp()->boot($request, $this->bootstrapRegistry->getItems());
 

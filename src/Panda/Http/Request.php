@@ -34,6 +34,7 @@ class Request extends SymfonyRequest
      * information we gan get.
      *
      * @return Request
+     * @throws \LogicException
      */
     public static function capture()
     {
@@ -48,6 +49,7 @@ class Request extends SymfonyRequest
      * @param SymfonyRequest $request
      *
      * @return Request
+     * @throws \LogicException
      */
     public static function createRequest(SymfonyRequest $request)
     {
