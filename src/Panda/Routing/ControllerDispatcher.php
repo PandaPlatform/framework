@@ -45,6 +45,7 @@ class ControllerDispatcher
      * @param string $method
      *
      * @return mixed
+     * @throws \LogicException
      */
     public function dispatch(Route $route, $controller, $method)
     {

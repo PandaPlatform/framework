@@ -455,6 +455,7 @@ class Route
      * Run the route action and return the response.
      *
      * @return mixed
+     * @throws LogicException
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      * @throws \InvalidArgumentException

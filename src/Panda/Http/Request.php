@@ -47,7 +47,7 @@ class Request extends SymfonyRequest
      *
      * @param SymfonyRequest $request
      *
-     * @return Request
+     * @return Request|SymfonyRequest
      */
     public static function createRequest(SymfonyRequest $request)
     {

@@ -72,6 +72,8 @@ class Kernel implements KernelInterface
      * @param Request|SymfonyRequest $request
      *
      * @throws InvalidArgumentException
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
      */
     public function boot($request)
     {
@@ -97,6 +99,11 @@ class Kernel implements KernelInterface
      *
      * @return Response
      * @throws InvalidArgumentException
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \LogicException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \UnexpectedValueException
      */
     public function handle(SymfonyRequest $request)
     {
