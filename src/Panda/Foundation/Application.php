@@ -18,6 +18,7 @@ use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Http\Kernel;
 use Panda\Http\Request;
+use Throwable;
 
 /**
  * Class Application
@@ -116,14 +117,18 @@ class Application extends Container implements BootLoader
     /**
      * Get the current application environment.
      *
-     * @return string
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @param mixed $default
+     *
+     * @return string|mixed
      */
-    public function getEnvironment()
+    public function getEnvironment($default = null)
     {
-        return $this->get('env');
+        try {
+            return $this->get('env');
+        } catch (Throwable $ex) {
+        }
+
+        return $default;
     }
 
     /**
