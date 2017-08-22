@@ -29,12 +29,12 @@ class Logging implements BootLoader
     /**
      * @var Application
      */
-    private $app;
+    protected $app;
 
     /**
      * @var LoggerConfiguration
      */
-    private $loggerConfiguration;
+    protected $loggerConfiguration;
 
     /**
      * Environment constructor.

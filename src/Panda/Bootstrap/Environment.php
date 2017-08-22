@@ -24,17 +24,17 @@ class Environment implements BootLoader
     /**
      * @var Application
      */
-    private $app;
+    protected $app;
 
     /**
      * @var Debugger
      */
-    private $debugger;
+    protected $debugger;
 
     /**
      * @var Session
      */
-    private $session;
+    protected $session;
 
     /**
      * Environment constructor.

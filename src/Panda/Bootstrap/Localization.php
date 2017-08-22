@@ -26,17 +26,17 @@ class Localization implements BootLoader
     /**
      * @var Application
      */
-    private $app;
+    protected $app;
 
     /**
      * @var ConfigurationHandler
      */
-    private $config;
+    protected $config;
 
     /**
      * @var DateTimer
      */
-    private $dateTimer;
+    protected $dateTimer;
 
     /**
      * Environment constructor.

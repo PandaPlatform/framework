@@ -27,17 +27,17 @@ class Configuration implements BootLoader
     /**
      * @var Application
      */
-    private $app;
+    protected $app;
 
     /**
      * @var ConfigurationParser
      */
-    private $parser;
+    protected $parser;
 
     /**
      * @var ConfigurationHandler
      */
-    private $handler;
+    protected $handler;
 
     /**
      * Environment constructor.
