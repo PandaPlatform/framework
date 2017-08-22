@@ -25,7 +25,12 @@ class Debugger implements BootLoader
     /**
      * @var Application
      */
-    private $app;
+    protected $app;
+
+    /**
+     * @var bool
+     */
+    protected static $active = false;
 
     /**
      * Environment constructor.
@@ -47,14 +52,40 @@ class Debugger implements BootLoader
 
         // Set framework to display errors
         try {
-            if (!empty($request)) {
-                if ($request->get($key = 'pdebug', $default = null, $includeCookies = true) || $this->app->getEnvironment() == 'development') {
-                    ini_set('display_errors', true);
-                } else {
-                    ini_set('display_errors', false);
-                }
+            if ($this->isActive($request)) {
+                ini_set('display_errors', true);
+            } else {
+                ini_set('display_errors', false);
             }
         } catch (Throwable $ex) {
         }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function isActive(Request $request)
+    {
+        // Check request arguments
+        $debugger = $request ? $request->get($key = 'pdebug', $default = null, $includeCookies = true) : false;
+
+        // Reload status
+        $this->setActive(self::$active || $debugger || $this->app->getEnvironment() == 'development');
+
+        return self::$active;
+    }
+
+    /**
+     * @param bool $active
+     *
+     * @return Debugger
+     */
+    public function setActive(bool $active)
+    {
+        self::$active = $active;
+
+        return $this;
     }
 }
