@@ -1,5 +1,6 @@
 # Registry
-[READ-ONLY] Subtree split of the Panda Registry Package
+
+> **[READ-ONLY]** Subtree split of the Panda Registry Package
 
 - [Introduction](#introduction)
 - [Registry Structure](#registry-structure)
