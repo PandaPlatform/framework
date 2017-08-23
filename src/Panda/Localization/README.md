@@ -13,7 +13,7 @@ This package is part of the [Panda Framework](https://github.com/PandaPlatform/p
 Add the following line to your `composer.json` file:
 
 ```
-"panda/l10n": "~1.0"
+"panda/l10n": "^2.0"
 ```
 
 ## Usage
