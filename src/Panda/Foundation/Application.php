@@ -18,6 +18,7 @@ use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Http\Kernel;
 use Panda\Http\Request;
+use Throwable;
 
 /**
  * Class Application
@@ -38,6 +39,13 @@ class Application extends Container implements BootLoader
      * @var string
      */
     protected $configPath;
+
+    /**
+     * Set whether the application has been initialized or not.
+     *
+     * @var bool
+     */
+    protected $bootLoaded;
 
     /**
      * Create a new panda application instance.
@@ -116,14 +124,18 @@ class Application extends Container implements BootLoader
     /**
      * Get the current application environment.
      *
-     * @return string
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @param mixed $default
+     *
+     * @return string|mixed
      */
-    public function getEnvironment()
+    public function getEnvironment($default = null)
     {
-        return $this->get('env');
+        try {
+            return $this->get('env');
+        } catch (Throwable $ex) {
+        }
+
+        return $default;
     }
 
     /**
@@ -147,10 +159,17 @@ class Application extends Container implements BootLoader
      */
     public function boot($request = null, $bootLoaders = [])
     {
+        // Check if application has already initialized
+        if ($this->bootLoaded) {
+            return;
+        }
+
         // Boot all the BootLoaders
         foreach ($bootLoaders as $bootLoader) {
             $this->make($bootLoader)->boot($request);
         }
+
+        $this->bootLoaded = true;
     }
 
     /**

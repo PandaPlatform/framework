@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Panda framework.
+ * This file is part of the Panda Localization Package.
  *
  * (c) Ioannis Papikas <papikas.ioan@gmail.com>
  *

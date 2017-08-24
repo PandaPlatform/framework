@@ -89,6 +89,7 @@ abstract class AbstractProcessor implements FileProcessor
 
         // Normalize group and load translations
         $package = ($package ?: 'default');
+
         try {
             $this->loadTranslations($locale, $package);
 

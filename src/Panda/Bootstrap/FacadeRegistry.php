@@ -25,7 +25,7 @@ class FacadeRegistry implements BootLoader
     /**
      * @var Application
      */
-    private $app;
+    protected $app;
 
     /**
      * Environment constructor.

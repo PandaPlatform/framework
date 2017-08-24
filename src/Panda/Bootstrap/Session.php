@@ -24,7 +24,7 @@ class Session implements BootLoader
     /**
      * @var SessionHandler
      */
-    private $handler;
+    protected $handler;
 
     /**
      * Session constructor.
