@@ -41,6 +41,13 @@ class Application extends Container implements BootLoader
     protected $configPath;
 
     /**
+     * Set whether the application has been initialized or not.
+     *
+     * @var bool
+     */
+    protected $bootLoaded;
+
+    /**
      * Create a new panda application instance.
      *
      * @param string|null $basePath
@@ -152,10 +159,17 @@ class Application extends Container implements BootLoader
      */
     public function boot($request = null, $bootLoaders = [])
     {
+        // Check if application has already initialized
+        if ($this->bootLoaded) {
+            return;
+        }
+
         // Boot all the BootLoaders
         foreach ($bootLoaders as $bootLoader) {
             $this->make($bootLoader)->boot($request);
         }
+
+        $this->bootLoaded = true;
     }
 
     /**
