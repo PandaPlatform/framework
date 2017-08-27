@@ -35,8 +35,8 @@ class BootstrapRegistry extends SharedRegistry
      */
     public function setItems(array $bootLoaders)
     {
-        // Set items in registry
-        $items = ArrayHelper::set($this->getItems(), self::CONTAINER, $bootLoaders, false);
+        // Set items in container
+        $items = ArrayHelper::set(parent::getItems(), self::CONTAINER, $bootLoaders, false);
 
         // Set registry back
         parent::setItems($items);
