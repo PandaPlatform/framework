@@ -24,6 +24,14 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
     const CONTAINER = 'config';
 
     /**
+     * @return array
+     */
+    public function getItems(): array
+    {
+        return ArrayHelper::get(parent::getItems(), self::CONTAINER, [], false);
+    }
+
+    /**
      * Set the entire configuration array.
      *
      * @param array $config
@@ -32,18 +40,10 @@ class SharedConfiguration extends SharedRegistry implements ConfigurationHandler
      */
     public function setItems(array $config)
     {
-        // Set config in registry
+        // Set items in container
         $items = ArrayHelper::set(parent::getItems(), self::CONTAINER, $config, false);
 
         // Set registry back
         parent::setItems($items);
-    }
-
-    /**
-     * @return array
-     */
-    public function getItems(): array
-    {
-        return ArrayHelper::get(parent::getItems(), self::CONTAINER, [], false);
     }
 }
