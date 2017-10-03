@@ -42,3 +42,6 @@ XXX is the change hash
 
 * 2.0.5 (2017-08-28)
   * [Framework] Fix BootstrapRegistry setting items to Shared Registry
+
+* 2.0.5 (2017-10-03)
+  * [Localization] Make LocaleHelper more flexible about locale formats
