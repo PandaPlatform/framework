@@ -11,6 +11,7 @@
 
 namespace Panda\Events\Channels;
 
+use Panda\Events\Exceptions\MessageNotSupportedException;
 use Panda\Events\Messages\MessageInterface;
 use Panda\Events\SubscriberInterface;
 
@@ -30,6 +31,7 @@ interface ChannelInterface
      * @param MessageInterface    $message
      *
      * @return bool
+     * @throws MessageNotSupportedException
      */
     public function dispatch(SubscriberInterface $subscriber, MessageInterface $message);
 }
