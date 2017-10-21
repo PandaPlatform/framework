@@ -39,3 +39,9 @@ XXX is the change hash
   * [Localization] Minor cs and version fixes
   * [Registry/Config] Update README
   * [Framework] Mark Application as initialized to avoid duplicate boots
+
+* 2.0.5 (2017-08-28)
+  * [Framework] Fix BootstrapRegistry setting items to Shared Registry
+
+* 2.0.5 (2017-10-03)
+  * [Localization] Make LocaleHelper more flexible about locale formats
