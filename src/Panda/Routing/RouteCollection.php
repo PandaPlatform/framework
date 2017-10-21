@@ -42,8 +42,7 @@ class RouteCollection
     {
         // Add route to collection
         $this->addRoute($route);
-
-        //$this->addLookups($route);
+        
         return $route;
     }
 
@@ -75,7 +74,7 @@ class RouteCollection
             return $this->getRouteForMethods($request, $others);
         }*/
 
-        throw new NotFoundHttpException();
+        throw new NotFoundHttpException('No route was found for the given request.');
     }
 
     /**
