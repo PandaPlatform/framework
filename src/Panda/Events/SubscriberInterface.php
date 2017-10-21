@@ -30,4 +30,10 @@ interface SubscriberInterface
      * @return string
      */
     public function getIdentifierByChannel(ChannelInterface $channel);
+
+    /**
+     * @param EventInterface   $event
+     * @param ChannelInterface $channel
+     */
+    public function subscribe(EventInterface $event, ChannelInterface $channel);
 }
