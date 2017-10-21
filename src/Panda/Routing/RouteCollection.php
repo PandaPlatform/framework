@@ -42,7 +42,7 @@ class RouteCollection
     {
         // Add route to collection
         $this->addRoute($route);
-        
+
         return $route;
     }
 
