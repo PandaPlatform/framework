@@ -117,6 +117,7 @@ class Route
      * @param bool    $includingMethod
      *
      * @return bool
+     * @throws LogicException
      */
     public function matches(Request $request, $includingMethod = true)
     {
@@ -146,6 +147,7 @@ class Route
      *
      * @return $this
      * @throws UnexpectedValueException
+     * @throws LogicException
      */
     public function bind(Request $request)
     {
@@ -370,6 +372,8 @@ class Route
 
     /**
      * Compile the current route.
+     *
+     * @throws LogicException
      */
     protected function compileRoute()
     {

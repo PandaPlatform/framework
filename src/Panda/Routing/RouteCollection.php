@@ -54,6 +54,7 @@ class RouteCollection
      * @return mixed
      * @throws NotFoundHttpException
      * @throws \UnexpectedValueException
+     * @throws \LogicException
      */
     public function match(Request $request)
     {
@@ -84,6 +85,7 @@ class RouteCollection
      * @param Request $request
      *
      * @return Route|null
+     * @throws \LogicException
      */
     public function getMatchingRoute($routes, Request $request)
     {

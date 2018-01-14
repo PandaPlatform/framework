@@ -345,6 +345,7 @@ class Router
      * @return Route
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \UnexpectedValueException
+     * @throws \LogicException
      */
     protected function getMatchingRoute($request)
     {
@@ -393,6 +394,10 @@ class Router
 
     /**
      * Get all the routes that match to the given request.
+     *
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     * @throws \InvalidArgumentException
      */
     protected function gatherRoutes()
     {
