@@ -39,6 +39,8 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Config\SharedConfiguration::get
+     * 
+     * @throws \InvalidArgumentException
      */
     public function testGet()
     {
