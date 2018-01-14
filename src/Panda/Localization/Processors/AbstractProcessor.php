@@ -78,7 +78,6 @@ abstract class AbstractProcessor implements FileProcessor
      * @param mixed  $default
      *
      * @return mixed
-     * @throws FileNotFoundException
      */
     public function get($key, $locale, $package = 'default', $default = null)
     {

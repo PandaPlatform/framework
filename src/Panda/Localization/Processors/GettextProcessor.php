@@ -11,8 +11,6 @@
 
 namespace Panda\Localization\Processors;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-
 /**
  * Class GettextProcessor
  * @package Panda\Localization\Processors
@@ -39,8 +37,6 @@ class GettextProcessor extends AbstractProcessor
      *
      * @param string $locale
      * @param string $package
-     *
-     * @throws FileNotFoundException
      */
     public function loadTranslations($locale, $package = 'default')
     {
