@@ -59,6 +59,8 @@ abstract class Event implements EventInterface, DecoratorInterface
 
     /**
      * Dispatch the event to its subscribers through the subscribed channels.
+     *
+     * @throws Exceptions\MessageNotSupportedException
      */
     public function dispatch()
     {
