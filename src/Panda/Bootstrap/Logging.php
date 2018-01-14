@@ -11,7 +11,6 @@
 
 namespace Panda\Bootstrap;
 
-use InvalidArgumentException;
 use Monolog\Handler\RotatingFileHandler;
 use Panda\Contracts\Bootstrap\BootLoader;
 use Panda\Foundation\Application;
@@ -50,8 +49,6 @@ class Logging implements BootLoader
 
     /**
      * @param Request $request
-     *
-     * @throws InvalidArgumentException
      */
     public function boot($request = null)
     {
