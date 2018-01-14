@@ -108,9 +108,9 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
 
         // Group quotes, different delimiter
         // todo: Improve the explode() function to check for all given delimiters
-        $string = 'Once,upon,"a,time"';
-        $array = ['Once', 'upon', 'a,time'];
-        //$this->assertEquals($array, StringHelper::explode($string, ',', true));
+        // $string = 'Once,upon,"a,time"';
+        // $array = ['Once', 'upon', 'a,time'];
+        // $this->assertEquals($array, StringHelper::explode($string, ',', true));
     }
 
     /**
