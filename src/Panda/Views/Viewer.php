@@ -102,11 +102,7 @@ class Viewer
         }
 
         // Load the view file
-        if ($this->executable) {
-            $this->output = include $this->view;
-        } else {
-            $this->output = file_get_contents($this->view);
-        }
+        $this->output = $this->executable ? include $this->view : file_get_contents($this->view);
 
         // Interpolate parameters on the view
         $this->output = StringHelper::interpolate($this->output, $this->parameters);
