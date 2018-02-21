@@ -7,6 +7,9 @@ in all versions (major and minor)
 To get the diff for a specific change, go to https://github.com/PandaPlatform/framework/commit/XXX where
 XXX is the change hash
 
+* 2.1.2 (2018-02-21)
+  * [Helpers] Skip missing replace values in StringHelper::interpolate
+
 * 2.1.1 (2018-02-21)
   * [Helpers] Improve String Helper to interpolate using deep search in parameters array
   * [Framework] Generic cs fixes
