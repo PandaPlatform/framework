@@ -42,9 +42,6 @@ class JsonParser extends ConfigJsonParser
      * @param string $configFile
      *
      * @return array
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
      */
     public function parse($configFile = '')
     {

@@ -13,7 +13,6 @@ namespace Panda\Routing;
 
 use Closure;
 use Exception;
-use HttpResponseException;
 use LogicException;
 use Panda\Container\Container;
 use Panda\Foundation\Application;
@@ -117,6 +116,7 @@ class Route
      * @param bool    $includingMethod
      *
      * @return bool
+     * @throws LogicException
      */
     public function matches(Request $request, $includingMethod = true)
     {
@@ -146,6 +146,7 @@ class Route
      *
      * @return $this
      * @throws UnexpectedValueException
+     * @throws LogicException
      */
     public function bind(Request $request)
     {
@@ -370,6 +371,8 @@ class Route
 
     /**
      * Compile the current route.
+     *
+     * @throws LogicException
      */
     protected function compileRoute()
     {
@@ -413,16 +416,12 @@ class Route
         $this->container = $this->container ?: Application::getInstance();
         $this->container->set(Request::class, $request);
 
-        try {
-            // Check and run controller
-            if ($this->isControllerAction()) {
-                return $this->runController();
-            }
-
-            return $this->runCallable();
-        } catch (HttpResponseException $e) {
-            return $e->getMessage();
+        // Check and run controller
+        if ($this->isControllerAction()) {
+            return $this->runController();
         }
+
+        return $this->runCallable();
     }
 
     /**

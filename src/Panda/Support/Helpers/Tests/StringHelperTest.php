@@ -69,21 +69,35 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         $parameters = [
             'first_name' => 'John',
             'last_name' => 'Smith',
+            'parents' => [
+                'dad' => [
+                    'first_name' => 'Bill',
+                    'last_name' => 'Smith',
+                ],
+                'mom' => [
+                    'first_name' => 'Sarah',
+                    'last_name' => 'Smith',
+                ],
+            ],
         ];
 
         $this->assertEquals('Hello John Smith', StringHelper::interpolate($string, $parameters, '%{', '}'));
 
         // Change opening and closing tags (fallback)
         $string = 'Hello {first_name} {last_name}';
-        $this->assertEquals('Hello John Smith', StringHelper::interpolate($string, $parameters, '%{', '}'), true);
+        $this->assertEquals('Hello John Smith', StringHelper::interpolate($string, $parameters, '%{', '}', true));
 
         // Change opening and closing tags
         $string = 'Hello $[first_name] $[last_name]';
-        $this->assertEquals('Hello John Smith', StringHelper::interpolate($string, $parameters, '$[', ']'), false);
+        $this->assertEquals('Hello John Smith', StringHelper::interpolate($string, $parameters, '$[', ']', false));
 
         // Change opening and closing tags (plus fallback)
         $string = 'Hello $[first_name] {last_name}';
-        $this->assertEquals('Hello John Smith', StringHelper::interpolate($string, $parameters, '$[', ']'), true);
+        $this->assertEquals('Hello John Smith', StringHelper::interpolate($string, $parameters, '$[', ']', true));
+
+        // Check for dot syntax
+        $string = 'Hello %{first_name}, son of %{parents.dad.first_name} and %{parents.mom.first_name}';
+        $this->assertEquals('Hello John, son of Bill and Sarah', StringHelper::interpolate($string, $parameters));
     }
 
     /**
@@ -108,9 +122,9 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
 
         // Group quotes, different delimiter
         // todo: Improve the explode() function to check for all given delimiters
-        $string = 'Once,upon,"a,time"';
-        $array = ['Once', 'upon', 'a,time'];
-        //$this->assertEquals($array, StringHelper::explode($string, ',', true));
+        // $string = 'Once,upon,"a,time"';
+        // $array = ['Once', 'upon', 'a,time'];
+        // $this->assertEquals($array, StringHelper::explode($string, ',', true));
     }
 
     /**

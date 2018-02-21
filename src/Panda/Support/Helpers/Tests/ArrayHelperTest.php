@@ -62,6 +62,8 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Support\Helpers\ArrayHelper::set
+     *
+     * @throws \InvalidArgumentException
      */
     public function testSet()
     {

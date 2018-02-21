@@ -12,7 +12,6 @@
 namespace Panda\Support\Helpers;
 
 use InvalidArgumentException;
-use Panda\Support\Exceptions\NotImplementedException;
 
 /**
  * Class UrlHelper
@@ -253,19 +252,6 @@ class UrlHelper
     private static function isIPv4($url)
     {
         return preg_match('/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/', $url) === 1;
-    }
-
-    /**
-     * Check if the given url is an IPv6.
-     *
-     * @param $url
-     *
-     * @return bool
-     * @throws NotImplementedException
-     */
-    private static function isIPv6($url)
-    {
-        throw new NotImplementedException(__METHOD__ . ': This function is not implemented yet.');
     }
 
     /**

@@ -70,6 +70,9 @@ class StringHelper
      * This function works using the annotation %{parameter_name} (proposed) and {parameter_name} (fallback)
      * It is advised to use the first one.
      *
+     * Dot syntax can be used to dive in the array fields, example: %{group1.field2.value} will
+     * use ArrayHelper::get() using dot syntax to check for encapsulated values in the array elements.
+     *
      * @param string $string     The string containing the variables.
      * @param array  $parameters An array of variables to be replaced by key.
      * @param string $openingTag The opening tag of the variable.
@@ -80,15 +83,15 @@ class StringHelper
      */
     public static function interpolate($string, $parameters = [], $openingTag = '%{', $closingTag = '}', $fallback = true)
     {
-        // Check for parameters and replace the values
-        foreach ($parameters as $pKey => $pValue) {
-            // Replace variable
-            $string = str_replace($openingTag . $pKey . $closingTag, $pValue, $string);
+        // Match all items
+        preg_match_all(sprintf('/%s(.*)%s/U', preg_quote($openingTag), preg_quote($closingTag)), $string, $matches);
+        foreach ($matches[1] as $match) {
+            $string = str_replace($openingTag . $match . $closingTag, ArrayHelper::get($parameters, $match, null, true), $string);
+        }
 
-            // Generic Fallback
-            if ($fallback) {
-                $string = str_replace('{' . $pKey . '}', $pValue, $string);
-            }
+        // Apply fallback, if enabled
+        if ($fallback) {
+            $string = self::interpolate($string, $parameters, '{', '}', false);
         }
 
         return $string;
