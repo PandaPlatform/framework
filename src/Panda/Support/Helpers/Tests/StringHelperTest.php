@@ -98,6 +98,10 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         // Check for dot syntax
         $string = 'Hello %{first_name}, son of %{parents.dad.first_name} and %{parents.mom.first_name}';
         $this->assertEquals('Hello John, son of Bill and Sarah', StringHelper::interpolate($string, $parameters));
+
+        // Check for empty replace values
+        $string = 'Hello %{first_name}, son of %{parents.dad.first_name} and %{parents.mom.first_name}, from %{location}.';
+        $this->assertEquals('Hello John, son of Bill and Sarah, from %{location}.', StringHelper::interpolate($string, $parameters));
     }
 
     /**

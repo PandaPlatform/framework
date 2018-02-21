@@ -86,6 +86,15 @@ class StringHelper
         // Match all items
         preg_match_all(sprintf('/%s(.*)%s/U', preg_quote($openingTag), preg_quote($closingTag)), $string, $matches);
         foreach ($matches[1] as $match) {
+            // Get replace value
+            $replace = ArrayHelper::get($parameters, $match, null, true);
+
+            // Skip empty replace values
+            if (is_null($replace)) {
+                continue;
+            }
+
+            // Replace value
             $string = str_replace($openingTag . $match . $closingTag, ArrayHelper::get($parameters, $match, null, true), $string);
         }
 
