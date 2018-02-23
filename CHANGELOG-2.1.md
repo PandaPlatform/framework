@@ -7,6 +7,9 @@ in all versions (major and minor)
 To get the diff for a specific change, go to https://github.com/PandaPlatform/framework/commit/XXX where
 XXX is the change hash
 
+* 2.1.3 (2018-02-23)
+  * [Framework] Disable logger when paths from config are absent or invalid
+  
 * 2.1.2 (2018-02-21)
   * [Helpers] Skip missing replace values in StringHelper::interpolate
 
