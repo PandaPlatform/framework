@@ -105,7 +105,7 @@ abstract class Event implements EventInterface, DecoratorInterface
      */
     public function setMessage(ChannelInterface $channel, MessageInterface $message)
     {
-        $this->subscribers[$channel->getIdentifier()][$message->getIdentifier()] = $message;
+        $this->messages[$channel->getIdentifier()] = $message;
 
         return $this;
     }
