@@ -71,6 +71,9 @@ abstract class Event implements EventInterface, DecoratorInterface
             // Get proper message for the given channel
             $message = $this->getMessage($channel);
 
+            // Decorate message
+            $message = $this->decorate($message);
+
             // Dispatch to all subscribers
             /** @var SubscriberInterface $subscriber */
             foreach ($subscribers as $subscriber) {
