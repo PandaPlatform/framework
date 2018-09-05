@@ -107,7 +107,7 @@ class ArrayHelper
         if (!$useDotSyntax) {
             if (is_null($value) && isset($array[$key])) {
                 unset($array[$key]);
-            } elseif (!is_null($value)) {
+            } else if (!is_null($value)) {
                 $array[$key] = $value;
             }
         } else {
@@ -206,7 +206,7 @@ class ArrayHelper
         foreach ($array2 as $key => &$value) {
             if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
                 $merged[$key] = static::merge($merged[$key], $value, $deep);
-            } elseif (is_numeric($key)) {
+            } else if (is_numeric($key)) {
                 if (!in_array($value, $merged)) {
                     $merged[] = $value;
                 }
@@ -216,5 +216,114 @@ class ArrayHelper
         }
 
         return $merged;
+    }
+
+    /**
+     * Transform an array of objects (with a function toArray())
+     * to an array of arrays.
+     *
+     * @param object[]|mixed $objectArray
+     *
+     * @return array
+     */
+    public static function objectToArray($objectArray)
+    {
+        $array = [];
+        foreach ($objectArray as $object) {
+            $itemArray = method_exists($object, 'toArray') ? $object->toArray() : [];
+            $array[] = $itemArray;
+        }
+
+        return $array;
+    }
+
+    /**
+     * Return the array and replace the default keys with the values
+     * of the array, based on the given key.
+     *
+     * @param array|object[]|mixed $collection
+     * @param string               $key
+     * @param bool                 $useDotSyntax
+     *
+     * @return array
+     */
+    public static function toKeyIndex($collection, $key, $useDotSyntax = false)
+    {
+        $keyIndexArray = [];
+        foreach ($collection as $item) {
+            $itemArray = is_array($item) ? $item : (method_exists($item, 'toArray') ? $item->toArray() : []);
+            $keyValue = self::get($itemArray, $key, null, $useDotSyntax);
+            $keyIndexArray[$keyValue] = $itemArray;
+        }
+
+        return $keyIndexArray;
+    }
+
+    /**
+     * Group all array items by the given key.
+     *
+     * @param array|object[]|mixed $collection
+     * @param string               $key
+     * @param bool                 $useDotSyntax
+     *
+     * @return array
+     */
+    public static function toKeyGroup($collection, $key, $useDotSyntax = false)
+    {
+        $keyGroupArray = [];
+        foreach ($collection as $item) {
+            $itemArray = is_array($item) ? $item : (method_exists($item, 'toArray') ? $item->toArray() : []);
+            $keyValue = self::get($itemArray, $key, null, $useDotSyntax);
+            $keyGroupArray[$keyValue][] = $itemArray;
+        }
+
+        return $keyGroupArray;
+    }
+
+    /**
+     * Return the array in a key-value form, based on the
+     * given parameters for key and value.
+     *
+     * @param array|object[] $collection
+     * @param string         $key
+     * @param string         $value
+     * @param bool           $useDotSyntax
+     *
+     * @return array
+     */
+    public static function toKeyValue($collection, $key, $value, $useDotSyntax = false)
+    {
+        $keyValueArray = [];
+        foreach ($collection as $item) {
+            $itemArray = is_array($item) ? $item : (method_exists($item, 'toArray') ? $item->toArray() : []);
+            $keyValue = self::get($itemArray, $key, null, $useDotSyntax);
+            $keyValueArray[$keyValue] = $itemArray[$value];
+        }
+
+        return $keyValueArray;
+    }
+
+    /**
+     * Sort an array by a given value, based on the given key.
+     *
+     * @param array  $array
+     * @param string $key
+     * @param bool   $useDotSyntax
+     *
+     * @return array
+     */
+    public static function sortByKey($array, $key, $useDotSyntax = false)
+    {
+        uasort($array, function ($a, $b) use ($key, $useDotSyntax) {
+            $valueA = self::get($a, $key, null, $useDotSyntax);
+            $valueB = self::get($b, $key, null, $useDotSyntax);
+            if ($valueA == $valueB) {
+                return 0;
+            }
+
+            return ($valueA < $valueB) ? -1 : 1;
+        });
+
+        return $array;
     }
 }

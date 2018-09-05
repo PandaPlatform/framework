@@ -238,4 +238,78 @@ class ArrayHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('v21', $result['t3']['h21']);
         $this->assertEquals('v22', $result['t3']['h22']);
     }
+
+    /**
+     * @covers \Panda\Support\Helpers\ArrayHelper::toKeyIndex
+     */
+    public function testToKeyIndex()
+    {
+        $array = [
+            [
+                't1' => 1,
+                't2' => 2,
+                't3' => 3,
+            ],
+            [
+                't1' => 11,
+                't2' => 22,
+                't3' => 33,
+            ],
+            [
+                't1' => 111,
+                't2' => 222,
+                't3' => 333,
+            ],
+        ];
+
+        $result = ArrayHelper::toKeyIndex($array, 't1');
+        $this->assertEquals([
+            1 => [
+                't1' => 1,
+                't2' => 2,
+                't3' => 3,
+            ],
+            11 => [
+                't1' => 11,
+                't2' => 22,
+                't3' => 33,
+            ],
+            111 => [
+                't1' => 111,
+                't2' => 222,
+                't3' => 333,
+            ],
+        ], $result);
+    }
+
+    /**
+     * @covers \Panda\Support\Helpers\ArrayHelper::toKeyIndex
+     */
+    public function testToKeyValue()
+    {
+        $array = [
+            [
+                't1' => 1,
+                't2' => 2,
+                't3' => 3,
+            ],
+            [
+                't1' => 11,
+                't2' => 22,
+                't3' => 33,
+            ],
+            [
+                't1' => 111,
+                't2' => 222,
+                't3' => 333,
+            ],
+        ];
+
+        $result = ArrayHelper::toKeyValue($array, 't1', 't2');
+        $this->assertEquals([
+            1 => 2,
+            11 => 22,
+            111 => 222,
+        ], $result);
+    }
 }
