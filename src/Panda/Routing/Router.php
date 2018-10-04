@@ -347,7 +347,7 @@ class Router
      * @throws \UnexpectedValueException
      * @throws \LogicException
      */
-    protected function getMatchingRoute($request)
+    public function getMatchingRoute($request)
     {
         // Get matching route
         $this->currentRoute = $route = $this->routes->match($request);
