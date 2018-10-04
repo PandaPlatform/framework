@@ -568,4 +568,12 @@ class Route
     {
         return $this->compiled;
     }
+
+    /**
+     * @return Closure
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
 }
