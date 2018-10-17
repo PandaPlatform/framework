@@ -7,6 +7,9 @@ in all versions (major and minor)
 To get the diff for a specific change, go to https://github.com/PandaPlatform/framework/commit/XXX where
 XXX is the change hash
 
+* 2.1.6 (2018-10-17)
+  * [Helpers] Remove passing by reference in ArrayHelper::merge()
+  
 * 2.1.5 (2018-10-04)
   * [Framework] Change Router::getMatchingRoute() to public to allow tests
   * [Framework] Add getter for Route::action to allow tests
