@@ -71,6 +71,11 @@ abstract class Event implements EventInterface, DecoratorInterface
             // Get proper message for the given channel
             $message = $this->getMessage($channel);
 
+            // Check if message exists
+            if (!$message) {
+                continue;
+            }
+
             // Decorate message
             $message = $this->decorate($message);
 
