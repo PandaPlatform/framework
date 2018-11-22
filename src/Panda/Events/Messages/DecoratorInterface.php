@@ -11,6 +11,8 @@
 
 namespace Panda\Events\Messages;
 
+use Panda\Events\Channels\ChannelInterface;
+
 /**
  * Interface DecoratorInterface
  * @package Panda\Events\Messages
@@ -19,8 +21,9 @@ interface DecoratorInterface
 {
     /**
      * @param MessageInterface $message
+     * @param ChannelInterface $channel
      *
      * @return MessageInterface
      */
-    public function decorate(MessageInterface $message);
+    public function decorate(MessageInterface $message, ChannelInterface $channel = null);
 }
