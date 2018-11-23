@@ -7,6 +7,9 @@ in all versions (major and minor)
 To get the diff for a specific change, go to https://github.com/PandaPlatform/framework/commit/XXX where
 XXX is the change hash
 
+* 2.1.8 (2018-11-23)
+  * [Events] Add channel as second parameter in event dispatch function
+  
 * 2.1.7 (2018-11-22)
   * [Events] Add ChannelInterface as optional parameter in decorate function on DecorateInterface
 
