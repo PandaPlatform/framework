@@ -12,7 +12,10 @@
 namespace Panda\Routing;
 
 use Closure;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Exception;
+use InvalidArgumentException;
 use LogicException;
 use Panda\Container\Container;
 use Panda\Foundation\Application;
@@ -23,6 +26,7 @@ use Panda\Routing\Validators\MethodValidator;
 use Panda\Routing\Validators\UriValidator;
 use Panda\Support\Helpers\ArrayHelper;
 use Panda\Support\Helpers\StringHelper;
+use ReflectionException;
 use ReflectionFunction;
 use Symfony\Component\Routing\CompiledRoute;
 use Symfony\Component\Routing\Route as SymfonyRoute;
@@ -406,10 +410,11 @@ class Route
      * @param Request $request
      *
      * @return mixed
+     * @throws DependencyException
+     * @throws InvalidArgumentException
      * @throws LogicException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws NotFoundException
+     * @throws ReflectionException
      */
     public function run(Request $request)
     {
@@ -439,6 +444,7 @@ class Route
      *
      * @return mixed
      * @throws LogicException
+     * @throws ReflectionException
      */
     protected function runCallable()
     {
@@ -455,10 +461,11 @@ class Route
      * Run the route action and return the response.
      *
      * @return mixed
+     * @throws DependencyException
+     * @throws InvalidArgumentException
      * @throws LogicException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws NotFoundException
+     * @throws ReflectionException
      */
     protected function runController()
     {
@@ -471,9 +478,9 @@ class Route
      * Get the controller instance for the route.
      *
      * @return mixed
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @throws InvalidArgumentException
      */
     protected function getController()
     {

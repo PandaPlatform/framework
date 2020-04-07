@@ -11,7 +11,10 @@
 
 namespace Panda\Foundation\Http;
 
+use DI\DependencyException;
+use DI\NotFoundException;
 use InvalidArgumentException;
+use LogicException;
 use Panda\Bootstrap\Configuration;
 use Panda\Bootstrap\Environment;
 use Panda\Bootstrap\FacadeRegistry;
@@ -27,8 +30,11 @@ use Panda\Routing\Controller;
 use Panda\Routing\Router;
 use Panda\Support\Configuration\Handlers\RoutesConfiguration;
 use Panda\Support\Helpers\ArrayHelper;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use UnexpectedValueException;
 
 /**
  * Class Kernel
@@ -63,6 +69,8 @@ class Kernel implements KernelInterface
      * @param Router              $router
      * @param BootstrapRegistry   $bootstrapRegistry
      * @param RoutesConfiguration $routesConfiguration
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(Application $app, Router $router, BootstrapRegistry $bootstrapRegistry, RoutesConfiguration $routesConfiguration)
     {
@@ -91,8 +99,8 @@ class Kernel implements KernelInterface
      * @param Request|SymfonyRequest $request
      *
      * @throws InvalidArgumentException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
+     * @throws DependencyException
+     * @throws NotFoundException
      */
     public function boot($request = null)
     {
@@ -112,12 +120,13 @@ class Kernel implements KernelInterface
      * @param Request|SymfonyRequest $request
      *
      * @return Response
+     * @throws DependencyException
      * @throws InvalidArgumentException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \LogicException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @throws \UnexpectedValueException
+     * @throws LogicException
+     * @throws NotFoundException
+     * @throws NotFoundHttpException
+     * @throws UnexpectedValueException
+     * @throws ReflectionException
      */
     public function handle(SymfonyRequest $request)
     {

@@ -12,6 +12,7 @@
 namespace Panda\Routing\Traits;
 
 use Panda\Support\Helpers\ArrayHelper;
+use ReflectionException;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionParameter;
@@ -29,6 +30,7 @@ trait RouteDependencyResolverTrait
      * @param string $method
      *
      * @return mixed
+     * @throws ReflectionException
      */
     protected function callWithDependencies($instance, $method)
     {
@@ -45,6 +47,7 @@ trait RouteDependencyResolverTrait
      * @param string $method
      *
      * @return array
+     * @throws ReflectionException
      */
     protected function resolveClassMethodDependencies(array $parameters, $instance, $method)
     {

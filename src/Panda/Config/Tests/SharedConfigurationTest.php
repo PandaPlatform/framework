@@ -11,6 +11,7 @@
 
 namespace Panda\Config\Tests;
 
+use InvalidArgumentException;
 use Panda\Config\SharedConfiguration;
 use Panda\Registry\SharedRegistry;
 use PHPUnit_Framework_TestCase;
@@ -40,7 +41,7 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Panda\Config\SharedConfiguration::get
      * 
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testGet()
     {
@@ -72,7 +73,7 @@ class SharedConfigurationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Registry\AbstractRegistry::set
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testSet()
     {

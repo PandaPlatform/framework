@@ -11,7 +11,9 @@
 
 namespace Panda\Registry\Tests;
 
+use InvalidArgumentException;
 use Panda\Registry\Registry;
+use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -67,7 +69,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Registry\Registry::set
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testSet()
     {
@@ -113,7 +115,7 @@ class RegistryTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Registry\Registry::exists
-     * @throws \PHPUnit_Framework_AssertionFailedError
+     * @throws PHPUnit_Framework_AssertionFailedError
      */
     public function testExists()
     {

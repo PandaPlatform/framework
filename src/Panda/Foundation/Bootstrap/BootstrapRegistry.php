@@ -11,6 +11,7 @@
 
 namespace Panda\Foundation\Bootstrap;
 
+use InvalidArgumentException;
 use Panda\Registry\SharedRegistry;
 use Panda\Support\Helpers\ArrayHelper;
 
@@ -32,6 +33,7 @@ class BootstrapRegistry extends SharedRegistry
 
     /**
      * {@inheritdoc}
+     * @throws InvalidArgumentException
      */
     public function setItems(array $bootLoaders)
     {
