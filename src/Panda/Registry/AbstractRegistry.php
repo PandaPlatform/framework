@@ -85,6 +85,7 @@ abstract class AbstractRegistry implements RegistryInterface
 
     /**
      * {@inheritdoc}
+     * @throws InvalidArgumentException
      */
     public function offsetSet($offset, $value)
     {
@@ -108,6 +109,7 @@ abstract class AbstractRegistry implements RegistryInterface
 
     /**
      * {@inheritdoc}
+     * @throws InvalidArgumentException
      */
     public function offsetUnset($offset)
     {

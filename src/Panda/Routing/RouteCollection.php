@@ -11,9 +11,11 @@
 
 namespace Panda\Routing;
 
+use LogicException;
 use Panda\Http\Request;
 use Panda\Support\Helpers\ArrayHelper;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use UnexpectedValueException;
 
 /**
  * Class RouteCollection
@@ -53,8 +55,8 @@ class RouteCollection
      *
      * @return mixed
      * @throws NotFoundHttpException
-     * @throws \UnexpectedValueException
-     * @throws \LogicException
+     * @throws UnexpectedValueException
+     * @throws LogicException
      */
     public function match(Request $request)
     {
@@ -85,7 +87,7 @@ class RouteCollection
      * @param Request $request
      *
      * @return Route|null
-     * @throws \LogicException
+     * @throws LogicException
      */
     public function getMatchingRoute($routes, Request $request)
     {

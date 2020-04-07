@@ -13,6 +13,7 @@ namespace Panda\Routing\Validators;
 
 use Panda\Http\Request;
 use Panda\Routing\Route;
+use UnexpectedValueException;
 
 /**
  * Class HostValidator
@@ -27,7 +28,7 @@ class HostValidator implements ValidatorInterface
      * @param Request $request
      *
      * @return bool
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public function matches(Route $route, Request $request)
     {

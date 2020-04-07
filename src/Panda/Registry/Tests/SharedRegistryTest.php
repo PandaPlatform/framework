@@ -11,7 +11,9 @@
 
 namespace Panda\Registry\Tests;
 
+use InvalidArgumentException;
 use Panda\Registry\SharedRegistry;
+use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -76,7 +78,7 @@ class SharedRegistryTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Registry\SharedRegistry::set
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testSet()
     {
@@ -121,7 +123,7 @@ class SharedRegistryTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Panda\Registry\SharedRegistry::exists
-     * @throws \PHPUnit_Framework_AssertionFailedError
+     * @throws PHPUnit_Framework_AssertionFailedError
      */
     public function testExists()
     {

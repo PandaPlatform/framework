@@ -11,6 +11,9 @@
 
 namespace Panda\Bootstrap;
 
+use DI\DependencyException;
+use DI\NotFoundException;
+use InvalidArgumentException;
 use Panda\Config\ConfigurationHandler;
 use Panda\Config\Parsers\ConfigurationParser;
 use Panda\Contracts\Bootstrap\BootLoader;
@@ -46,9 +49,9 @@ class Configuration implements BootLoader
      * @param ConfigurationParser  $parser
      * @param ConfigurationHandler $handler
      *
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @throws InvalidArgumentException
      */
     public function __construct(Application $app, ConfigurationParser $parser, ConfigurationHandler $handler)
     {
