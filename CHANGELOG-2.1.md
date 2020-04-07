@@ -7,6 +7,10 @@ in all versions (major and minor)
 To get the diff for a specific change, go to https://github.com/PandaPlatform/framework/commit/XXX where
 XXX is the change hash
 
+* 2.1.9
+  * [Helpers] Require `panda/helpers` as external package and remove all local code
+  * Start removing dates from versions
+  
 * 2.1.8 (2018-11-23)
   * [Events] Add channel as second parameter in event dispatch function
   
