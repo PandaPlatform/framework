@@ -77,7 +77,7 @@ class RouteCollection
             return $this->getRouteForMethods($request, $others);
         }*/
 
-        throw new NotFoundHttpException('No route was found for the given request.');
+        throw new NotFoundHttpException(sprintf('No route was found for the given request: [%s][%s]', $request->getMethod(), $request->getRequestUri()));
     }
 
     /**
