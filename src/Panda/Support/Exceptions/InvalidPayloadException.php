@@ -14,7 +14,7 @@ namespace Panda\Support\Exceptions;
 use Exception;
 
 /**
- * Class NotImplementedException
+ * Class InvalidPayloadException
  * @package Panda\Support\Exceptions
  */
 class InvalidPayloadException extends Exception
