@@ -43,6 +43,7 @@ abstract class Event implements EventInterface, DecoratorInterface
      * @param ChannelInterface $channel
      *
      * @return MessageInterface
+     * @throws InvalidPayloadException
      */
     abstract public function decorate(MessageInterface $message, ChannelInterface $channel = null);
 
