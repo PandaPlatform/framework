@@ -15,6 +15,7 @@ use Panda\Events\Channels\ChannelFactory;
 use Panda\Events\Channels\ChannelInterface;
 use Panda\Events\Messages\DecoratorInterface;
 use Panda\Events\Messages\MessageInterface;
+use Panda\Support\Exceptions\InvalidPayloadException;
 
 /**
  * Class Event
@@ -42,6 +43,7 @@ abstract class Event implements EventInterface, DecoratorInterface
      * @param ChannelInterface $channel
      *
      * @return MessageInterface
+     * @throws InvalidPayloadException
      */
     abstract public function decorate(MessageInterface $message, ChannelInterface $channel = null);
 
@@ -72,8 +74,13 @@ abstract class Event implements EventInterface, DecoratorInterface
             // Get proper message for the given channel
             $message = $this->getMessage($channel);
 
-            // Decorate message
-            $message = $this->decorate($message, $channel);
+            try {
+                // Decorate message
+                $message = $this->decorate($message, $channel);
+            } catch (InvalidPayloadException $ex) {
+                // Continue to next subscriber
+                continue;
+            }
 
             // Dispatch to all subscribers
             /** @var SubscriberInterface $subscriber */
