@@ -77,6 +77,12 @@ class Logging implements BootLoader
                 $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::DEBUG));
             }
 
+            // Add info handler
+            if (!empty($loggerConfig['info'])) {
+                $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['info'];
+                $logger->pushHandler(new RotatingFileHandler($path, $loggerConfig['max_files_count'], Logger::INFO));
+            }
+
             // Add error handler
             if (!empty($loggerConfig['error'])) {
                 $path = $basePath . DIRECTORY_SEPARATOR . $loggerConfig['error'];
