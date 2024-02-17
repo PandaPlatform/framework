@@ -7,6 +7,9 @@ in all versions (major and minor)
 To get the diff for a specific change, go to https://github.com/PandaPlatform/framework/commit/XXX where
 XXX is the change hash
 
+* 2.1.13
+  * [Session] Enable or Disable session based on configuration, if any
+
 * 2.1.12
   * [Framework] Introduce optional info logger handler
 
