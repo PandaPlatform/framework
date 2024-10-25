@@ -11,8 +11,10 @@
 
 namespace Panda\Http;
 
+use LogicException;
 use Panda\Support\Helpers\ArrayHelper;
 use Panda\Support\Helpers\StringHelper;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
@@ -34,7 +36,8 @@ class Request extends SymfonyRequest
      * information we gan get.
      *
      * @return Request
-     * @throws \LogicException
+     * @throws LogicException
+     * @throws SuspiciousOperationException
      */
     public static function capture()
     {
@@ -49,7 +52,8 @@ class Request extends SymfonyRequest
      * @param SymfonyRequest $request
      *
      * @return Request
-     * @throws \LogicException
+     * @throws LogicException
+     * @throws SuspiciousOperationException
      */
     public static function createRequest(SymfonyRequest $request)
     {
@@ -74,7 +78,8 @@ class Request extends SymfonyRequest
      * Get the input source for the request.
      *
      * @return ParameterBag
-     * @throws \LogicException
+     * @throws LogicException
+     * @throws SuspiciousOperationException
      */
     protected function getInputSource()
     {
@@ -92,7 +97,8 @@ class Request extends SymfonyRequest
      * @param string|array|null $default
      *
      * @return array|string
-     * @throws \LogicException
+     * @throws LogicException
+     * @throws SuspiciousOperationException
      */
     public function getInputValue($key = null, $default = null)
     {
@@ -171,7 +177,7 @@ class Request extends SymfonyRequest
      * @param mixed  $default
      *
      * @return mixed
-     * @throws \LogicException
+     * @throws LogicException
      */
     public function getPayloadJSON($key = null, $default = null)
     {

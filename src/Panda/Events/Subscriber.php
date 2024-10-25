@@ -22,6 +22,11 @@ use Panda\Events\Messages\MessageInterface;
 abstract class Subscriber implements SubscriberInterface, DecoratorInterface
 {
     /**
+     * @var EventInterface
+     */
+    private $event;
+
+    /**
      * @return string
      */
     abstract public function getIdentifier();
@@ -35,10 +40,11 @@ abstract class Subscriber implements SubscriberInterface, DecoratorInterface
 
     /**
      * @param MessageInterface $message
+     * @param ChannelInterface $channel
      *
      * @return MessageInterface
      */
-    abstract public function decorate(MessageInterface $message);
+    abstract public function decorate(MessageInterface $message, ChannelInterface $channel = null);
 
     /**
      * @param EventInterface   $event
@@ -47,5 +53,14 @@ abstract class Subscriber implements SubscriberInterface, DecoratorInterface
     public function subscribe(EventInterface $event, ChannelInterface $channel)
     {
         $event->subscribe($channel, $this);
+        $this->event = $event;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEventId()
+    {
+        return $this->event ? $this->event->getIdentifier() : null;
     }
 }

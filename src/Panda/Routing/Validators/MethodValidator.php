@@ -13,6 +13,7 @@ namespace Panda\Routing\Validators;
 
 use Panda\Http\Request;
 use Panda\Routing\Route;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 
 /**
  * Class MethodValidator
@@ -27,6 +28,7 @@ class MethodValidator implements ValidatorInterface
      * @param Request $request
      *
      * @return bool
+     * @throws SuspiciousOperationException
      */
     public function matches(Route $route, Request $request)
     {

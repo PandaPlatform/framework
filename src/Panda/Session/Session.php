@@ -11,8 +11,11 @@
 
 namespace Panda\Session;
 
+use Panda\Config\SharedConfiguration;
+
 /**
  * Class Session
+ *
  * @package Panda\Session
  */
 class Session
@@ -28,12 +31,29 @@ class Session
      * @var string
      */
     private $sessionId = null;
+    /**
+     * @var SharedConfiguration
+     */
+    private $configuration;
+
+    /**
+     * @param SharedConfiguration $configuration
+     */
+    public function __construct(SharedConfiguration $configuration)
+    {
+        $this->configuration = $configuration;
+    }
 
     /**
      * Init session.
      */
     public function init()
     {
+        // Check if session is active
+        if (!$this->configuration->get('session.active', true)) {
+            return;
+        }
+
         // Start session
         $this->start();
 

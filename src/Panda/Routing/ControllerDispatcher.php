@@ -14,6 +14,7 @@ namespace Panda\Routing;
 use LogicException;
 use Panda\Container\Container;
 use Panda\Routing\Traits\RouteDependencyResolverTrait;
+use ReflectionException;
 
 /**
  * Class ControllerDispatcher
@@ -47,6 +48,7 @@ class ControllerDispatcher
      *
      * @return mixed
      * @throws LogicException
+     * @throws ReflectionException
      */
     public function dispatch(Route $route, $controller, $method)
     {

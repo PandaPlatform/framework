@@ -79,11 +79,17 @@ class Viewer
      * @param string $extension
      *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function load($name, $extension = 'html')
     {
         // Get view file path
         $this->view = $this->getViewFilePath($name, $extension);
+
+        // Check if there is a valid view
+        if (empty($this->view)) {
+            throw new InvalidArgumentException(__METHOD__ . sprintf(': The view file [%s] is a not valid view.', $this->getViewFile($name, $extension)));
+        }
 
         return $this;
     }
@@ -96,7 +102,7 @@ class Viewer
      */
     public function render()
     {
-        // Try to load the view file and return the output
+        // Check if there is a valid view
         if (empty($this->view)) {
             throw new InvalidArgumentException(__METHOD__ . ': The view file given is a not valid view.');
         }

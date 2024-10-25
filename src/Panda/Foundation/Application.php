@@ -11,6 +11,9 @@
 
 namespace Panda\Foundation;
 
+use DI\DependencyException;
+use DI\NotFoundException;
+use InvalidArgumentException;
 use Panda\Config\ConfigurationHandler;
 use Panda\Config\SharedConfiguration;
 use Panda\Container\Container;
@@ -19,6 +22,7 @@ use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Http\Kernel;
 use Panda\Http\Request;
 use Throwable;
+use function DI\object;
 
 /**
  * Class Application
@@ -143,8 +147,8 @@ class Application extends Container implements BootLoader
      */
     private function registerServiceBindings()
     {
-        $this->set(KernelInterface::class, \DI\object(Kernel::class));
-        $this->set(ConfigurationHandler::class, \DI\object(SharedConfiguration::class));
+        $this->set(KernelInterface::class, object(Kernel::class));
+        $this->set(ConfigurationHandler::class, object(SharedConfiguration::class));
     }
 
     /**
@@ -153,9 +157,9 @@ class Application extends Container implements BootLoader
      * @param Request $request
      * @param array   $bootLoaders
      *
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @throws InvalidArgumentException
      */
     public function boot($request = null, $bootLoaders = [])
     {

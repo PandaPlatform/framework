@@ -36,4 +36,9 @@ interface SubscriberInterface
      * @param ChannelInterface $channel
      */
     public function subscribe(EventInterface $event, ChannelInterface $channel);
+
+    /**
+     * @return mixed
+     */
+    public function getEventId();
 }

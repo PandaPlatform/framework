@@ -20,6 +20,11 @@ use Panda\Events\Channels\ChannelInterface;
 interface EventInterface
 {
     /**
+     * @return mixed
+     */
+    public function getIdentifier();
+
+    /**
      * @param ChannelInterface    $channel
      * @param SubscriberInterface $subscriber
      */

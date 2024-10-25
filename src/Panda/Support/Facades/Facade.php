@@ -11,6 +11,9 @@
 
 namespace Panda\Support\Facades;
 
+use DI\DependencyException;
+use DI\NotFoundException;
+use InvalidArgumentException;
 use Panda\Foundation\Application;
 use RuntimeException;
 
@@ -39,9 +42,9 @@ abstract class Facade
      *
      * @return mixed
      * @throws RuntimeException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @throws InvalidArgumentException
      */
     public static function getFacadeRoot()
     {
@@ -66,9 +69,9 @@ abstract class Facade
      * @param string|object $name
      *
      * @return mixed
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @throws InvalidArgumentException
      */
     protected static function resolveFacadeInstance($name)
     {
@@ -106,9 +109,9 @@ abstract class Facade
      *
      * @return mixed
      * @throws RuntimeException
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @throws InvalidArgumentException
      */
     public static function __callStatic($method, $args)
     {

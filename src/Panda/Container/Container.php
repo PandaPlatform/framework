@@ -15,8 +15,10 @@ use DI\Container as DIContainer;
 use DI\ContainerBuilder;
 use DI\Definition\Helper\DefinitionHelper;
 use DI\Definition\Helper\ObjectDefinitionHelper;
+use DI\DependencyException;
 use DI\NotFoundException;
 use InvalidArgumentException;
+use function DI\object;
 
 /**
  * Class Container
@@ -80,7 +82,7 @@ class Container extends ContainerBuilder
      * @return mixed
      * @throws InvalidArgumentException
      * @throws NotFoundException
-     * @throws \DI\DependencyException
+     * @throws DependencyException
      */
     public function get($name)
     {
@@ -96,7 +98,7 @@ class Container extends ContainerBuilder
      * @return mixed
      * @throws InvalidArgumentException
      * @throws NotFoundException
-     * @throws \DI\DependencyException
+     * @throws DependencyException
      */
     public function make($name, $parameters = [])
     {
@@ -137,7 +139,7 @@ class Container extends ContainerBuilder
      */
     public function object($className = null)
     {
-        return \DI\object($className);
+        return object($className);
     }
 
     /**

@@ -12,11 +12,18 @@
 namespace Panda\Routing;
 
 use Closure;
+use DI\DependencyException;
+use DI\NotFoundException;
+use InvalidArgumentException;
+use LogicException;
 use Panda\Container\Container;
 use Panda\Http\Request;
 use Panda\Http\Response;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use UnexpectedValueException;
 
 /**
  * Class Router
@@ -69,6 +76,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function get($uri, $action = null)
     {
@@ -82,6 +90,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function post($uri, $action = null)
     {
@@ -95,6 +104,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function put($uri, $action = null)
     {
@@ -108,6 +118,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function patch($uri, $action = null)
     {
@@ -121,6 +132,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function delete($uri, $action = null)
     {
@@ -134,6 +146,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function options($uri, $action = null)
     {
@@ -147,6 +160,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function all($uri, $action = null)
     {
@@ -163,6 +177,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     public function any($methods, $uri, $action = null)
     {
@@ -177,6 +192,7 @@ class Router
      * @param Closure|array|string|null $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     protected function addRoute($methods, $uri, $action)
     {
@@ -191,6 +207,7 @@ class Router
      * @param mixed        $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     protected function createRoute($methods, $uri, $action)
     {
@@ -200,11 +217,9 @@ class Router
         }
 
         // Create new route
-        $route = $this->newRoute(
+        return $this->newRoute(
             $methods, $uri, $action
         );
-
-        return $route;
     }
 
     /**
@@ -250,6 +265,7 @@ class Router
      * @param mixed        $action
      *
      * @return Route
+     * @throws UnexpectedValueException
      */
     protected function newRoute($methods, $uri, $action)
     {
@@ -262,12 +278,13 @@ class Router
      * @param Request $request
      *
      * @return Response
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
-     * @throws \LogicException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @throws \UnexpectedValueException
+     * @throws DependencyException
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws NotFoundException
+     * @throws NotFoundHttpException
+     * @throws UnexpectedValueException
+     * @throws ReflectionException
      */
     public function dispatch(Request $request)
     {
@@ -284,12 +301,13 @@ class Router
      * @param Request $request
      *
      * @return mixed
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
-     * @throws \LogicException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @throws \UnexpectedValueException
+     * @throws DependencyException
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws NotFoundException
+     * @throws NotFoundHttpException
+     * @throws UnexpectedValueException
+     * @throws ReflectionException
      */
     public function dispatchToRoute(Request $request)
     {
@@ -309,6 +327,7 @@ class Router
      * @param mixed          $response
      *
      * @return SymfonyResponse
+     * @throws InvalidArgumentException
      */
     public function prepareResponse($request, $response)
     {
@@ -326,10 +345,11 @@ class Router
      * @param Request $request
      *
      * @return mixed
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
-     * @throws \LogicException
+     * @throws DependencyException
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws NotFoundException
+     * @throws ReflectionException
      */
     protected function runRoute(Route $route, Request $request)
     {
@@ -343,11 +363,11 @@ class Router
      * @param Request $request
      *
      * @return Route
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @throws \UnexpectedValueException
-     * @throws \LogicException
+     * @throws NotFoundHttpException
+     * @throws UnexpectedValueException
+     * @throws LogicException
      */
-    protected function getMatchingRoute($request)
+    public function getMatchingRoute($request)
     {
         // Get matching route
         $this->currentRoute = $route = $this->routes->match($request);
@@ -395,9 +415,9 @@ class Router
     /**
      * Get all the routes that match to the given request.
      *
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     * @throws \InvalidArgumentException
+     * @throws DependencyException
+     * @throws NotFoundException
+     * @throws InvalidArgumentException
      */
     protected function gatherRoutes()
     {

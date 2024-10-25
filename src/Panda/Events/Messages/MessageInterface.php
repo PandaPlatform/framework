@@ -28,11 +28,23 @@ interface MessageInterface
     public function getMessage();
 
     /**
-     * @param mixed $content
+     * @param mixed $message
      *
      * @return mixed
      */
-    public function updateMessage($content);
+    public function setMessage($message);
+
+    /**
+     * @return mixed
+     */
+    public function getSubject();
+
+    /**
+     * @param mixed $subject
+     *
+     * @return mixed
+     */
+    public function setSubject($subject);
 
     /**
      * @return $this
