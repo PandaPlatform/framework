@@ -15,13 +15,14 @@ use Panda\Events\Channels\ChannelInterface;
 
 /**
  * Interface DecoratorInterface
+ *
  * @package Panda\Events\Messages
  */
 interface DecoratorInterface
 {
     /**
-     * @param MessageInterface $message
-     * @param ChannelInterface $channel
+     * @param MessageInterface      $message
+     * @param ChannelInterface|null $channel
      *
      * @return MessageInterface
      */

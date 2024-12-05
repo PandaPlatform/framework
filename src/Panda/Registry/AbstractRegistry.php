@@ -17,6 +17,7 @@ use Panda\Support\Helpers\StringHelper;
 
 /**
  * Class AbstractRegistry
+ *
  * @package Panda\Registry
  */
 abstract class AbstractRegistry implements RegistryInterface
@@ -70,7 +71,7 @@ abstract class AbstractRegistry implements RegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->exists($offset);
     }
@@ -78,7 +79,7 @@ abstract class AbstractRegistry implements RegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->get($offset);
     }
@@ -87,7 +88,7 @@ abstract class AbstractRegistry implements RegistryInterface
      * {@inheritdoc}
      * @throws InvalidArgumentException
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         // Normalize offset
         if (StringHelper::emptyString($offset, true)) {
@@ -111,7 +112,7 @@ abstract class AbstractRegistry implements RegistryInterface
      * {@inheritdoc}
      * @throws InvalidArgumentException
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->set($offset, null);
     }

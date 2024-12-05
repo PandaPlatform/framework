@@ -18,14 +18,14 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^8.3",
         "psr/http-message": "^1.0",
         "monolog/monolog": "^1.0",
-        "symfony/http-foundation": "^3.0",
-        "symfony/http-kernel": "^3.0",
-        "symfony/routing": "^3.0",
+        "symfony/http-foundation": "^5.4|^6.0",
+        "symfony/http-kernel": "6.2.6.0",
+        "symfony/routing": "^5.4|^6.0",
         "php-di/php-di": "^5.0",
-        "panda/helpers": "^2.1"
+        "panda/helpers": "^3.0"
     },
     "replace": {
         "panda/config": "self.version",
@@ -36,7 +36,7 @@
         "panda/storage": "self.version"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.7"
+        "phpunit/phpunit": "~11.3"
     },
     "autoload": {
         "psr-4": {

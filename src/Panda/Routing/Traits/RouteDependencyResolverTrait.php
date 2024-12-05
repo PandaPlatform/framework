@@ -11,6 +11,8 @@
 
 namespace Panda\Routing\Traits;
 
+use DI\DependencyException;
+use DI\NotFoundException;
 use Panda\Support\Helpers\ArrayHelper;
 use ReflectionException;
 use ReflectionFunctionAbstract;
@@ -19,6 +21,7 @@ use ReflectionParameter;
 
 /**
  * Trait RouteDependencyResolverTrait
+ *
  * @package Panda\Routing\Traits
  */
 trait RouteDependencyResolverTrait
@@ -35,7 +38,7 @@ trait RouteDependencyResolverTrait
     protected function callWithDependencies($instance, $method)
     {
         return call_user_func_array(
-            [$instance, $method], $this->resolveClassMethodDependencies([], $instance, $method)
+            [$instance, $method], $this->resolveClassMethodDependencies([], $instance, $method),
         );
     }
 
@@ -47,7 +50,6 @@ trait RouteDependencyResolverTrait
      * @param string $method
      *
      * @return array
-     * @throws ReflectionException
      */
     protected function resolveClassMethodDependencies(array $parameters, $instance, $method)
     {
@@ -56,7 +58,7 @@ trait RouteDependencyResolverTrait
         }
 
         return $this->resolveMethodDependencies(
-            $parameters, new ReflectionMethod($instance, $method)
+            $parameters, new ReflectionMethod($instance, $method),
         );
     }
 
@@ -88,6 +90,8 @@ trait RouteDependencyResolverTrait
      * @param array               $parameters
      *
      * @return mixed|null
+     * @throws DependencyException
+     * @throws NotFoundException
      */
     protected function transformDependency(ReflectionParameter $parameter, $parameters)
     {

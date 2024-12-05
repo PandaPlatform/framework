@@ -212,7 +212,7 @@ class Request extends SymfonyRequest
      *
      * @return mixed
      */
-    public function get($key, $default = null, $includeCookies = true)
+    public function get($key, $default = null, $includeCookies = true): mixed
     {
         if ($includeCookies) {
             if ($this !== $result = $this->cookies->get($key, $this)) {

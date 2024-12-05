@@ -19,6 +19,7 @@ use Panda\Support\Exceptions\InvalidPayloadException;
 
 /**
  * Class Event
+ *
  * @package Panda\Events
  */
 abstract class Event implements EventInterface, DecoratorInterface
@@ -39,8 +40,8 @@ abstract class Event implements EventInterface, DecoratorInterface
     abstract public function getChannelFactory();
 
     /**
-     * @param MessageInterface $message
-     * @param ChannelInterface $channel
+     * @param MessageInterface      $message
+     * @param ChannelInterface|null $channel
      *
      * @return MessageInterface
      * @throws InvalidPayloadException

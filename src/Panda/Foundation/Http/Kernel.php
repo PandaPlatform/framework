@@ -14,7 +14,6 @@ namespace Panda\Foundation\Http;
 use DI\DependencyException;
 use DI\NotFoundException;
 use InvalidArgumentException;
-use LogicException;
 use Panda\Bootstrap\Configuration;
 use Panda\Bootstrap\Environment;
 use Panda\Bootstrap\FacadeRegistry;
@@ -33,11 +32,10 @@ use Panda\Support\Helpers\ArrayHelper;
 use ReflectionException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use UnexpectedValueException;
 
 /**
  * Class Kernel
+ *
  * @package Panda\Foundation\Http
  */
 class Kernel implements KernelInterface
@@ -121,11 +119,7 @@ class Kernel implements KernelInterface
      *
      * @return Response
      * @throws DependencyException
-     * @throws InvalidArgumentException
-     * @throws LogicException
      * @throws NotFoundException
-     * @throws NotFoundHttpException
-     * @throws UnexpectedValueException
      * @throws ReflectionException
      */
     public function handle(SymfonyRequest $request)
