@@ -1,7 +1,7 @@
 ## Panda Framework (Kernel)
 This is the panda platform core system.
 
-[![StyleCI](https://styleci.io/repos/94619609/shield?branch=2.0)](https://styleci.io/repos/94619609)
+[![StyleCI](https://styleci.io/repos/94619609/shield?branch=3.0)](https://styleci.io/repos/94619609)
 [![Latest Stable Version](https://poser.pugx.org/panda/framework/v/stable?format=flat-square)](https://packagist.org/packages/panda/framework)
 [![Total Downloads](https://poser.pugx.org/panda/framework/downloads?format=flat-square)](https://packagist.org/packages/panda/framework)
 [![License](https://poser.pugx.org/panda/framework/license?format=flat-square)](https://packagist.org/packages/panda/framework)
@@ -19,7 +19,7 @@ Some of the features that we are proud of:
 * [Smart Configuration, based on registry](https://github.com/PandaPlatform/config)
 * [Powerful Events engine](https://github.com/PandaPlatform/events)
 
-Version 2 is growing and we are building new packages and features. Stay tuned.
+Version 3 is growing and we are building new packages and features. Stay tuned.
 
 ### Official Documentation
 We are working on our documentation for the framework which will can found on the [Panda website](http://pandaphp.org/docs).
