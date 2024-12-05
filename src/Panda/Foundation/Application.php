@@ -22,10 +22,10 @@ use Panda\Contracts\Http\Kernel as KernelInterface;
 use Panda\Foundation\Http\Kernel;
 use Panda\Http\Request;
 use Throwable;
-use function DI\object;
 
 /**
  * Class Application
+ *
  * @package Panda\Foundation
  */
 class Application extends Container implements BootLoader
@@ -147,8 +147,8 @@ class Application extends Container implements BootLoader
      */
     private function registerServiceBindings()
     {
-        $this->set(KernelInterface::class, object(Kernel::class));
-        $this->set(ConfigurationHandler::class, object(SharedConfiguration::class));
+        $this->set(KernelInterface::class, \DI\get(Kernel::class));
+        $this->set(ConfigurationHandler::class, \DI\get(SharedConfiguration::class));
     }
 
     /**

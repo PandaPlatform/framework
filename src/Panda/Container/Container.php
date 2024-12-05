@@ -14,14 +14,13 @@ namespace Panda\Container;
 use DI\Container as DIContainer;
 use DI\ContainerBuilder;
 use DI\Definition\Helper\DefinitionHelper;
-use DI\Definition\Helper\ObjectDefinitionHelper;
 use DI\DependencyException;
 use DI\NotFoundException;
 use InvalidArgumentException;
-use function DI\object;
 
 /**
  * Class Container
+ *
  * @package Panda\Container
  */
 class Container extends ContainerBuilder
@@ -135,11 +134,11 @@ class Container extends ContainerBuilder
      * @param string|null $className Class name of the object.
      *                               If null, the name of the entry (in the container) will be used as class name.
      *
-     * @return ObjectDefinitionHelper
+     * @return \DI\Definition\Reference
      */
     public function object($className = null)
     {
-        return object($className);
+        return \DI\get($className);
     }
 
     /**
