@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 /**
  * Class Request
+ *
  * @package Panda\Http
  */
 class Request extends SymfonyRequest
@@ -66,7 +67,7 @@ class Request extends SymfonyRequest
         $content = $request->content;
         $request = (new static())->duplicate(
             $request->query->all(), $request->request->all(), $request->attributes->all(),
-            $request->cookies->all(), $request->files->all(), $request->server->all()
+            $request->cookies->all(), $request->files->all(), $request->server->all(),
         );
         $request->content = $content;
         $request->request = $request->getInputSource();
@@ -214,10 +215,8 @@ class Request extends SymfonyRequest
      */
     public function get($key, $default = null, $includeCookies = true): mixed
     {
-        if ($includeCookies) {
-            if ($this !== $result = $this->cookies->get($key, $this)) {
-                return $result;
-            }
+        if ($includeCookies && $this->cookies->has($key)) {
+            return $this->cookies->get($key, $default);
         }
 
         return parent::get($key, $default);
