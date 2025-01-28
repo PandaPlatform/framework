@@ -18,6 +18,7 @@ use ReflectionException;
 
 /**
  * Class ControllerDispatcher
+ *
  * @package Panda\Routing
  */
 class ControllerDispatcher
@@ -53,12 +54,20 @@ class ControllerDispatcher
     public function dispatch(Route $route, $controller, $method)
     {
         $parameters = $this->resolveClassMethodDependencies(
-            $route->getParametersWithoutNulls(), $controller, $method
+            $route->getParametersWithoutNulls(), $controller, $method,
         );
 
         if (method_exists($controller, 'callAction')) {
             return $controller->callAction($method, $parameters);
         }
+
+        /**
+         * Compatibility workaround
+         *
+         * As per 8.0.0 args keys will now be interpreted as parameter names, instead of being silently ignored.
+         * We need to remove array keys to make sure things still work as expected.
+         */
+        $parameters = array_values($parameters);
 
         return call_user_func_array([$controller, $method], $parameters);
     }

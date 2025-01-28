@@ -19,6 +19,7 @@ use RuntimeException;
 
 /**
  * Class Facade
+ *
  * @package Panda\Support\Facades
  */
 abstract class Facade
@@ -54,9 +55,9 @@ abstract class Facade
     /**
      * Get the registered name of the component.
      *
+     * @return string
      * @throws RuntimeException
      *
-     * @return string
      */
     protected static function getFacadeHandler()
     {
@@ -119,6 +120,14 @@ abstract class Facade
         if (!$instance || empty($instance)) {
             throw new RuntimeException('A facade root has not been set.');
         }
+
+        /**
+         * Compatibility workaround
+         *
+         * As per 8.0.0 args keys will now be interpreted as parameter names, instead of being silently ignored.
+         * We need to remove array keys to make sure things still work as expected.
+         */
+        $args = array_values($args);
 
         return call_user_func_array([$instance, $method], $args);
     }

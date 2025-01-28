@@ -37,9 +37,18 @@ trait RouteDependencyResolverTrait
      */
     protected function callWithDependencies($instance, $method)
     {
-        return call_user_func_array(
-            [$instance, $method], $this->resolveClassMethodDependencies([], $instance, $method),
-        );
+        // Resolve class and parameters
+        $parameters = $this->resolveClassMethodDependencies([], $instance, $method);
+
+        /**
+         * Compatibility workaround
+         *
+         * As per 8.0.0 args keys will now be interpreted as parameter names, instead of being silently ignored.
+         * We need to remove array keys to make sure things still work as expected.
+         */
+        $parameters = array_values($parameters);
+
+        return call_user_func_array([$instance, $method], $parameters);
     }
 
     /**

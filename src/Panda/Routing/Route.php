@@ -34,6 +34,7 @@ use UnexpectedValueException;
 
 /**
  * Class Route
+ *
  * @package Panda\Routing
  */
 class Route
@@ -174,14 +175,14 @@ class Route
         // compile that and get the parameter matches for this domain. We will then
         // merge them into this parameters array so that this array is completed.
         $params = $this->matchToKeys(
-            array_slice($this->bindPathParameters($request), 1)
+            array_slice($this->bindPathParameters($request), 1),
         );
         // If the route has a regular expression for the host part of the URI, we will
         // compile that and get the parameter matches for this domain. We will then
         // merge them into this parameters array so that this array is completed.
         if (!is_null($this->compiled->getHostRegex())) {
             $params = $this->bindHostParameters(
-                $request, $params
+                $request, $params,
             );
         }
 
@@ -321,9 +322,9 @@ class Route
     /**
      * Get the key / value list of parameters for the route.
      *
+     * @return array
      * @throws LogicException
      *
-     * @return array
      */
     public function getParameters()
     {
@@ -449,10 +450,18 @@ class Route
     protected function runCallable()
     {
         $parameters = $this->resolveMethodDependencies(
-            $this->getParametersWithoutNulls(), new ReflectionFunction($this->action['uses'])
+            $this->getParametersWithoutNulls(), new ReflectionFunction($this->action['uses']),
         );
 
         $callable = $this->action['uses'];
+
+        /**
+         * Compatibility workaround
+         *
+         * As per 8.0.0 args keys will now be interpreted as parameter names, instead of being silently ignored.
+         * We need to remove array keys to make sure things still work as expected.
+         */
+        $parameters = array_values($parameters);
 
         return call_user_func_array($callable, $parameters);
     }
@@ -470,7 +479,7 @@ class Route
     protected function runController()
     {
         return (new ControllerDispatcher($this->container))->dispatch(
-            $this, $this->getController(), $this->getControllerMethod()
+            $this, $this->getController(), $this->getControllerMethod(),
         );
     }
 
@@ -484,7 +493,7 @@ class Route
      */
     protected function getController()
     {
-        list($class) = explode('@', $this->action['uses']);
+        [$class] = explode('@', $this->action['uses']);
         if (!$this->controller) {
             $this->controller = $this->container->make($class);
         }
@@ -507,9 +516,9 @@ class Route
      *
      * @param callable|array|null $action
      *
+     * @return array
      * @throws UnexpectedValueException
      *
-     * @return array
      */
     protected function parseAction($action)
     {
